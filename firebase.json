@@ -9,12 +9,7 @@
       "**/*.md",
       "**/server.log"
     ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ],
+    "cleanUrls": true,
     "headers": [
       {
         "source": "**/*.@(jpg|jpeg|gif|png|svg|webp)",
