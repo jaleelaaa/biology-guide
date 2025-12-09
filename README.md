@@ -15,7 +15,7 @@ A comprehensive, interactive web-based study guide for Plus One (Class 11) Biolo
 
 ## Live Demo
 
-Coming soon on Firebase Hosting!
+🌐 **Live Site**: https://plus-one-biology-guide.web.app/
 
 ## Technology Stack
 
