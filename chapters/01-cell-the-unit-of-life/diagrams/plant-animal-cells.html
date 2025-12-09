@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant vs Animal Cells - Interactive | Plus One Biology</title>
+    <meta name="description" content="Interactive Plant vs Animal Cells - Interactive for Kerala Board Plus One Biology">
+
+    <!-- React and Babel from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../css/base.css">
+
+    <style>
+        /* ============================================
+           Back Button Styling
+           ============================================ */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            color: #4169E1;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            transition: all 0.3s ease;
+            border: 2px solid #4169E1;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            background: #4169E1;
+            color: white;
+        }
+
+        /* ============================================
+           Component Specific Styles
+           ============================================ */
+/**
+ * PlantAnimalCellInteractive.css
+ * Styles for Plant vs Animal Cell Comparison Interactive Diagram
+ * Extends FluidMosaicInteractive.css with comparison-specific styles
+ *
+ * @version 1.0.0
+ * @date 2025-12-09
+ */
+
+/* Import base styles from Fluid Mosaic (reuse common styles) */
+@import url('./FluidMosaicInteractive.css');
+
+/* ========================================
+   Plant & Animal Cell Comparison Overrides
+   ======================================== */
+
+.plant-animal-container {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  line-height: 1.6;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+.exam-note {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #CC6600;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* ========================================
+   SVG Element Styles
+   ======================================== */
+
+/* Plant-unique elements */
+.cell-wall {
+  transition: all var(--transition-base);
+}
+
+.cell-wall:hover {
+  filter: brightness(1.1) drop-shadow(0 0 8px rgba(139, 69, 19, 0.5));
+  stroke-width: 8;
+}
+
+.large-vacuole {
+  transition: all var(--transition-base);
+}
+
+.large-vacuole:hover {
+  filter: brightness(1.05) drop-shadow(0 0 10px rgba(0, 206, 209, 0.5));
+  stroke-width: 5;
+}
+
+.chloroplast {
+  transition: all var(--transition-base);
+}
+
+.chloroplast:hover {
+  filter: brightness(1.15) drop-shadow(0 0 8px rgba(34, 139, 34, 0.6));
+  stroke-width: 3;
+}
+
+.plasmodesmata {
+  transition: all var(--transition-fast);
+}
+
+.plasmodesmata:hover {
+  filter: brightness(1.2);
+  stroke-width: 5;
+}
+
+/* Animal-unique elements */
+.centrosome {
+  transition: all var(--transition-base);
+}
+
+.centrosome:hover {
+  filter: brightness(1.1) drop-shadow(0 0 8px rgba(105, 105, 105, 0.6));
+  stroke-width: 3;
+}
+
+.lysosome {
+  transition: all var(--transition-fast);
+}
+
+.lysosome:hover {
+  filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 69, 0, 0.7));
+  transform: scale(1.2);
+}
+
+.small-vacuole {
+  transition: all var(--transition-fast);
+}
+
+.small-vacuole:hover {
+  filter: brightness(1.1);
+  transform: scale(1.15);
+}
+
+/* ========================================
+   Comparison Table Styles
+   ======================================== */
+
+.comparison-table-container {
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comparison-table-container h2 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.comparison-table thead {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  color: white;
+}
+
+.comparison-table th {
+  padding: var(--spacing-md);
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.comparison-table tbody tr {
+  transition: all var(--transition-fast);
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.comparison-table tbody tr:hover {
+  background-color: #f8f9fa;
+  transform: scale(1.01);
+}
+
+.comparison-table td {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.95rem;
+}
+
+.comparison-table td.feature-name {
+  font-weight: 600;
+  color: var(--primary-color);
+  min-width: 150px;
+}
+
+.comparison-table td.present {
+  color: #27ae60;
+  font-weight: 500;
+}
+
+.comparison-table td.absent {
+  color: #e74c3c;
+  font-weight: 500;
+}
+
+.comparison-table td.importance {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* ========================================
+   Summary Section Styles
+   ======================================== */
+
+.summary-section {
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-lg);
+}
+
+.summary-section h2 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-md);
+}
+
+.summary-card {
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-base);
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.summary-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 3px solid;
+}
+
+.summary-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.summary-card li {
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.summary-card li:last-child {
+  border-bottom: none;
+}
+
+.summary-card strong {
+  color: inherit;
+  font-weight: 700;
+}
+
+/* Plant-unique card */
+.plant-unique {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-left: 5px solid #4caf50;
+}
+
+.plant-unique h3 {
+  color: #2e7d32;
+  border-bottom-color: #4caf50;
+}
+
+/* Animal-unique card */
+.animal-unique {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-left: 5px solid #ff9800;
+}
+
+.animal-unique h3 {
+  color: #e65100;
+  border-bottom-color: #ff9800;
+}
+
+/* Common features card */
+.common-features {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 5px solid #2196f3;
+}
+
+.common-features h3 {
+  color: #1565c0;
+  border-bottom-color: #2196f3;
+}
+
+/* ========================================
+   Exam Tips Section
+   ======================================== */
+
+.exam-tips {
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 100%);
+  border-radius: var(--border-radius);
+  border-left: 5px solid #ffc107;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.exam-tips h2 {
+  color: #ff6f00;
+  margin-bottom: var(--spacing-md);
+  font-size: 1.5rem;
+}
+
+.exam-tips ol {
+  padding-left: var(--spacing-lg);
+  counter-reset: exam-counter;
+}
+
+.exam-tips li {
+  padding: var(--spacing-sm) 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  counter-increment: exam-counter;
+  position: relative;
+}
+
+.exam-tips li::marker {
+  font-weight: bold;
+  color: #ff6f00;
+}
+
+.exam-tips strong {
+  color: #e65100;
+  font-weight: 700;
+}
+
+/* ========================================
+   Type Badge Styles
+   ======================================== */
+
+.type-badge {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: var(--spacing-xs) 0;
+}
+
+.details-panel .type-badge {
+  margin-bottom: var(--spacing-md);
+}
+
+.tooltip .type-badge {
+  margin-top: var(--spacing-xs);
+  font-size: 0.7rem;
+}
+
+/* Type badge colors */
+.details-panel .type-badge,
+.tooltip .type-badge {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+/* Override based on type */
+[data-type="plant-unique"] .type-badge,
+.type-badge:contains("plant-unique") {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+[data-type="animal-unique"] .type-badge,
+.type-badge:contains("animal-unique") {
+  background-color: #ffe0b2;
+  color: #e65100;
+}
+
+[data-type="common"] .type-badge,
+.type-badge:contains("common") {
+  background-color: #bbdefb;
+  color: #1565c0;
+}
+
+/* ========================================
+   Details Panel Enhancements
+   ======================================== */
+
+.details-panel .reaction-text {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: #2e7d32;
+  font-weight: 600;
+  border-left: 4px solid #4caf50;
+  margin: var(--spacing-sm) 0;
+}
+
+.details-panel .mistake-alert {
+  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  border-left: 4px solid #f44336;
+  margin: var(--spacing-md) 0;
+}
+
+.details-panel .mistake-alert h3 {
+  color: #c62828;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.details-panel .mistake-alert p {
+  color: #d32f2f;
+  font-weight: 500;
+}
+
+.details-panel .exam-question {
+  background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 100%);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  border-left: 4px solid #ffc107;
+  margin: var(--spacing-md) 0;
+}
+
+.details-panel .exam-question h3 {
+  color: #ff6f00;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.details-panel .exam-question p {
+  color: #e65100;
+  font-weight: 500;
+}
+
+.details-panel .note {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  border-left: 4px solid #2196f3;
+  margin: var(--spacing-md) 0;
+}
+
+.details-panel .note p {
+  color: #1565c0;
+  font-weight: 500;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .summary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .plant-animal-container {
+    padding: var(--spacing-md);
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .comparison-table {
+    font-size: 0.85rem;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .exam-tips {
+    padding: var(--spacing-md);
+  }
+
+  .controls-panel {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .control-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .control-group button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .summary-card {
+    padding: var(--spacing-md);
+  }
+
+  .summary-card h3 {
+    font-size: 1rem;
+  }
+
+  .comparison-table {
+    font-size: 0.75rem;
+  }
+
+  .exam-tips {
+    padding: var(--spacing-sm);
+  }
+
+  .exam-tips li {
+    font-size: 0.85rem;
+  }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+  .controls-panel {
+    display: none;
+  }
+
+  .comparison-table-container,
+  .summary-section,
+  .exam-tips {
+    page-break-inside: avoid;
+  }
+
+  .summary-card {
+    break-inside: avoid;
+  }
+
+  .details-panel {
+    position: static;
+    box-shadow: none;
+  }
+}
+
+/* ========================================
+   Accessibility - Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cell-wall,
+  .large-vacuole,
+  .chloroplast,
+  .plasmodesmata,
+  .centrosome,
+  .lysosome,
+  .small-vacuole,
+  .summary-card,
+  .comparison-table tbody tr {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .cell-wall:hover,
+  .large-vacuole:hover,
+  .chloroplast:hover,
+  .lysosome:hover,
+  .small-vacuole:hover,
+  .summary-card:hover,
+  .comparison-table tbody tr:hover {
+    transform: none !important;
+  }
+}
+
+/* ========================================
+   Dark Mode Support
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  .plant-animal-container {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+  }
+
+  .comparison-table-container {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+  }
+
+  .comparison-table {
+    background: #2c2c2c;
+  }
+
+  .comparison-table tbody tr:hover {
+    background-color: #3a3a3a;
+  }
+
+  .summary-card {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
+
+  .exam-tips {
+    background: linear-gradient(135deg, #3a3a2a 0%, #2f2f1f 100%);
+  }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Back Navigation -->
+    <a href="../index.html" class="back-button">← Back to Chapter</a>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <!-- Component Code -->
+    <script type="text/babel">
+
+
+/**
+ * PlantAnimalCellInteractive Component
+ *
+ * Interactive side-by-side comparison of Plant Cell (Figure 5.2) and Animal Cell (Figure 5.12)
+ * for Plus One (Class 11) Kerala Board + NEET students
+ *
+ * @component
+ * @version 1.0.0
+ * @date 2025-12-09
+ */
+
+const { useState, useRef, useEffect } = React;
+
+
+const PlantAnimalCellInteractive = () => {
+  const [hoveredComponent, setHoveredComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [comparisonView, setComparisonView] = useState('both'); // 'plant', 'animal', 'both'
+  const [colorblindMode, setColorblindMode] = useState(false);
+  const [highlightMode, setHighlightMode] = useState('all'); // 'all', 'unique', 'common'
+
+  const svgRef = useRef(null);
+
+  // Color palettes
+  const colors = {
+    standard: {
+      // Plant cell colors
+      cellWall: '#C4A87C',
+      cellWallStroke: '#8B4513',
+      plantMembrane: '#FFD9A3',
+      plantMembraneStroke: '#FF8C00',
+      vacuole: '#E0FFFF',
+      vacuoleStroke: '#00CED1',
+      chloroplast: '#B4E7B4',
+      chloroplastStroke: '#228B22',
+      grana: '#228B22',
+
+      // Animal cell colors
+      animalMembrane: '#FFD9A3',
+      animalMembraneStroke: '#FF8C00',
+      centriole: '#808080',
+      centrioleStroke: '#000000',
+      lysosome: '#FFA07A',
+      lysosomeStroke: '#FF4500',
+      smallVacuole: '#E0FFFF',
+
+      // Common organelle colors
+      cytoplasm: '#E8F4F8',
+      nucleus: '#D4D4F0',
+      nucleusStroke: '#483D8B',
+      nucleolus: '#8B008B',
+      mitochondria: '#FFB3BA',
+      mitochondriaStroke: '#DC143C',
+      golgi: '#FFFFE0',
+      golgiStroke: '#FFD700',
+      er: '#E6D8F0',
+      erStroke: '#9370DB',
+      ribosome: '#6B95CD',
+      chromatin: '#FFE4E1',
+      chromatinStroke: '#FF1493'
+    },
+    colorblind: {
+      // Deuteranopia/Protanopia friendly
+      cellWall: '#E8C77C',
+      cellWallStroke: '#8B6914',
+      plantMembrane: '#FFE9A3',
+      plantMembraneStroke: '#FFA500',
+      vacuole: '#D0F0FF',
+      vacuoleStroke: '#0099CC',
+      chloroplast: '#B4D4E4',
+      chloroplastStroke: '#336699',
+      grana: '#336699',
+
+      animalMembrane: '#FFE9A3',
+      animalMembraneStroke: '#FFA500',
+      centriole: '#909090',
+      centrioleStroke: '#000000',
+      lysosome: '#FFAA7A',
+      lysosomeStroke: '#FF5500',
+      smallVacuole: '#D0F0FF',
+
+      cytoplasm: '#E8F4F8',
+      nucleus: '#C4C4E0',
+      nucleusStroke: '#484888',
+      nucleolus: '#8B008B',
+      mitochondria: '#FFB3CA',
+      mitochondriaStroke: '#CC1433',
+      golgi: '#FFFFB0',
+      golgiStroke: '#DDBB00',
+      er: '#D6C8E0',
+      erStroke: '#8870BB',
+      ribosome: '#5B85BD',
+      chromatin: '#FFDDE1',
+      chromatinStroke: '#DD1493'
+    }
+  };
+
+  const currentColors = colorblindMode ? colors.colorblind : colors.standard;
+
+  // Component information
+  const components = {
+    // UNIQUE TO PLANT CELLS
+    cellWall: {
+      name: 'Cell Wall',
+      type: 'plant-unique',
+      characteristics: [
+        'Made of CELLULOSE (polysaccharide)',
+        'NON-LIVING, rigid structure',
+        'Located OUTSIDE plasma membrane',
+        'Thickness: 0.1-10 μm'
+      ],
+      functions: [
+        'Protection and support (mechanical strength)',
+        'Maintains cell shape (prevents bursting)',
+        'Allows water and solutes to pass (permeable)',
+        'Connects adjacent cells via plasmodesmata'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐',
+      commonMistake: 'Cell wall ≠ Plasma membrane. Cell wall is outside and non-living; plasma membrane is inside and living.',
+      examQuestion: 'Q: What is the chemical composition of plant cell wall? A: Cellulose (polysaccharide)'
+    },
+
+    plasmodesmata: {
+      name: 'Plasmodesmata',
+      type: 'plant-unique',
+      characteristics: [
+        'Cytoplasmic connections between plant cells',
+        'Pass through cell wall',
+        'Diameter: 20-40 nm'
+      ],
+      functions: [
+        'Cell-to-cell communication',
+        'Transport of water, nutrients, signals',
+        'Symplastic pathway for movement'
+      ],
+      examImportance: 'High',
+      keralaBoardFrequency: '⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐',
+      commonMistake: 'ONLY in plant cells, NOT in animal cells'
+    },
+
+    largeCentralVacuole: {
+      name: 'Large Central Vacuole',
+      type: 'plant-unique',
+      characteristics: [
+        'LARGE (up to 90% of cell volume)',
+        'Single, central location',
+        'Membrane-bound (tonoplast)',
+        'Contains cell sap (water + dissolved substances)'
+      ],
+      functions: [
+        'Storage (water, salts, sugars, proteins)',
+        'Maintains turgor pressure (cell rigidity)',
+        'Pushes nucleus to periphery',
+        'Waste storage',
+        'Pigment storage (flower colors)'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Plant cells have ONE LARGE vacuole; Animal cells have MANY SMALL vacuoles',
+      examQuestion: 'Q: What pushes the nucleus to the periphery in plant cells? A: Large central vacuole'
+    },
+
+    chloroplast: {
+      name: 'Chloroplast',
+      type: 'plant-unique',
+      characteristics: [
+        'ONLY in plant cells (photosynthetic)',
+        'Double membrane-bound',
+        'Contains chlorophyll (green pigment)',
+        'Grana (stacks of thylakoids) visible',
+        'Size: 4-10 μm diameter'
+      ],
+      functions: [
+        'PHOTOSYNTHESIS (primary function)',
+        'Light reactions in grana (thylakoids)',
+        'Dark reactions in stroma (Calvin cycle)',
+        'Converts light energy → chemical energy (glucose)'
+      ],
+      reactions: 'Light + 6CO₂ + 6H₂O → C₆H₁₂O₆ (Glucose) + 6O₂',
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Chloroplast is ONLY in plant cells. Animal cells do NOT have chloroplasts.',
+      examQuestion: 'Q: Where do light and dark reactions occur in chloroplast? A: Light reactions in grana, dark reactions in stroma'
+    },
+
+    // UNIQUE TO ANIMAL CELLS
+    centrioles: {
+      name: 'Centrioles',
+      type: 'animal-unique',
+      characteristics: [
+        'ONLY in animal cells',
+        'Pair of cylindrical structures',
+        'Perpendicular to each other (90°)',
+        'Made of 9 triplet microtubules',
+        'Located near nucleus (centrosome)'
+      ],
+      functions: [
+        'Cell division (spindle fiber formation)',
+        'Organize microtubules',
+        'Form cilia and flagella basal bodies'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Centrioles are ABSENT in plant cells (except some lower plants)',
+      examQuestion: 'Q: What is the structure of centrioles? A: 9 triplet microtubules arranged in a cylinder'
+    },
+
+    lysosomes: {
+      name: 'Lysosomes',
+      type: 'animal-abundant',
+      characteristics: [
+        'ABUNDANT in animal cells',
+        'Rare in plant cells',
+        'Membrane-bound vesicles',
+        'Contains digestive enzymes (hydrolases)',
+        'Acidic pH (~4.5-5.0)'
+      ],
+      functions: [
+        'Intracellular digestion',
+        'Breakdown of foreign materials',
+        'Autophagy (digestion of own organelles)',
+        'Autolysis (cell death)',
+        '"Suicide bags" of the cell'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Lysosomes are common in ANIMALS, rare in PLANTS',
+      examQuestion: 'Q: Why are lysosomes called suicide bags? A: They can cause autolysis (self-digestion) of the cell'
+    },
+
+    smallVacuoles: {
+      name: 'Small Vacuoles',
+      type: 'animal-feature',
+      characteristics: [
+        'Multiple small vacuoles',
+        'Temporary structures',
+        'NOT a large central vacuole',
+        'Size varies'
+      ],
+      functions: [
+        'Temporary storage',
+        'Food vacuoles (phagocytosis)',
+        'Contractile vacuoles (in some protozoans)'
+      ],
+      examImportance: 'High',
+      keralaBoardFrequency: '⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐',
+      commonMistake: 'Animal cells have SMALL, MANY vacuoles; Plant cells have ONE LARGE vacuole'
+    },
+
+    // COMMON ORGANELLES (both cells)
+    plasmaMembrane: {
+      name: 'Plasma Membrane',
+      type: 'common',
+      characteristics: [
+        'Present in BOTH plant and animal cells',
+        'Phospholipid bilayer + proteins',
+        'Fluid Mosaic Model (Singer & Nicolson, 1972)',
+        'Selectively permeable',
+        'Thickness: 7-10 nm'
+      ],
+      functions: [
+        'Boundary of cell',
+        'Selective permeability (controls entry/exit)',
+        'Cell recognition',
+        'Signal transduction'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      note: 'In plant cells, plasma membrane is inside the cell wall'
+    },
+
+    nucleus: {
+      name: 'Nucleus',
+      type: 'common',
+      characteristics: [
+        'Present in BOTH plant and animal cells',
+        'Double membrane (nuclear envelope)',
+        'Contains chromatin/chromosomes',
+        'Contains nucleolus',
+        'Largest organelle'
+      ],
+      functions: [
+        'Control center of cell',
+        'Stores genetic material (DNA)',
+        'Controls gene expression',
+        'Controls cell activities'
+      ],
+      location: {
+        plant: 'Peripheral (pushed by large vacuole)',
+        animal: 'Central'
+      },
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐'
+    },
+
+    mitochondria: {
+      name: 'Mitochondria',
+      type: 'common',
+      characteristics: [
+        'Present in BOTH plant and animal cells',
+        'Double membrane-bound',
+        'Cristae (inner membrane folds)',
+        'Contains DNA (circular), 70S ribosomes',
+        'Semi-autonomous'
+      ],
+      functions: [
+        'Cellular respiration',
+        'ATP synthesis (energy production)',
+        '"Powerhouse of the cell"'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐'
+    },
+
+    golgiApparatus: {
+      name: 'Golgi Apparatus',
+      type: 'common',
+      characteristics: [
+        'Present in BOTH cells',
+        'Stacks of flattened cisternae',
+        'Membrane-bound',
+        'Has cis and trans faces'
+      ],
+      functions: [
+        'Packaging and modification of proteins',
+        'Formation of lysosomes',
+        'Secretion of materials'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐'
+    },
+
+    endoplasmicReticulum: {
+      name: 'Endoplasmic Reticulum (ER)',
+      type: 'common',
+      characteristics: [
+        'Present in BOTH cells',
+        'Network of membranes',
+        'RER (with ribosomes) + SER (without ribosomes)',
+        'Connected to nuclear envelope'
+      ],
+      functions: [
+        'RER: Protein synthesis',
+        'SER: Lipid synthesis, detoxification',
+        'Transport of materials'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐'
+    },
+
+    ribosomes: {
+      name: 'Ribosomes',
+      type: 'common',
+      characteristics: [
+        'Present in BOTH cells',
+        '80S ribosomes in cytoplasm (eukaryotes)',
+        'NOT membrane-bound',
+        'Made of rRNA + proteins'
+      ],
+      functions: [
+        'Protein synthesis',
+        'Translation of mRNA'
+      ],
+      examImportance: 'High',
+      keralaBoardFrequency: '⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐',
+      commonMistake: 'Eukaryotes have 80S ribosomes, prokaryotes have 70S ribosomes'
+    },
+
+    cytoplasm: {
+      name: 'Cytoplasm',
+      type: 'common',
+      characteristics: [
+        'Present in BOTH cells',
+        'Jelly-like matrix',
+        'Contains organelles',
+        '70-90% water'
+      ],
+      functions: [
+        'Site of metabolic reactions',
+        'Suspends organelles',
+        'Medium for transport'
+      ],
+      examImportance: 'High',
+      keralaBoardFrequency: '⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐'
+    }
+  };
+
+  // Comparison table data
+  const comparisonData = [
+    {
+      feature: 'Cell Wall',
+      plant: 'Present (cellulose)',
+      animal: 'Absent',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Plasma Membrane',
+      plant: 'Present (inside cell wall)',
+      animal: 'Present (outermost)',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Nucleus',
+      plant: 'Present (peripheral)',
+      animal: 'Present (central)',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Chloroplasts',
+      plant: 'Present',
+      animal: 'Absent',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Vacuole',
+      plant: 'Large, central (up to 90%)',
+      animal: 'Small, many',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Centrioles',
+      plant: 'Absent',
+      animal: 'Present',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Lysosomes',
+      plant: 'Rare',
+      animal: 'Abundant',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Plasmodesmata',
+      plant: 'Present',
+      animal: 'Absent',
+      importance: '⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Mitochondria',
+      plant: 'Present',
+      animal: 'Present',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Golgi Apparatus',
+      plant: 'Present',
+      animal: 'Present',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'ER (RER + SER)',
+      plant: 'Present',
+      animal: 'Present',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Ribosomes',
+      plant: '80S (cytoplasm)',
+      animal: '80S (cytoplasm)',
+      importance: '⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Shape',
+      plant: 'Fixed (due to cell wall)',
+      animal: 'Variable',
+      importance: '⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Energy Storage',
+      plant: 'Starch',
+      animal: 'Glycogen',
+      importance: '⭐⭐⭐'
+    }
+  ];
+
+  // Export SVG function
+  const exportSVG = () => {
+    if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
+    const blob = new Blob([svgData], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'plant_animal_cell_comparison.svg';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Export PNG function
+  const exportPNG = () => {
+    if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+
+    img.onload = () => {
+      canvas.width = img.width * 2;
+      canvas.height = img.height * 2;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'plant_animal_cell_comparison.png';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    };
+
+    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+  };
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Escape') {
+        setSelectedComponent(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
+
+  // Filter components based on highlight mode
+  const shouldHighlight = (componentType) => {
+    if (highlightMode === 'all') return true;
+    if (highlightMode === 'unique') {
+      return componentType.includes('unique') || componentType.includes('abundant') || componentType.includes('feature');
+    }
+    if (highlightMode === 'common') {
+      return componentType === 'common';
+    }
+    return true;
+  };
+
+  const getOpacity = (componentType) => {
+    return shouldHighlight(componentType) ? 1 : 0.3;
+  };
+
+  return (
+    <div className="plant-animal-container">
+      <header className="header">
+        <h1>Plant Cell vs Animal Cell - Interactive Comparison</h1>
+        <p className="subtitle">Figures 5.2 & 5.12: Eukaryotic Cell Structures</p>
+        <p className="exam-note">⭐ High Priority for Kerala Board & NEET</p>
+      </header>
+
+      {/* Controls Panel */}
+      <div className="controls-panel">
+        <div className="control-group">
+          <label>View:</label>
+          <button
+            className={comparisonView === 'both' ? 'active' : ''}
+            onClick={() => setComparisonView('both')}
+          >
+            Both Cells
+          </button>
+          <button
+            className={comparisonView === 'plant' ? 'active' : ''}
+            onClick={() => setComparisonView('plant')}
+          >
+            Plant Only
+          </button>
+          <button
+            className={comparisonView === 'animal' ? 'active' : ''}
+            onClick={() => setComparisonView('animal')}
+          >
+            Animal Only
+          </button>
+        </div>
+
+        <div className="control-group">
+          <label>Highlight:</label>
+          <button
+            className={highlightMode === 'all' ? 'active' : ''}
+            onClick={() => setHighlightMode('all')}
+          >
+            All Features
+          </button>
+          <button
+            className={highlightMode === 'unique' ? 'active' : ''}
+            onClick={() => setHighlightMode('unique')}
+          >
+            Unique Features
+          </button>
+          <button
+            className={highlightMode === 'common' ? 'active' : ''}
+            onClick={() => setHighlightMode('common')}
+          >
+            Common Features
+          </button>
+        </div>
+
+        <div className="control-group">
+          <button onClick={() => setColorblindMode(!colorblindMode)}>
+            {colorblindMode ? '🎨 Standard Colors' : '♿ Colorblind Mode'}
+          </button>
+          <button onClick={exportSVG}>📥 Export SVG</button>
+          <button onClick={exportPNG}>📥 Export PNG</button>
+        </div>
+      </div>
+
+      {/* SVG Diagram */}
+      <div className="diagram-container">
+        <svg
+          ref={svgRef}
+          viewBox="0 0 1400 900"
+          className="cell-svg"
+          role="img"
+          aria-label="Plant and Animal Cell Comparison Diagram"
+        >
+          {/* Titles */}
+          <text x="300" y="40" className="cell-title" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#000080">
+            PLANT CELL
+          </text>
+          <text x="1100" y="40" className="cell-title" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#000080">
+            ANIMAL CELL
+          </text>
+
+          {/* PLANT CELL (Left Side) */}
+          {(comparisonView === 'both' || comparisonView === 'plant') && (
+            <g className="plant-cell-group">
+              {/* Cell Wall (outermost - UNIQUE TO PLANT) */}
+              <rect
+                x="50"
+                y="80"
+                width="500"
+                height="700"
+                fill={currentColors.cellWall}
+                stroke={currentColors.cellWallStroke}
+                strokeWidth="6"
+                className="cell-wall"
+                opacity={getOpacity('plant-unique')}
+                onMouseEnter={() => setHoveredComponent('cellWall')}
+                onMouseLeave={() => setHoveredComponent(null)}
+                onClick={() => setSelectedComponent('cellWall')}
+                style={{ cursor: 'pointer' }}
+              />
+              <text x="60" y="100" fontSize="10" fontWeight="bold" fill="#000">Cell Wall</text>
+
+              {/* Plasma Membrane (inside cell wall) */}
+              <rect
+                x="70"
+                y="100"
+                width="460"
+                height="660"
+                fill={currentColors.plantMembrane}
+                stroke={currentColors.plantMembraneStroke}
+                strokeWidth="3"
+                className="plasma-membrane"
+                opacity={getOpacity('common')}
+                onMouseEnter={() => setHoveredComponent('plasmaMembrane')}
+                onMouseLeave={() => setHoveredComponent(null)}
+                onClick={() => setSelectedComponent('plasmaMembrane')}
+                style={{ cursor: 'pointer' }}
+              />
+              <text x="80" y="120" fontSize="9" fill="#000">Plasma Membrane</text>
+
+              {/* Cytoplasm */}
+              <rect
+                x="85"
+                y="115"
+                width="430"
+                height="630"
+                fill={currentColors.cytoplasm}
+                stroke="none"
+                opacity={0.7}
+              />
+
+              {/* Large Central Vacuole (UNIQUE TO PLANT) */}
+              <ellipse
+                cx="420"
+                cy="420"
+                rx="75"
+                ry="200"
+                fill={currentColors.vacuole}
+                stroke={currentColors.vacuoleStroke}
+                strokeWidth="3"
+                className="large-vacuole"
+                opacity={getOpacity('plant-unique')}
+                onMouseEnter={() => setHoveredComponent('largeCentralVacuole')}
+                onMouseLeave={() => setHoveredComponent(null)}
+                onClick={() => setSelectedComponent('largeCentralVacuole')}
+                style={{ cursor: 'pointer' }}
+              />
+              <text x="405" y="425" fontSize="9" fontWeight="bold" fill="#000">Large</text>
+              <text x="395" y="438" fontSize="9" fontWeight="bold" fill="#000">Central</text>
+              <text x="395" y="451" fontSize="9" fontWeight="bold" fill="#000">Vacuole</text>
+
+              {/* Nucleus (pushed to periphery by vacuole) */}
+              <ellipse
+                cx="210"
+                cy="300"
+                rx="70"
+                ry="60"
+                fill={currentColors.nucleus}
+                stroke={currentColors.nucleusStroke}
+                strokeWidth="3"
+                className="nucleus"
+                opacity={getOpacity('common')}
+                onMouseEnter={() => setHoveredComponent('nucleus')}
+                onMouseLeave={() => setHoveredComponent(null)}
+                onClick={() => setSelectedComponent('nucleus')}
+                style={{ cursor: 'pointer' }}
+              />
+              <circle cx="210" cy="300" r="12" fill={currentColors.nucleolus} className="nucleolus" />
+              <text x="180" y="370" fontSize="9" fontWeight="bold" fill="#000">Nucleus</text>
+              <text x="175" y="382" fontSize="8" fill="#555">(peripheral)</text>
+
+              {/* Chloroplasts (UNIQUE TO PLANT) - 3 chloroplasts */}
+              <g opacity={getOpacity('plant-unique')}>
+                <ellipse
+                  cx="150"
+                  cy="180"
+                  rx="35"
+                  ry="22"
+                  fill={currentColors.chloroplast}
+                  stroke={currentColors.chloroplastStroke}
+                  strokeWidth="2"
+                  className="chloroplast"
+                  onMouseEnter={() => setHoveredComponent('chloroplast')}
+                  onMouseLeave={() => setHoveredComponent(null)}
+                  onClick={() => setSelectedComponent('chloroplast')}
+                  style={{ cursor: 'pointer' }}
+                />
+                {/* Grana */}
+                <rect x="140" y="173" width="5" height="14" fill={currentColors.grana} />
+                <rect x="148" y="173" width="5" height="14" fill={currentColors.grana} />
+                <rect x="156" y="173" width="5" height="14" fill={currentColors.grana} />
+                <text x="105" y="185" fontSize="8" fontWeight="bold" fill="#000">Chloroplast</text>
+
+                <ellipse cx="160" cy="600" rx="35" ry="22" fill={currentColors.chloroplast} stroke={currentColors.chloroplastStroke} strokeWidth="2" className="chloroplast" />
+                <rect x="150" y="593" width="5" height="14" fill={currentColors.grana} />
+                <rect x="158" y="593" width="5" height="14" fill={currentColors.grana} />
+
+                <ellipse cx="280" cy="680" rx="35" ry="22" fill={currentColors.chloroplast} stroke={currentColors.chloroplastStroke} strokeWidth="2" className="chloroplast" />
+                <rect x="270" y="673" width="5" height="14" fill={currentColors.grana} />
+                <rect x="278" y="673" width="5" height="14" fill={currentColors.grana} />
+              </g>
+
+              {/* Mitochondria (COMMON) */}
+              <g opacity={getOpacity('common')}>
+                <ellipse cx="260" cy="200" rx="30" ry="18" fill={currentColors.mitochondria} stroke={currentColors.mitochondriaStroke} strokeWidth="2" className="mitochondria" onMouseEnter={() => setHoveredComponent('mitochondria')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('mitochondria')} style={{ cursor: 'pointer' }} />
+                <line x1="245" y1="195" x2="250" y2="205" stroke={currentColors.mitochondriaStroke} strokeWidth="1" />
+                <line x1="255" y1="195" x2="260" y2="205" stroke={currentColors.mitochondriaStroke} strokeWidth="1" />
+                <line x1="265" y1="195" x2="270" y2="205" stroke={currentColors.mitochondriaStroke} strokeWidth="1" />
+              </g>
+
+              {/* Golgi Apparatus (COMMON) */}
+              <g opacity={getOpacity('common')}>
+                <rect x="220" y="450" width="60" height="40" fill={currentColors.golgi} stroke={currentColors.golgiStroke} strokeWidth="2" className="golgi" onMouseEnter={() => setHoveredComponent('golgiApparatus')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('golgiApparatus')} style={{ cursor: 'pointer' }} />
+                <rect x="225" y="458" width="50" height="5" fill="#FFFACD" stroke={currentColors.golgiStroke} strokeWidth="1" />
+                <rect x="225" y="467" width="50" height="5" fill="#FFFACD" stroke={currentColors.golgiStroke} strokeWidth="1" />
+                <rect x="225" y="476" width="50" height="5" fill="#FFFACD" stroke={currentColors.golgiStroke} strokeWidth="1" />
+                <text x="195" y="473" fontSize="8" fontWeight="bold" fill="#000">Golgi</text>
+              </g>
+
+              {/* ER (COMMON) */}
+              <g opacity={getOpacity('common')}>
+                <path d="M 300 250 L 320 250 L 325 245 L 330 250 L 335 245 L 340 250 L 360 250" fill={currentColors.er} stroke={currentColors.erStroke} strokeWidth="2" className="er" onMouseEnter={() => setHoveredComponent('endoplasmicReticulum')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('endoplasmicReticulum')} style={{ cursor: 'pointer' }} />
+                <text x="340" y="265" fontSize="8" fill="#000">ER</text>
+              </g>
+
+              {/* Ribosomes (COMMON) */}
+              <g opacity={getOpacity('common')}>
+                <circle cx="320" cy="255" r="3" fill={currentColors.ribosome} stroke="#000" strokeWidth="0.5" className="ribosome" onMouseEnter={() => setHoveredComponent('ribosomes')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('ribosomes')} style={{ cursor: 'pointer' }} />
+                <circle cx="330" cy="252" r="3" fill={currentColors.ribosome} stroke="#000" strokeWidth="0.5" className="ribosome" />
+                <circle cx="190" cy="400" r="3" fill={currentColors.ribosome} stroke="#000" strokeWidth="0.5" className="ribosome" />
+                <circle cx="200" cy="405" r="3" fill={currentColors.ribosome} stroke="#000" strokeWidth="0.5" className="ribosome" />
+                <text x="185" y="420" fontSize="7" fill="#000">80S Ribosomes</text>
+              </g>
+
+              {/* Plasmodesmata (UNIQUE TO PLANT) */}
+              <g opacity={getOpacity('plant-unique')}>
+                <line x1="50" y1="300" x2="85" y2="300" stroke="#696969" strokeWidth="3" className="plasmodesmata" onMouseEnter={() => setHoveredComponent('plasmodesmata')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('plasmodesmata')} style={{ cursor: 'pointer' }} />
+                <text x="10" y="295" fontSize="8" fontWeight="bold" fill="#000">Plasmo-</text>
+                <text x="10" y="304" fontSize="8" fontWeight="bold" fill="#000">desmata</text>
+              </g>
+            </g>
+          )}
+
+          {/* ANIMAL CELL (Right Side) */}
+          {(comparisonView === 'both' || comparisonView === 'animal') && (
+            <g className="animal-cell-group">
+              {/* Plasma Membrane ONLY (NO cell wall) */}
+              <ellipse
+                cx="1100"
+                cy="420"
+                rx="250"
+                ry="300"
+                fill={currentColors.animalMembrane}
+                stroke={currentColors.animalMembraneStroke}
+                strokeWidth="3"
+                className="plasma-membrane"
+                opacity={getOpacity('common')}
+                onMouseEnter={() => setHoveredComponent('plasmaMembrane')}
+                onMouseLeave={() => setHoveredComponent(null)}
+                onClick={() => setSelectedComponent('plasmaMembrane')}
+                style={{ cursor: 'pointer' }}
+              />
+              <text x="960" y="140" fontSize="9" fontWeight="bold" fill="#000">Plasma Membrane</text>
+              <text x="960" y="152" fontSize="8" fill="#CC0000">(NO Cell Wall!)</text>
+
+              {/* Cytoplasm */}
+              <ellipse cx="1100" cy="420" rx="230" ry="280" fill={currentColors.cytoplasm} opacity={0.7} />
+
+              {/* Nucleus (central position) */}
+              <ellipse
+                cx="1100"
+                cy="380"
+                rx="70"
+                ry="60"
+                fill={currentColors.nucleus}
+                stroke={currentColors.nucleusStroke}
+                strokeWidth="3"
+                className="nucleus"
+                opacity={getOpacity('common')}
+                onMouseEnter={() => setHoveredComponent('nucleus')}
+                onMouseLeave={() => setHoveredComponent(null)}
+                onClick={() => setSelectedComponent('nucleus')}
+                style={{ cursor: 'pointer' }}
+              />
+              <circle cx="1100" cy="380" r="12" fill={currentColors.nucleolus} className="nucleolus" />
+              <text x="1075" y="455" fontSize="9" fontWeight="bold" fill="#000">Nucleus</text>
+              <text x="1080" y="467" fontSize="8" fill="#555">(central)</text>
+
+              {/* Centrioles (UNIQUE TO ANIMAL) */}
+              <g opacity={getOpacity('animal-unique')}>
+                <rect x="950" y="240" width="60" height="60" fill="#D3D3D3" stroke="#696969" strokeWidth="2" className="centrosome" onMouseEnter={() => setHoveredComponent('centrioles')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('centrioles')} style={{ cursor: 'pointer' }} />
+                <ellipse cx="975" cy="265" rx="15" ry="5" fill={currentColors.centriole} stroke={currentColors.centrioleStroke} strokeWidth="1.5" />
+                <ellipse cx="985" cy="275" rx="5" ry="15" fill={currentColors.centriole} stroke={currentColors.centrioleStroke} strokeWidth="1.5" />
+                <text x="910" y="255" fontSize="8" fontWeight="bold" fill="#000">Centrioles</text>
+                <text x="895" y="265" fontSize="7" fill="#CC0000">(Animal ONLY)</text>
+              </g>
+
+              {/* Lysosomes (ABUNDANT in animal cells) */}
+              <g opacity={getOpacity('animal-abundant')}>
+                <circle cx="1000" cy="540" r="18" fill={currentColors.lysosome} stroke={currentColors.lysosomeStroke} strokeWidth="2" className="lysosome" onMouseEnter={() => setHoveredComponent('lysosomes')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('lysosomes')} style={{ cursor: 'pointer' }} />
+                <circle cx="1190" cy="500" r="18" fill={currentColors.lysosome} stroke={currentColors.lysosomeStroke} strokeWidth="2" className="lysosome" />
+                <circle cx="1150" cy="620" r="18" fill={currentColors.lysosome} stroke={currentColors.lysosomeStroke} strokeWidth="2" className="lysosome" />
+                <text x="955" y="580" fontSize="8" fontWeight="bold" fill="#000">Lysosomes</text>
+                <text x="955" y="590" fontSize="7" fill="#000">(Abundant)</text>
+              </g>
+
+              {/* Small Vacuoles (MANY, SMALL) */}
+              <g opacity={getOpacity('animal-feature')}>
+                <circle cx="1240" cy="360" r="20" fill={currentColors.smallVacuole} stroke={currentColors.vacuoleStroke} strokeWidth="2" strokeDasharray="4 2" className="small-vacuole" onMouseEnter={() => setHoveredComponent('smallVacuoles')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('smallVacuoles')} style={{ cursor: 'pointer' }} />
+                <circle cx="970" cy="480" r="20" fill={currentColors.smallVacuole} stroke={currentColors.vacuoleStroke} strokeWidth="2" strokeDasharray="4 2" className="small-vacuole" />
+                <text x="1210" y="405" fontSize="8" fontWeight="bold" fill="#000">Small</text>
+                <text x="1200" y="415" fontSize="8" fontWeight="bold" fill="#000">Vacuoles</text>
+              </g>
+
+              {/* Mitochondria (COMMON) */}
+              <g opacity={getOpacity('common')}>
+                <ellipse cx="1050" cy="320" rx="30" ry="18" fill={currentColors.mitochondria} stroke={currentColors.mitochondriaStroke} strokeWidth="2" className="mitochondria" onMouseEnter={() => setHoveredComponent('mitochondria')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('mitochondria')} style={{ cursor: 'pointer' }} />
+                <line x1="1035" y1="315" x2="1040" y2="325" stroke={currentColors.mitochondriaStroke} strokeWidth="1" />
+                <line x1="1045" y1="315" x2="1050" y2="325" stroke={currentColors.mitochondriaStroke} strokeWidth="1" />
+                <line x1="1055" y1="315" x2="1060" y2="325" stroke={currentColors.mitochondriaStroke} strokeWidth="1" />
+                <text x="1010" y="310" fontSize="8" fill="#000">Mitochondria</text>
+
+                <ellipse cx="1180" cy="600" rx="30" ry="18" fill={currentColors.mitochondria} stroke={currentColors.mitochondriaStroke} strokeWidth="2" className="mitochondria" />
+                <line x1="1165" y1="595" x2="1170" y2="605" stroke={currentColors.mitochondriaStroke} strokeWidth="1" />
+                <line x1="1175" y1="595" x2="1180" y2="605" stroke={currentColors.mitochondriaStroke} strokeWidth="1" />
+              </g>
+
+              {/* Golgi Apparatus (COMMON) */}
+              <g opacity={getOpacity('common')}>
+                <rect x="1200" y="260" width="60" height="40" fill={currentColors.golgi} stroke={currentColors.golgiStroke} strokeWidth="2" className="golgi" onMouseEnter={() => setHoveredComponent('golgiApparatus')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('golgiApparatus')} style={{ cursor: 'pointer' }} />
+                <rect x="1205" y="268" width="50" height="5" fill="#FFFACD" stroke={currentColors.golgiStroke} strokeWidth="1" />
+                <rect x="1205" y="277" width="50" height="5" fill="#FFFACD" stroke={currentColors.golgiStroke} strokeWidth="1" />
+                <rect x="1205" y="286" width="50" height="5" fill="#FFFACD" stroke={currentColors.golgiStroke} strokeWidth="1" />
+                <text x="1265" y="283" fontSize="8" fontWeight="bold" fill="#000">Golgi</text>
+              </g>
+
+              {/* ER (COMMON) */}
+              <g opacity={getOpacity('common')}>
+                <path d="M 1080 480 L 1100 480 L 1105 475 L 1110 480 L 1115 475 L 1120 480 L 1140 480" fill={currentColors.er} stroke={currentColors.erStroke} strokeWidth="2" className="er" onMouseEnter={() => setHoveredComponent('endoplasmicReticulum')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('endoplasmicReticulum')} style={{ cursor: 'pointer' }} />
+                <text x="1140" y="495" fontSize="8" fill="#000">ER</text>
+              </g>
+
+              {/* Ribosomes (COMMON) */}
+              <g opacity={getOpacity('common')}>
+                <circle cx="1100" cy="485" r="3" fill={currentColors.ribosome} stroke="#000" strokeWidth="0.5" className="ribosome" onMouseEnter={() => setHoveredComponent('ribosomes')} onMouseLeave={() => setHoveredComponent(null)} onClick={() => setSelectedComponent('ribosomes')} style={{ cursor: 'pointer' }} />
+                <circle cx="1110" cy="482" r="3" fill={currentColors.ribosome} stroke="#000" strokeWidth="0.5" className="ribosome" />
+                <circle cx="1050" cy="420" r="3" fill={currentColors.ribosome} stroke="#000" strokeWidth="0.5" className="ribosome" />
+                <circle cx="1060" cy="425" r="3" fill={currentColors.ribosome} stroke="#000" strokeWidth="0.5" className="ribosome" />
+                <text x="1045" y="440" fontSize="7" fill="#000">80S Ribosomes</text>
+              </g>
+            </g>
+          )}
+
+          {/* Divider Line */}
+          {comparisonView === 'both' && (
+            <line x1="700" y1="80" x2="700" y2="800" stroke="#999" strokeWidth="2" strokeDasharray="10 5" />
+          )}
+        </svg>
+      </div>
+
+      {/* Hover Tooltip */}
+      {hoveredComponent && components[hoveredComponent] && (
+        <div className="tooltip">
+          <strong>{components[hoveredComponent].name}</strong>
+          <div className="type-badge">{components[hoveredComponent].type}</div>
+        </div>
+      )}
+
+      {/* Details Panel */}
+      {selectedComponent && components[selectedComponent] && (
+        <div className="details-panel active">
+          <button className="close-btn" onClick={() => setSelectedComponent(null)}>✕</button>
+          <h2>{components[selectedComponent].name}</h2>
+
+          <div className="type-badge">{components[selectedComponent].type.toUpperCase()}</div>
+
+          <div className="details-section">
+            <h3>Characteristics</h3>
+            <ul>
+              {components[selectedComponent].characteristics.map((char, idx) => (
+                <li key={idx}>{char}</li>
+              ))}
+            </ul>
+          </div>
+
+          {components[selectedComponent].functions && (
+            <div className="details-section">
+              <h3>Functions</h3>
+              <ul>
+                {components[selectedComponent].functions.map((func, idx) => (
+                  <li key={idx}>{func}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {components[selectedComponent].reactions && (
+            <div className="details-section">
+              <h3>Key Reaction</h3>
+              <p className="reaction-text">{components[selectedComponent].reactions}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].location && (
+            <div className="details-section">
+              <h3>Location</h3>
+              <p><strong>Plant:</strong> {components[selectedComponent].location.plant}</p>
+              <p><strong>Animal:</strong> {components[selectedComponent].location.animal}</p>
+            </div>
+          )}
+
+          <div className="exam-info">
+            <h3>Exam Importance</h3>
+            <p><strong>Kerala Board:</strong> {components[selectedComponent].keralaBoardFrequency}</p>
+            <p><strong>NEET:</strong> {components[selectedComponent].neetFrequency}</p>
+            <p className="importance-level">{components[selectedComponent].examImportance}</p>
+          </div>
+
+          {components[selectedComponent].commonMistake && (
+            <div className="mistake-alert">
+              <h3>⚠️ Common Mistake</h3>
+              <p>{components[selectedComponent].commonMistake}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].examQuestion && (
+            <div className="exam-question">
+              <h3>📝 Typical Exam Question</h3>
+              <p>{components[selectedComponent].examQuestion}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].note && (
+            <div className="note">
+              <p><strong>Note:</strong> {components[selectedComponent].note}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Comparison Table */}
+      <div className="comparison-table-container">
+        <h2>📊 Feature-by-Feature Comparison</h2>
+        <table className="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Plant Cell</th>
+              <th>Animal Cell</th>
+              <th>Exam Importance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonData.map((row, idx) => (
+              <tr key={idx}>
+                <td className="feature-name">{row.feature}</td>
+                <td className={row.plant.includes('Absent') || row.plant.includes('Rare') ? 'absent' : 'present'}>{row.plant}</td>
+                <td className={row.animal.includes('Absent') || row.animal.includes('Rare') ? 'absent' : 'present'}>{row.animal}</td>
+                <td className="importance">{row.importance}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Key Differences Summary */}
+      <div className="summary-section">
+        <h2>🎯 Key Differences - Must Know for Exams!</h2>
+        <div className="summary-grid">
+          <div className="summary-card plant-unique">
+            <h3>UNIQUE TO PLANT CELLS</h3>
+            <ul>
+              <li><strong>Cell Wall</strong> (cellulose) - Protection, support</li>
+              <li><strong>Large Central Vacuole</strong> (up to 90% volume) - Storage, turgor</li>
+              <li><strong>Chloroplasts</strong> - Photosynthesis</li>
+              <li><strong>Plasmodesmata</strong> - Cell-to-cell connections</li>
+              <li><strong>Fixed Shape</strong> (due to cell wall)</li>
+              <li><strong>Nucleus Position:</strong> Peripheral (pushed by vacuole)</li>
+            </ul>
+          </div>
+
+          <div className="summary-card animal-unique">
+            <h3>UNIQUE TO ANIMAL CELLS</h3>
+            <ul>
+              <li><strong>NO Cell Wall</strong> - Only plasma membrane</li>
+              <li><strong>Centrioles</strong> - Cell division, spindle formation</li>
+              <li><strong>Lysosomes (Abundant)</strong> - Digestion, "suicide bags"</li>
+              <li><strong>Small Vacuoles (Many)</strong> - Temporary storage</li>
+              <li><strong>Variable Shape</strong> (no cell wall)</li>
+              <li><strong>Nucleus Position:</strong> Central</li>
+            </ul>
+          </div>
+
+          <div className="summary-card common-features">
+            <h3>COMMON TO BOTH</h3>
+            <ul>
+              <li><strong>Plasma Membrane</strong> - Selective permeability</li>
+              <li><strong>Nucleus</strong> - Control center, genetic material</li>
+              <li><strong>Mitochondria</strong> - Cellular respiration, ATP</li>
+              <li><strong>Golgi Apparatus</strong> - Packaging, modification</li>
+              <li><strong>Endoplasmic Reticulum</strong> - Protein/lipid synthesis</li>
+              <li><strong>80S Ribosomes</strong> - Protein synthesis</li>
+              <li><strong>Cytoplasm</strong> - Cell matrix</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Exam Tips */}
+      <div className="exam-tips">
+        <h2>💡 Top Exam Tips</h2>
+        <ol>
+          <li><strong>Memorize:</strong> Cell wall = ONLY plants, Centrioles = ONLY animals</li>
+          <li><strong>Vacuole Difference:</strong> Plant (ONE LARGE), Animal (MANY SMALL)</li>
+          <li><strong>Nucleus Position:</strong> Plant (peripheral due to large vacuole), Animal (central)</li>
+          <li><strong>Chloroplast:</strong> ONLY in plant cells - for photosynthesis</li>
+          <li><strong>Lysosomes:</strong> Abundant in animals, rare in plants</li>
+          <li><strong>Shape:</strong> Plant (fixed due to cell wall), Animal (variable)</li>
+          <li><strong>Plasmodesmata:</strong> ONLY in plant cells - cytoplasmic connections</li>
+          <li><strong>Common Features:</strong> Both have nucleus, mitochondria, ER, Golgi, ribosomes (80S)</li>
+        </ol>
+      </div>
+
+      <footer className="footer">
+        <p>Interactive diagram for Plus One (Class 11) Botany - Kerala Board & NEET</p>
+        <p>Figures 5.2 & 5.12: Plant and Animal Cell Comparison</p>
+        <p>Click any organelle to learn more • Hover for quick info • Use keyboard (Esc to close)</p>
+      </footer>
+    </div>
+  );
+};
+
+        // Render the component
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<PlantAnimalCellInteractive />);
+    </script>
+</body>
+</html>

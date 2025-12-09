@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golgi Apparatus & ER - Interactive | Plus One Biology</title>
+    <meta name="description" content="Interactive Golgi Apparatus & ER - Interactive for Kerala Board Plus One Biology">
+
+    <!-- React and Babel from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../css/base.css">
+
+    <style>
+        /* ============================================
+           Back Button Styling
+           ============================================ */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            color: #4169E1;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            transition: all 0.3s ease;
+            border: 2px solid #4169E1;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            background: #4169E1;
+            color: white;
+        }
+
+        /* ============================================
+           Component Specific Styles
+           ============================================ */
+/**
+ * GolgiERInteractive.css
+ * Styles for Golgi Apparatus and ER Endomembrane System Interactive Diagram
+ * Extends FluidMosaicInteractive.css with endomembrane-specific styles
+ *
+ * @version 1.0.0
+ * @date 2025-12-09
+ */
+
+/* Import base styles from Fluid Mosaic (reuse common styles) */
+@import url('./FluidMosaicInteractive.css');
+
+/* ========================================
+   Golgi + ER Specific Overrides
+   ======================================== */
+
+.golgi-er-container {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  line-height: 1.6;
+}
+
+/* ========================================
+   SVG Element Styles
+   ======================================== */
+
+/* Golgi Elements */
+.golgi-background {
+  transition: all var(--transition-base);
+}
+
+.golgi-background:hover {
+  filter: brightness(1.05) drop-shadow(0 0 12px rgba(255, 215, 0, 0.4));
+  stroke-width: 5;
+}
+
+.cisterna {
+  transition: all var(--transition-base);
+}
+
+.cisterna:hover {
+  filter: brightness(1.1) drop-shadow(0 0 6px rgba(218, 165, 32, 0.5));
+  stroke-width: 3;
+}
+
+.cis-arrow,
+.trans-arrow {
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.cis-arrow:hover,
+.trans-arrow:hover {
+  filter: brightness(1.2);
+  stroke-width: 5;
+}
+
+/* ER Elements */
+.rer-background {
+  transition: all var(--transition-base);
+}
+
+.rer-background:hover {
+  filter: brightness(1.05) drop-shadow(0 0 12px rgba(147, 112, 219, 0.4));
+  stroke-width: 5;
+}
+
+.ser-background {
+  transition: all var(--transition-base);
+}
+
+.ser-background:hover {
+  filter: brightness(1.05) drop-shadow(0 0 12px rgba(218, 165, 32, 0.4));
+  stroke-width: 5;
+}
+
+.rer-tubule,
+.ser-tubule {
+  transition: all var(--transition-base);
+}
+
+.rer-tubule:hover,
+.ser-tubule:hover {
+  filter: brightness(1.1);
+}
+
+/* Vesicles */
+.vesicle {
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.vesicle:hover {
+  transform: scale(1.3);
+  filter: brightness(1.3) drop-shadow(0 0 6px rgba(255, 69, 0, 0.8));
+}
+
+/* Transport Pathway Arrows */
+.pathway-arrow {
+  transition: all var(--transition-base);
+}
+
+.pathway-arrow:hover {
+  stroke-width: 5;
+  filter: drop-shadow(0 0 4px rgba(65, 105, 225, 0.8));
+}
+
+/* Endomembrane System Box */
+.endomembrane-system-box rect {
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.endomembrane-system-box:hover rect {
+  filter: brightness(1.05) drop-shadow(0 0 12px rgba(65, 105, 225, 0.4));
+  stroke-width: 5;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+/* Cisternae Sequential Animation */
+@keyframes cisterna-flow {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translateY(-2px);
+  }
+}
+
+.cisterna.animated {
+  animation: cisterna-flow 4s ease-in-out infinite;
+}
+
+.cisterna-0.animated { animation-delay: 0s; }
+.cisterna-1.animated { animation-delay: 0.6s; }
+.cisterna-2.animated { animation-delay: 1.2s; }
+.cisterna-3.animated { animation-delay: 1.8s; }
+.cisterna-4.animated { animation-delay: 2.4s; }
+.cisterna-5.animated { animation-delay: 3s; }
+
+/* Vesicle Transport Animation */
+@keyframes vesicle-movement {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translateY(0) scale(1);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-5px) scale(1.05);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(-15px) scale(1.15);
+  }
+}
+
+.vesicle-1.animated {
+  animation: vesicle-movement 3s ease-in-out infinite;
+}
+
+.vesicle-2.animated {
+  animation: vesicle-movement 3s ease-in-out infinite 1.5s;
+}
+
+.transport-vesicle.animated {
+  animation: vesicle-movement 4s ease-in-out infinite;
+}
+
+/* Ribosome Pulse Animation */
+@keyframes ribosome-pulse {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.ribosome.animated {
+  animation: ribosome-pulse 2s ease-in-out infinite;
+}
+
+.ribosome:nth-child(even).animated {
+  animation-delay: 1s;
+}
+
+/* Transport Pathway Flow Animation */
+@keyframes pathway-flow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -30;
+  }
+}
+
+.pathway-arrow.animated {
+  animation: pathway-flow 2s linear infinite;
+}
+
+/* ========================================
+   Summary Card Styles
+   ======================================== */
+
+.golgi-card {
+  background: linear-gradient(135deg, #FFFFE0 0%, #FFFACD 100%);
+  border-left: 5px solid #FFD700;
+}
+
+.golgi-card h3 {
+  color: #8B6914;
+  border-bottom-color: #FFD700;
+}
+
+.er-card {
+  background: linear-gradient(135deg, #F0E6FA 0%, #E6D8F0 100%);
+  border-left: 5px solid #9370DB;
+}
+
+.er-card h3 {
+  color: #6A4C9C;
+  border-bottom-color: #9370DB;
+}
+
+.endomembrane-card {
+  background: linear-gradient(135deg, #E0F2F7 0%, #B3E5FC 100%);
+  border-left: 5px solid #4169E1;
+}
+
+.endomembrane-card h3 {
+  color: #1E3A8A;
+  border-bottom-color: #4169E1;
+}
+
+/* ========================================
+   Details Panel Enhancements
+   ======================================== */
+
+.details-panel .discovered-by {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CC 100%);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  margin: var(--spacing-sm) 0;
+  border-left: 3px solid #FFD700;
+  font-size: 0.95rem;
+}
+
+.details-panel .pathway-text {
+  background: linear-gradient(135deg, #E0F2F7 0%, #B3E5FC 100%);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #1E3A8A;
+  font-weight: 600;
+  border-left: 4px solid #4169E1;
+  margin: var(--spacing-sm) 0;
+  line-height: 1.6;
+}
+
+.details-panel .mnemonic-box {
+  background: linear-gradient(135deg, #FFE5F3 0%, #FFD4E9 100%);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  border-left: 4px solid #FF69B4;
+  margin: var(--spacing-md) 0;
+}
+
+.details-panel .mnemonic-box h3 {
+  color: #C71585;
+  font-size: 1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.details-panel .mnemonic-box p {
+  color: #8B008B;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .summary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .golgi-er-container {
+    padding: var(--spacing-md);
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .exam-tips {
+    padding: var(--spacing-md);
+  }
+
+  .controls-panel {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .control-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .control-group button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .summary-card {
+    padding: var(--spacing-md);
+  }
+
+  .summary-card h3 {
+    font-size: 1rem;
+  }
+
+  .exam-tips {
+    padding: var(--spacing-sm);
+  }
+
+  .exam-tips li {
+    font-size: 0.85rem;
+  }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+  .controls-panel {
+    display: none;
+  }
+
+  .cisterna,
+  .vesicle,
+  .ribosome,
+  .pathway-arrow {
+    animation: none !important;
+  }
+
+  .summary-section,
+  .exam-tips {
+    page-break-inside: avoid;
+  }
+
+  .summary-card {
+    break-inside: avoid;
+  }
+
+  .details-panel {
+    position: static;
+    box-shadow: none;
+  }
+}
+
+/* ========================================
+   Accessibility - Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cisterna,
+  .vesicle,
+  .ribosome,
+  .pathway-arrow,
+  .golgi-background,
+  .rer-background,
+  .ser-background,
+  .summary-card {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .vesicle:hover,
+  .golgi-background:hover,
+  .rer-background:hover,
+  .ser-background:hover,
+  .summary-card:hover {
+    transform: none !important;
+  }
+}
+
+/* ========================================
+   Dark Mode Support
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  .golgi-er-container {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+  }
+
+  .summary-card {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
+
+  .exam-tips {
+    background: linear-gradient(135deg, #3a3a2a 0%, #2f2f1f 100%);
+  }
+
+  .endomembrane-system-box rect {
+    fill: #2a3a4a;
+  }
+}
+
+/* ========================================
+   Special Visual Enhancements
+   ======================================== */
+
+/* Golgi stack depth effect */
+.cisterna {
+  filter: brightness(1) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1));
+}
+
+.cisterna-0 { filter: brightness(1.1) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1)); }
+.cisterna-1 { filter: brightness(1.05) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1)); }
+.cisterna-2 { filter: brightness(1) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1)); }
+.cisterna-3 { filter: brightness(0.95) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1)); }
+.cisterna-4 { filter: brightness(0.9) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1)); }
+.cisterna-5 { filter: brightness(0.85) drop-shadow(0 2px 2px rgba(0, 0, 0, 0.1)); }
+
+/* Vesicle pulsing glow */
+@keyframes vesicle-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 2px rgba(255, 69, 0, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(255, 69, 0, 0.8));
+  }
+}
+
+.vesicle.animated {
+  animation: vesicle-movement 3s ease-in-out infinite, vesicle-glow 2s ease-in-out infinite;
+}
+
+/* Transport pathway highlight on hover */
+.transport-pathway:hover .pathway-arrow {
+  stroke-width: 5;
+  filter: drop-shadow(0 0 6px rgba(65, 105, 225, 1));
+}
+
+/* Endomembrane system box glow effect */
+@keyframes system-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px rgba(65, 105, 225, 0.2));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(65, 105, 225, 0.4));
+  }
+}
+
+.endomembrane-system-box rect {
+  animation: system-glow 4s ease-in-out infinite;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Back Navigation -->
+    <a href="../index.html" class="back-button">← Back to Chapter</a>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <!-- Component Code -->
+    <script type="text/babel">
+
+
+/**
+ * GolgiERInteractive Component
+ *
+ * Interactive diagram showing Golgi Apparatus and Endoplasmic Reticulum connection
+ * Demonstrates the endomembrane system and protein transport pathway
+ * for Plus One (Class 11) Kerala Board + NEET students
+ *
+ * Figure 5.6: Golgi Apparatus and Endoplasmic Reticulum
+ *
+ * @component
+ * @version 1.0.0
+ * @date 2025-12-09
+ */
+
+const { useState, useRef, useEffect } = React;
+
+
+const GolgiERInteractive = () => {
+  const [hoveredComponent, setHoveredComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [colorblindMode, setColorblindMode] = useState(false);
+  const [showVesicles, setShowVesicles] = useState(true);
+  const [animationRunning, setAnimationRunning] = useState(true);
+
+  const svgRef = useRef(null);
+
+  // Color palettes
+  const colors = {
+    standard: {
+      golgiBackground: '#FFFFE0',
+      cisterna: '#FFFACD',
+      golgiStroke: '#FFD700',
+      cisFace: '#90EE90',
+      transFace: '#FFB6C1',
+      vesicle: '#FFA07A',
+      vesicleStroke: '#FF4500',
+
+      rerBackground: '#E6D8F0',
+      rerTubule: '#DDA0DD',
+      rerStroke: '#9370DB',
+      ribosome: '#6B95CD',
+
+      serBackground: '#FFFACD',
+      serTubule: '#FFD9A3',
+      serStroke: '#DAA520',
+
+      connection: '#4169E1',
+      text: '#000000'
+    },
+    colorblind: {
+      golgiBackground: '#FFF9D0',
+      cisterna: '#FFEEBD',
+      golgiStroke: '#DDBB00',
+      cisFace: '#80DD80',
+      transFace: '#FFAAC1',
+      vesicle: '#FFAA7A',
+      vesicleStroke: '#FF5500',
+
+      rerBackground: '#D6C8F0',
+      rerTubule: '#CDA0DD',
+      rerStroke: '#7060BB',
+      ribosome: '#5B85BD',
+
+      serBackground: '#FFEEBD',
+      serTubule: '#FFCC88',
+      serStroke: '#CC9900',
+
+      connection: '#4169E1',
+      text: '#000000'
+    }
+  };
+
+  const currentColors = colorblindMode ? colors.colorblind : colors.standard;
+
+  // Component information
+  const components = {
+    golgiApparatus: {
+      name: 'Golgi Apparatus',
+      discoveredBy: 'Camillo Golgi (1898)',
+      characteristics: [
+        'Stacks of 4-8 FLATTENED cisternae (sacs)',
+        'Parallel arrangement',
+        'Single membrane-bound',
+        'Has TWO distinct faces (Cis and Trans)',
+        'Size: 0.5-1.0 μm diameter per cisterna'
+      ],
+      functions: [
+        'PACKAGING of proteins and lipids (primary function)',
+        'MODIFICATION of proteins (glycosylation - adding sugars)',
+        'SORTING and directing materials to destinations',
+        'Formation of LYSOSOMES',
+        'Formation of SECRETORY VESICLES',
+        'Processing of membrane proteins'
+      ],
+      location: 'Cytoplasm, usually near nucleus and ER',
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Golgi does NOT synthesize proteins - it modifies and packages them (RER synthesizes)',
+      examQuestion: 'Q: What is the primary function of Golgi apparatus? A: Packaging and modification of proteins and lipids'
+    },
+
+    cisFace: {
+      name: 'Cis Face (Forming/Receiving Face)',
+      type: 'golgi-component',
+      characteristics: [
+        'RECEIVING side of Golgi',
+        'Convex shape (bulging outward)',
+        'Closer to ER',
+        'Also called "Forming face"'
+      ],
+      functions: [
+        'Receives vesicles from ER',
+        'Entry point for proteins from RER',
+        'Fusion with ER-derived vesicles',
+        'Initial modification of proteins begins'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐',
+      commonMistake: 'Cis = Receiving (from ER), Trans = Dispatching (to destinations). Don\'t confuse!',
+      examQuestion: 'Q: Which face of Golgi receives vesicles from ER? A: Cis face (forming face)'
+    },
+
+    transFace: {
+      name: 'Trans Face (Maturing/Dispatching Face)',
+      type: 'golgi-component',
+      characteristics: [
+        'DISPATCHING side of Golgi',
+        'Concave shape',
+        'Away from ER, closer to plasma membrane',
+        'Also called "Maturing face"'
+      ],
+      functions: [
+        'Releases vesicles to destinations',
+        'Final modification of proteins',
+        'Sorting of materials',
+        'Forms lysosomes and secretory vesicles',
+        'Dispatches to: plasma membrane, lysosomes, vacuoles, secretion'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐',
+      examQuestion: 'Q: What is the function of Trans face of Golgi? A: Dispatching/releasing vesicles to various destinations'
+    },
+
+    cisternae: {
+      name: 'Cisternae (Flattened Sacs)',
+      type: 'golgi-component',
+      characteristics: [
+        'Flattened, disc-shaped membrane sacs',
+        '4-8 cisternae per Golgi stack',
+        'Parallel arrangement',
+        'Each cisterna has different enzymes'
+      ],
+      functions: [
+        'Sequential modification of proteins',
+        'Different cisternae have different modifications',
+        'Proteins move through cisternae (Cis → Trans)',
+        'Glycosylation occurs in cisternae'
+      ],
+      examImportance: 'High',
+      keralaBoardFrequency: '⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐',
+      commonMistake: 'Cisternae (plural), Cisterna (singular) - note the spelling'
+    },
+
+    vesicles: {
+      name: 'Transport Vesicles',
+      type: 'transport',
+      characteristics: [
+        'Small, membrane-bound sacs',
+        'Bud off from ER or Golgi',
+        'Contain proteins/lipids',
+        'Can fuse with other membranes'
+      ],
+      functions: [
+        'TRANSPORT proteins from ER to Golgi',
+        'Transport proteins from Golgi to destinations',
+        'Move materials between organelles',
+        'Deliver materials to plasma membrane (exocytosis)'
+      ],
+      pathway: 'RER → Transport Vesicles → Cis Face (Golgi) → Trans Face → Secretory Vesicles → Destination',
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Vesicles are membrane-bound, NOT just protein clumps',
+      examQuestion: 'Q: How do proteins move from ER to Golgi? A: Through transport vesicles'
+    },
+
+    endomembraneSystem: {
+      name: 'Endomembrane System',
+      type: 'system',
+      characteristics: [
+        'Coordinated system of membrane organelles',
+        'Components work together',
+        'Interconnected via vesicles',
+        'Single membrane-bound organelles'
+      ],
+      components: [
+        'Endoplasmic Reticulum (ER) - RER & SER',
+        'Golgi Apparatus',
+        'Lysosomes',
+        'Vacuoles',
+        'Plasma membrane',
+        'Nuclear envelope'
+      ],
+      pathway: {
+        proteinSynthesis: 'RER synthesizes proteins',
+        transport1: 'Vesicles carry proteins to Golgi Cis face',
+        modification: 'Golgi modifies and packages proteins',
+        transport2: 'Vesicles carry from Trans face to destinations',
+        destinations: 'Plasma membrane, Lysosomes, Vacuoles, Secretion'
+      },
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      mnemonic: 'ERGLV - Endoplasmic Reticulum, Golgi, Lysosomes, Vacuoles',
+      commonMistake: 'Mitochondria and Chloroplasts are NOT part of endomembrane system (they are double membrane-bound)',
+      examQuestion: 'Q: Name the components of endomembrane system. A: ER, Golgi apparatus, Lysosomes, Vacuoles'
+    }
+  };
+
+  // Export functions
+  const exportSVG = () => {
+    if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
+    const blob = new Blob([svgData], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'golgi_er_endomembrane.svg';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportPNG = () => {
+    if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+
+    img.onload = () => {
+      canvas.width = img.width * 2;
+      canvas.height = img.height * 2;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'golgi_er_endomembrane.png';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    };
+
+    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+  };
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Escape') {
+        setSelectedComponent(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
+
+  return (
+    <div className="golgi-er-container">
+      <header className="header">
+        <h1>Golgi Apparatus & ER - Interactive Endomembrane System</h1>
+        <p className="subtitle">Figure 5.6: Protein Transport Pathway</p>
+        <p className="exam-note">⭐ Essential for Understanding Cell Organization - Kerala Board & NEET</p>
+      </header>
+
+      {/* Controls Panel */}
+      <div className="controls-panel">
+        <div className="control-group">
+          <button onClick={() => setShowVesicles(!showVesicles)}>
+            {showVesicles ? '👁️ Hide Vesicles' : '👁️ Show Vesicles'}
+          </button>
+          <button onClick={() => setAnimationRunning(!animationRunning)}>
+            {animationRunning ? '⏸️ Pause Animation' : '▶️ Play Animation'}
+          </button>
+          <button onClick={() => setColorblindMode(!colorblindMode)}>
+            {colorblindMode ? '🎨 Standard Colors' : '♿ Colorblind Mode'}
+          </button>
+          <button onClick={exportSVG}>📥 Export SVG</button>
+          <button onClick={exportPNG}>📥 Export PNG</button>
+        </div>
+      </div>
+
+      {/* SVG Diagram */}
+      <div className="diagram-container">
+        <svg
+          ref={svgRef}
+          viewBox="0 0 1400 900"
+          className="endomembrane-svg"
+          role="img"
+          aria-label="Golgi Apparatus and ER Endomembrane System Diagram"
+        >
+          {/* LEFT SIDE: GOLGI APPARATUS */}
+          <g className="golgi-group">
+            <text x="300" y="50" textAnchor="middle" fontSize="18" fontWeight="bold" fill={currentColors.golgiStroke}>
+              GOLGI APPARATUS
+            </text>
+
+            {/* Golgi Background */}
+            <rect
+              x="100"
+              y="100"
+              width="400"
+              height="500"
+              fill={currentColors.golgiBackground}
+              stroke={currentColors.golgiStroke}
+              strokeWidth="3"
+              rx="10"
+              className="golgi-background"
+              onMouseEnter={() => setHoveredComponent('golgiApparatus')}
+              onMouseLeave={() => setHoveredComponent(null)}
+              onClick={() => setSelectedComponent('golgiApparatus')}
+              style={{ cursor: 'pointer' }}
+            />
+
+            {/* Cis Face Label and Arrow */}
+            <text x="80" y="140" fontSize="11" fontWeight="bold" fill="#006400" textAnchor="end">
+              Cis Face
+            </text>
+            <text x="80" y="154" fontSize="9" fill="#006400" textAnchor="end">
+              (Receiving)
+            </text>
+            <path
+              d="M 85 145 L 95 145"
+              stroke={currentColors.cisFace}
+              strokeWidth="3"
+              markerEnd="url(#cis-arrow)"
+              className="cis-arrow"
+              onMouseEnter={() => setHoveredComponent('cisFace')}
+              onMouseLeave={() => setHoveredComponent(null)}
+              onClick={() => setSelectedComponent('cisFace')}
+              style={{ cursor: 'pointer' }}
+            />
+
+            {/* Cisternae Stack (6 cisternae) */}
+            {[0, 1, 2, 3, 4, 5].map((idx) => (
+              <rect
+                key={`cisterna-${idx}`}
+                x="150"
+                y={150 + idx * 60}
+                width="300"
+                height="35"
+                fill={currentColors.cisterna}
+                stroke={currentColors.golgiStroke}
+                strokeWidth="2"
+                rx="5"
+                className={`cisterna cisterna-${idx} ${animationRunning ? 'animated' : ''}`}
+                onMouseEnter={() => setHoveredComponent('cisternae')}
+                onMouseLeave={() => setHoveredComponent(null)}
+                onClick={() => setSelectedComponent('cisternae')}
+                style={{ cursor: 'pointer' }}
+              />
+            ))}
+
+            {/* Trans Face Label and Arrow */}
+            <text x="520" y="500" fontSize="11" fontWeight="bold" fill="#8B0000">
+              Trans Face
+            </text>
+            <text x="520" y="514" fontSize="9" fill="#8B0000">
+              (Dispatching)
+            </text>
+            <path
+              d="M 455 505 L 515 505"
+              stroke={currentColors.transFace}
+              strokeWidth="3"
+              markerEnd="url(#trans-arrow)"
+              className="trans-arrow"
+              onMouseEnter={() => setHoveredComponent('transFace')}
+              onMouseLeave={() => setHoveredComponent(null)}
+              onClick={() => setSelectedComponent('transFace')}
+              style={{ cursor: 'pointer' }}
+            />
+
+            {/* Vesicles near Golgi */}
+            {showVesicles && (
+              <>
+                <circle
+                  cx="180"
+                  cy="110"
+                  r="18"
+                  fill={currentColors.vesicle}
+                  stroke={currentColors.vesicleStroke}
+                  strokeWidth="2"
+                  strokeDasharray="4 2"
+                  className={`vesicle vesicle-1 ${animationRunning ? 'animated' : ''}`}
+                  onMouseEnter={() => setHoveredComponent('vesicles')}
+                  onMouseLeave={() => setHoveredComponent(null)}
+                  onClick={() => setSelectedComponent('vesicles')}
+                  style={{ cursor: 'pointer' }}
+                />
+                <circle
+                  cx="420"
+                  cy="550"
+                  r="18"
+                  fill={currentColors.vesicle}
+                  stroke={currentColors.vesicleStroke}
+                  strokeWidth="2"
+                  strokeDasharray="4 2"
+                  className={`vesicle vesicle-2 ${animationRunning ? 'animated' : ''}`}
+                />
+              </>
+            )}
+
+            {/* Golgi Functions Box */}
+            <g className="golgi-functions">
+              <rect x="120" y="620" width="360" height="100" fill="#FFFEF8" stroke={currentColors.golgiStroke} strokeWidth="2" rx="5" />
+              <text x="130" y="640" fontSize="13" fontWeight="bold" fill={currentColors.golgiStroke}>Functions:</text>
+              <text x="130" y="660" fontSize="11" fill="#000">• Modifies proteins & lipids (glycosylation)</text>
+              <text x="130" y="678" fontSize="11" fill="#000">• Packages materials into vesicles</text>
+              <text x="130" y="696" fontSize="11" fill="#000">• Forms lysosomes & secretory vesicles</text>
+              <text x="130" y="714" fontSize="11" fill="#000">• Sorts & directs to destinations</text>
+            </g>
+          </g>
+
+          {/* RIGHT SIDE: ENDOPLASMIC RETICULUM */}
+          <g className="er-group">
+            <text x="1000" y="50" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#4B0082">
+              ENDOPLASMIC RETICULUM
+            </text>
+
+            {/* RER Section */}
+            <g className="rer-section">
+              <rect
+                x="800"
+                y="100"
+                width="200"
+                height="250"
+                fill={currentColors.rerBackground}
+                stroke={currentColors.rerStroke}
+                strokeWidth="3"
+                rx="8"
+                className="rer-background"
+              />
+              <text x="900" y="130" textAnchor="middle" fontSize="14" fontWeight="bold" fill={currentColors.rerStroke}>
+                ROUGH ER (RER)
+              </text>
+
+              {/* RER Tubules with Ribosomes */}
+              {[0, 1, 2, 3].map((idx) => (
+                <g key={`rer-tubule-${idx}`}>
+                  <rect
+                    x="820"
+                    y={160 + idx * 55}
+                    width="160"
+                    height="40"
+                    fill={currentColors.rerTubule}
+                    stroke={currentColors.rerStroke}
+                    strokeWidth="2"
+                    rx="5"
+                    className="rer-tubule"
+                  />
+                  {/* Ribosomes on tubule */}
+                  {[0, 1, 2, 3, 4].map((ribIdx) => (
+                    <circle
+                      key={`rer-ribo-${idx}-${ribIdx}`}
+                      cx={840 + ribIdx * 30}
+                      cy={168 + idx * 55 + (ribIdx % 2 === 0 ? 0 : 5)}
+                      r="5"
+                      fill={currentColors.ribosome}
+                      stroke="#000080"
+                      strokeWidth="0.5"
+                      className={`ribosome ${animationRunning ? 'animated' : ''}`}
+                    />
+                  ))}
+                </g>
+              ))}
+            </g>
+
+            {/* SER Section */}
+            <g className="ser-section">
+              <rect
+                x="1040"
+                y="100"
+                width="200"
+                height="250"
+                fill={currentColors.serBackground}
+                stroke={currentColors.serStroke}
+                strokeWidth="3"
+                rx="8"
+                className="ser-background"
+              />
+              <text x="1140" y="130" textAnchor="middle" fontSize="14" fontWeight="bold" fill={currentColors.serStroke}>
+                SMOOTH ER (SER)
+              </text>
+
+              {/* SER Tubules (NO ribosomes) */}
+              {[0, 1, 2, 3].map((idx) => (
+                <rect
+                  key={`ser-tubule-${idx}`}
+                  x="1060"
+                  y={160 + idx * 55}
+                  width="160"
+                  height="40"
+                  fill={currentColors.serTubule}
+                  stroke={currentColors.serStroke}
+                  strokeWidth="2"
+                  rx="5"
+                  className="ser-tubule"
+                />
+              ))}
+
+              <text x="1140" y="335" textAnchor="middle" fontSize="10" fontStyle="italic" fill="#8B6914" opacity="0.8">
+                (No Ribosomes)
+              </text>
+            </g>
+
+            {/* ER Functions Box */}
+            <g className="er-functions">
+              <rect x="820" y="370" width="400" height="100" fill="#F8F8FF" stroke={currentColors.rerStroke} strokeWidth="2" rx="5" />
+              <text x="830" y="390" fontSize="13" fontWeight="bold" fill={currentColors.rerStroke}>RER vs SER:</text>
+              <text x="830" y="410" fontSize="11" fill="#000"><tspan fontWeight="bold">RER:</tspan> Ribosomes → Protein synthesis</text>
+              <text x="830" y="428" fontSize="11" fill="#000"><tspan fontWeight="bold">SER:</tspan> No ribosomes → Lipid synthesis</text>
+              <text x="830" y="446" fontSize="11" fill="#000">Both continuous & part of endomembrane</text>
+              <text x="830" y="464" fontSize="11" fill="#000">RER connects to nuclear envelope</text>
+            </g>
+
+            {/* Vesicles from ER to Golgi */}
+            {showVesicles && (
+              <>
+                <circle
+                  cx="750"
+                  cy="200"
+                  r="18"
+                  fill={currentColors.vesicle}
+                  stroke={currentColors.vesicleStroke}
+                  strokeWidth="2"
+                  strokeDasharray="4 2"
+                  className={`vesicle transport-vesicle ${animationRunning ? 'animated' : ''}`}
+                  onMouseEnter={() => setHoveredComponent('vesicles')}
+                  onMouseLeave={() => setHoveredComponent(null)}
+                  onClick={() => setSelectedComponent('vesicles')}
+                  style={{ cursor: 'pointer' }}
+                />
+                <circle
+                  cx="650"
+                  cy="300"
+                  r="18"
+                  fill={currentColors.vesicle}
+                  stroke={currentColors.vesicleStroke}
+                  strokeWidth="2"
+                  strokeDasharray="4 2"
+                  className={`vesicle transport-vesicle ${animationRunning ? 'animated' : ''}`}
+                />
+              </>
+            )}
+          </g>
+
+          {/* Protein Transport Pathway (Arrows) */}
+          {showVesicles && (
+            <g className="transport-pathway">
+              {/* Arrow from RER to Golgi */}
+              <path
+                d="M 800 220 Q 600 200 500 180"
+                stroke={currentColors.connection}
+                strokeWidth="3"
+                fill="none"
+                strokeDasharray="10 5"
+                markerEnd="url(#pathway-arrow)"
+                className={animationRunning ? 'pathway-arrow animated' : 'pathway-arrow'}
+              />
+              <text x="650" y="190" fontSize="11" fontWeight="bold" fill={currentColors.connection} textAnchor="middle">
+                Transport Vesicles
+              </text>
+
+              {/* Arrow from Golgi Trans face to destination */}
+              <path
+                d="M 500 520 L 600 600"
+                stroke={currentColors.connection}
+                strokeWidth="3"
+                fill="none"
+                strokeDasharray="10 5"
+                markerEnd="url(#pathway-arrow)"
+                className={animationRunning ? 'pathway-arrow animated' : 'pathway-arrow'}
+              />
+              <text x="550" y="565" fontSize="11" fontWeight="bold" fill={currentColors.connection}>
+                To Destinations
+              </text>
+            </g>
+          )}
+
+          {/* Endomembrane System Box */}
+          <g className="endomembrane-system-box" onClick={() => setSelectedComponent('endomembraneSystem')} style={{ cursor: 'pointer' }}>
+            <rect x="100" y="750" width="1140" height="110" fill="#E0F2F7" stroke={currentColors.connection} strokeWidth="3" rx="10" />
+            <text x="670" y="775" textAnchor="middle" fontSize="14" fontWeight="bold" fill={currentColors.connection}>
+              ⚙️ ENDOMEMBRANE SYSTEM PATHWAY
+            </text>
+            <text x="110" y="800" fontSize="12" fill="#000">
+              <tspan fontWeight="bold">1. RER:</tspan> Synthesizes proteins
+            </text>
+            <text x="110" y="820" fontSize="12" fill="#000">
+              <tspan fontWeight="bold">2. Vesicles:</tspan> Transport proteins from RER to Golgi (Cis face)
+            </text>
+            <text x="110" y="840" fontSize="12" fill="#000">
+              <tspan fontWeight="bold">3. Golgi:</tspan> Modifies, packages, sorts proteins (Cis → Trans face)
+            </text>
+            <text x="670" y="800" fontSize="12" fill="#000">
+              <tspan fontWeight="bold">4. Vesicles:</tspan> Transport from Golgi (Trans face) to destinations
+            </text>
+            <text x="670" y="820" fontSize="12" fill="#000">
+              <tspan fontWeight="bold">5. Destinations:</tspan> Plasma membrane, Lysosomes, Vacuoles, Secretion
+            </text>
+            <text x="670" y="840" fontSize="12" fontStyle="italic" fill="#8B0000">
+              💡 Components: ER + Golgi + Lysosomes + Vacuoles (Mnemonic: ERGLV)
+            </text>
+          </g>
+
+          {/* Arrow markers */}
+          <defs>
+            <marker
+              id="cis-arrow"
+              markerWidth="10"
+              markerHeight="10"
+              refX="9"
+              refY="3"
+              orient="auto"
+            >
+              <polygon points="0 0, 10 3, 0 6" fill={currentColors.cisFace} />
+            </marker>
+            <marker
+              id="trans-arrow"
+              markerWidth="10"
+              markerHeight="10"
+              refX="9"
+              refY="3"
+              orient="auto"
+            >
+              <polygon points="0 0, 10 3, 0 6" fill={currentColors.transFace} />
+            </marker>
+            <marker
+              id="pathway-arrow"
+              markerWidth="10"
+              markerHeight="10"
+              refX="9"
+              refY="3"
+              orient="auto"
+            >
+              <polygon points="0 0, 10 3, 0 6" fill={currentColors.connection} />
+            </marker>
+          </defs>
+        </svg>
+      </div>
+
+      {/* Hover Tooltip */}
+      {hoveredComponent && components[hoveredComponent] && (
+        <div className="tooltip">
+          <strong>{components[hoveredComponent].name}</strong>
+        </div>
+      )}
+
+      {/* Details Panel */}
+      {selectedComponent && components[selectedComponent] && (
+        <div className="details-panel active">
+          <button className="close-btn" onClick={() => setSelectedComponent(null)}>✕</button>
+          <h2>{components[selectedComponent].name}</h2>
+
+          {components[selectedComponent].discoveredBy && (
+            <p className="discovered-by"><strong>Discovered by:</strong> {components[selectedComponent].discoveredBy}</p>
+          )}
+
+          {components[selectedComponent].characteristics && (
+            <div className="details-section">
+              <h3>Characteristics</h3>
+              <ul>
+                {components[selectedComponent].characteristics.map((char, idx) => (
+                  <li key={idx}>{char}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {components[selectedComponent].functions && (
+            <div className="details-section">
+              <h3>Functions</h3>
+              <ul>
+                {components[selectedComponent].functions.map((func, idx) => (
+                  <li key={idx}>{func}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {components[selectedComponent].components && (
+            <div className="details-section">
+              <h3>Components</h3>
+              <ul>
+                {components[selectedComponent].components.map((comp, idx) => (
+                  <li key={idx}>{comp}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {components[selectedComponent].pathway && typeof components[selectedComponent].pathway === 'object' && (
+            <div className="details-section">
+              <h3>Protein Transport Pathway</h3>
+              <ol>
+                {Object.entries(components[selectedComponent].pathway).map(([key, value], idx) => (
+                  <li key={idx}><strong>{key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:</strong> {value}</li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {components[selectedComponent].pathway && typeof components[selectedComponent].pathway === 'string' && (
+            <div className="details-section">
+              <h3>Pathway</h3>
+              <p className="pathway-text">{components[selectedComponent].pathway}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].location && (
+            <div className="details-section">
+              <h3>Location</h3>
+              <p>{components[selectedComponent].location}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].examImportance && (
+            <div className="exam-info">
+              <h3>Exam Importance</h3>
+              <p><strong>Kerala Board:</strong> {components[selectedComponent].keralaBoardFrequency}</p>
+              <p><strong>NEET:</strong> {components[selectedComponent].neetFrequency}</p>
+              <p className="importance-level">{components[selectedComponent].examImportance}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].mnemonic && (
+            <div className="mnemonic-box">
+              <h3>🎯 Memory Tip</h3>
+              <p><strong>{components[selectedComponent].mnemonic}</strong></p>
+            </div>
+          )}
+
+          {components[selectedComponent].commonMistake && (
+            <div className="mistake-alert">
+              <h3>⚠️ Common Mistake</h3>
+              <p>{components[selectedComponent].commonMistake}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].examQuestion && (
+            <div className="exam-question">
+              <h3>📝 Typical Exam Question</h3>
+              <p>{components[selectedComponent].examQuestion}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Key Points Summary */}
+      <div className="summary-section">
+        <h2>🎯 Key Points - Must Know for Exams!</h2>
+        <div className="summary-grid">
+          <div className="summary-card golgi-card">
+            <h3>GOLGI APPARATUS</h3>
+            <ul>
+              <li><strong>Structure:</strong> 4-8 flattened cisternae stacks</li>
+              <li><strong>Cis Face:</strong> Receiving side (from ER)</li>
+              <li><strong>Trans Face:</strong> Dispatching side (to destinations)</li>
+              <li><strong>Primary Function:</strong> Packaging & modification of proteins</li>
+              <li><strong>Modification:</strong> Glycosylation (adding sugars to proteins)</li>
+              <li><strong>Products:</strong> Lysosomes, secretory vesicles</li>
+              <li><strong>Common Mistake:</strong> Golgi does NOT synthesize proteins!</li>
+            </ul>
+          </div>
+
+          <div className="summary-card er-card">
+            <h3>ENDOPLASMIC RETICULUM</h3>
+            <ul>
+              <li><strong>RER:</strong> Ribosomes attached → Protein synthesis</li>
+              <li><strong>SER:</strong> No ribosomes → Lipid synthesis</li>
+              <li><strong>Continuity:</strong> RER and SER are continuous</li>
+              <li><strong>Connection:</strong> RER outer membrane continuous with nuclear envelope</li>
+              <li><strong>Abundant in:</strong> RER (secretory cells), SER (liver/muscle cells)</li>
+              <li><strong>Transport:</strong> Proteins from RER → vesicles → Golgi</li>
+            </ul>
+          </div>
+
+          <div className="summary-card endomembrane-card">
+            <h3>ENDOMEMBRANE SYSTEM</h3>
+            <ul>
+              <li><strong>Components:</strong> ER, Golgi, Lysosomes, Vacuoles</li>
+              <li><strong>Mnemonic:</strong> ERGLV</li>
+              <li><strong>Connection:</strong> Linked via transport vesicles</li>
+              <li><strong>Pathway:</strong> RER → Vesicles → Golgi (Cis → Trans) → Vesicles → Destinations</li>
+              <li><strong>NOT Included:</strong> Mitochondria, Chloroplasts (double membrane)</li>
+              <li><strong>Function:</strong> Coordinated protein synthesis, modification, transport</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Exam Tips */}
+      <div className="exam-tips">
+        <h2>💡 Top Exam Tips</h2>
+        <ol>
+          <li><strong>Golgi Faces:</strong> Cis = Receiving (from ER), Trans = Dispatching (to destinations)</li>
+          <li><strong>Golgi Function:</strong> Modification & packaging (NOT synthesis!)</li>
+          <li><strong>Protein Pathway:</strong> RER synthesizes → Vesicles transport → Golgi modifies → Vesicles deliver</li>
+          <li><strong>Glycosylation:</strong> Adding sugars to proteins happens in Golgi</li>
+          <li><strong>Endomembrane Components:</strong> ER + Golgi + Lysosomes + Vacuoles (ERGLV mnemonic)</li>
+          <li><strong>NOT Endomembrane:</strong> Mitochondria and Chloroplasts (double membrane-bound)</li>
+          <li><strong>RER Connection:</strong> Continuous with nuclear envelope outer membrane</li>
+          <li><strong>Vesicle Transport:</strong> Membrane-bound sacs that bud off and fuse</li>
+          <li><strong>Cisternae:</strong> Flattened sacs in Golgi (4-8 per stack)</li>
+          <li><strong>Most Asked:</strong> "Describe the protein transport pathway" or "Components of endomembrane system"</li>
+        </ol>
+      </div>
+
+      <footer className="footer">
+        <p>Interactive diagram for Plus One (Class 11) Botany - Kerala Board & NEET</p>
+        <p>Figure 5.6: Golgi Apparatus and Endoplasmic Reticulum - Endomembrane System</p>
+        <p>Click any component to learn more • Watch protein transport pathway animation • Use keyboard (Esc to close)</p>
+      </footer>
+    </div>
+  );
+};
+
+        // Render the component
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<GolgiERInteractive />);
+    </script>
+</body>
+</html>

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prokaryotic Cell - Interactive | Plus One Biology</title>
+    <meta name="description" content="Interactive Prokaryotic Cell - Interactive for Kerala Board Plus One Biology">
+
+    <!-- React and Babel from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../css/base.css">
+
+    <style>
+        /* ============================================
+           Back Button Styling
+           ============================================ */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            color: #4169E1;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            transition: all 0.3s ease;
+            border: 2px solid #4169E1;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            background: #4169E1;
+            color: white;
+        }
+
+        /* ============================================
+           Component Specific Styles
+           ============================================ */
+/**
+ * ProkaryoticCellInteractive.css
+ * Extends FluidMosaicInteractive.css with prokaryotic cell-specific styles
+ * @version 1.0.0
+ * @date 2025-12-09
+ */
+
+@import url('./FluidMosaicInteractive.css');
+
+.prokaryotic-cell-container {
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+/* Prokaryotic-specific elements */
+.cell-wall { transition: all var(--transition-base); }
+.cell-wall:hover {
+  filter: brightness(1.1) drop-shadow(0 0 10px rgba(139, 69, 19, 0.5));
+  stroke-width: 6;
+}
+
+.nucleoid { transition: all var(--transition-base); }
+.nucleoid:hover {
+  filter: brightness(1.1) drop-shadow(0 0 12px rgba(255, 215, 0, 0.6));
+}
+
+.ribosome { transition: all var(--transition-fast); }
+.ribosome:hover {
+  transform: scale(1.8);
+  filter: brightness(1.3);
+}
+
+.plasmid { transition: all var(--transition-base); }
+.plasmid:hover {
+  filter: brightness(1.2) drop-shadow(0 0 8px rgba(255, 20, 147, 0.8));
+  transform: scale(1.15);
+}
+
+.flagellum, .pili { transition: all var(--transition-fast); cursor: pointer; }
+.flagellum:hover, .pili:hover {
+  filter: brightness(1.3);
+  stroke-width: 7;
+}
+
+/* Animations */
+@keyframes dna-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.dna-strand {
+  animation: dna-rotate 20s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes ribosome-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.ribosome {
+  animation: ribosome-float 3s ease-in-out infinite;
+}
+
+.ribosome:nth-child(even) { animation-delay: 1.5s; }
+
+/* Comparison table */
+.comparison-table th.prokaryote-header {
+  background: linear-gradient(135deg, #D2B48C 0%, #BC9A7C 100%);
+  color: #fff;
+}
+
+.comparison-table th.eukaryote-header {
+  background: linear-gradient(135deg, #9370DB 0%, #7360BB 100%);
+  color: #fff;
+}
+
+.comparison-table td.prokaryote-cell {
+  background-color: #FFF8F0;
+  border-left: 3px solid #8B4513;
+}
+
+.comparison-table td.eukaryote-cell {
+  background-color: #F8F3FF;
+  border-left: 3px solid #9370DB;
+}
+
+/* Summary cards */
+.unique-features {
+  background: linear-gradient(135deg, #FFE8D6 0%, #FFD8C6 100%);
+  border-left: 5px solid #D2691E;
+}
+
+.unique-features h3 {
+  color: #8B4513;
+  border-bottom-color: #D2691E;
+}
+
+.key-components {
+  background: linear-gradient(135deg, #E6F3FF 0%, #D6E8FF 100%);
+  border-left: 5px solid #4169E1;
+}
+
+.key-components h3 {
+  color: #1E3A8A;
+  border-bottom-color: #4169E1;
+}
+
+.exam-focus {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CC 100%);
+  border-left: 5px solid #FFC107;
+}
+
+.exam-focus h3 {
+  color: #FF6F00;
+  border-bottom-color: #FFC107;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .prokaryotic-cell-container { padding: var(--spacing-md); }
+  .summary-grid { grid-template-columns: 1fr; }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .dna-strand, .ribosome { animation: none !important; }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Back Navigation -->
+    <a href="../index.html" class="back-button">← Back to Chapter</a>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <!-- Component Code -->
+    <script type="text/babel">
+
+
+/**
+ * ProkaryoticCellInteractive Component
+ *
+ * Interactive diagram of Prokaryotic Cell (Bacterial Cell) structure
+ * Contrasts with Eukaryotic cells - shows NO membrane-bound organelles
+ * for Plus One (Class 11) Kerala Board + NEET students
+ *
+ * Figure 5.1: Structure of a Prokaryotic Cell
+ *
+ * @component
+ * @version 1.0.0
+ * @date 2025-12-09
+ */
+
+const { useState, useRef, useEffect } = React;
+
+
+const ProkaryoticCellInteractive = () => {
+  const [hoveredComponent, setHoveredComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [colorblindMode, setColorblindMode] = useState(false);
+  const [showComparison, setShowComparison] = useState(false);
+
+  const svgRef = useRef(null);
+
+  // Color palettes
+  const colors = {
+    standard: {
+      cellWall: '#D2B48C',
+      cellWallStroke: '#8B4513',
+      plasmaMembrane: '#FFE4B5',
+      membraneStroke: '#FF8C00',
+      cytoplasm: '#F0F8FF',
+      nucleoid: '#FFFACD',
+      nucleoidStroke: '#FFD700',
+      dna: '#FFD700',
+      ribosome: '#4169E1',
+      plasmid: '#FFB6C1',
+      plasmidStroke: '#FF1493',
+      flagellum: '#A9A9A9',
+      pili: '#808080',
+      mesosome: '#FFE4B5',
+      inclusion: '#F0E68C',
+      text: '#000000'
+    },
+    colorblind: {
+      cellWall: '#C2A87C',
+      cellWallStroke: '#7B4513',
+      plasmaMembrane: '#FFDDAA',
+      membraneStroke: '#FF7700',
+      cytoplasm: '#E0E8F8',
+      nucleoid: '#FFF9BD',
+      nucleoidStroke: '#DDBB00',
+      dna: '#DDBB00',
+      ribosome: '#3159C1',
+      plasmid: '#FFAAC1',
+      plasmidStroke: '#DD1473',
+      flagellum: #999999',
+      pili: '#707070',
+      mesosome: '#FFDDAA',
+      inclusion: '#D0C68C',
+      text: '#000000'
+    }
+  };
+
+  const currentColors = colorblindMode ? colors.colorblind : colors.standard;
+
+  // Component information
+  const components = {
+    prokaryoticCell: {
+      name: 'Prokaryotic Cell (Bacterial Cell)',
+      type: 'prokaryote',
+      characteristics: [
+        'Size: 1-10 μm (MUCH SMALLER than eukaryotes)',
+        'NO TRUE NUCLEUS - genetic material in nucleoid region',
+        'NO MEMBRANE-BOUND ORGANELLES',
+        '70S RIBOSOMES (NOT 80S!)',
+        'Circular DNA (chromosome + plasmids)',
+        'Cell wall made of PEPTIDOGLYCAN'
+      ],
+      examples: ['Bacteria (E. coli, Staphylococcus)', 'Cyanobacteria (Blue-green algae)', 'Mycoplasma (smallest, no cell wall)'],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Prokaryotes do NOT have nucleus, mitochondria, ER, or Golgi - these are ONLY in eukaryotes!',
+      examQuestion: 'Q: What are the main differences between prokaryotic and eukaryotic cells? A: Prokaryotes lack true nucleus and membrane-bound organelles, have 70S ribosomes, circular DNA'
+    },
+
+    cellWall: {
+      name: 'Cell Wall',
+      composition: 'PEPTIDOGLYCAN (NOT cellulose!)',
+      characteristics: [
+        'Made of peptidoglycan (murein)',
+        'Rigid structure',
+        'Provides shape and protection',
+        'Different from plant cell wall (which is cellulose)'
+      ],
+      functions: ['Protection from osmotic lysis', 'Maintains cell shape', 'Provides mechanical strength'],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Bacterial cell wall = Peptidoglycan, Plant cell wall = Cellulose (different!)'
+    },
+
+    nucleoid: {
+      name: 'Nucleoid Region',
+      characteristics: [
+        'NOT A TRUE NUCLEUS (no nuclear envelope)',
+        'Contains circular DNA (single chromosome)',
+        'NOT membrane-bound',
+        'DNA is naked (not associated with histones)',
+        'Located in cytoplasm'
+      ],
+      functions: ['Stores genetic information', 'Controls cell activities', 'DNA replication occurs here'],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Nucleoid ≠ Nucleus. Nucleoid has NO membrane, circular DNA, no histones',
+      examQuestion: 'Q: Why is nucleoid region not called a nucleus? A: Because it lacks a nuclear envelope/membrane'
+    },
+
+    ribosomes: {
+      name: '70S Ribosomes',
+      size: '70S (50S + 30S subunits)',
+      characteristics: [
+        '70S ribosomes (SMALLER than eukaryotic 80S)',
+        'Free-floating in cytoplasm',
+        'NOT membrane-bound',
+        'Made of rRNA + proteins'
+      ],
+      functions: ['Protein synthesis', 'Translation of mRNA'],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Prokaryotes have 70S ribosomes, Eukaryotes have 80S ribosomes (different sizes!)',
+      examQuestion: 'Q: What type of ribosomes do prokaryotes have? A: 70S ribosomes (50S + 30S subunits)'
+    },
+
+    plasmid: {
+      name: 'Plasmid',
+      characteristics: [
+        'EXTRA-CHROMOSOMAL circular DNA',
+        'Small, independent of main chromosome',
+        'Self-replicating',
+        'Can be transferred between bacteria (conjugation)'
+      ],
+      functions: [
+        'Antibiotic resistance genes',
+        'Toxin production genes',
+        'Used in genetic engineering/biotechnology'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Plasmid is SEPARATE from main chromosome - it is extra DNA',
+      examQuestion: 'Q: What is a plasmid? A: Extra-chromosomal circular DNA in bacteria'
+    },
+
+    flagellum: {
+      name: 'Flagellum',
+      characteristics: [
+        'Long whip-like structure',
+        'Made of protein flagellin',
+        'Rotates like a propeller',
+        'Extends from cell surface'
+      ],
+      functions: ['Locomotion (movement)', 'Helps bacteria move toward nutrients', 'Moves away from toxins'],
+      examImportance: 'High',
+      keralaBoardFrequency: '⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐',
+      commonMistake: 'Bacterial flagella are DIFFERENT from eukaryotic flagella (different structure and mechanism)'
+    },
+
+    pili: {
+      name: 'Pili/Fimbriae',
+      characteristics: [
+        'Short, hair-like structures',
+        'Made of protein pilin',
+        'Numerous on cell surface',
+        'Shorter and thinner than flagella'
+      ],
+      functions: [
+        'Attachment to surfaces',
+        'Bacterial conjugation (gene transfer)',
+        'Biofilm formation'
+      ],
+      examImportance: 'High',
+      keralaBoardFrequency: '⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐',
+      commonMistake: 'Pili = Attachment/conjugation, Flagella = Locomotion (different functions!)'
+    },
+
+    mesosome: {
+      name: 'Mesosome',
+      characteristics: [
+        'Infolding of plasma membrane',
+        'Appears as curled structure',
+        'Increases surface area'
+      ],
+      functions: ['Cellular respiration', 'DNA replication', 'Cell wall formation'],
+      examImportance: 'High',
+      keralaBoardFrequency: '⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐',
+      note: 'Performs functions similar to mitochondria (which prokaryotes lack)'
+    },
+
+    inclusionBody: {
+      name: 'Inclusion Body',
+      characteristics: [
+        'Reserve material storage',
+        'Granules in cytoplasm',
+        'NOT membrane-bound'
+      ],
+      contents: ['Glycogen (carbohydrate storage)', 'Lipids (fat storage)', 'Phosphate granules', 'Sulfur granules'],
+      functions: ['Energy reserve', 'Nutrient storage'],
+      examImportance: 'Medium',
+      keralaBoardFrequency: '⭐⭐⭐',
+      neetFrequency: '⭐⭐'
+    }
+  };
+
+  // Prokaryote vs Eukaryote comparison
+  const comparison = [
+    { feature: 'Size', prokaryote: '1-10 μm', eukaryote: '10-100 μm' },
+    { feature: 'Nucleus', prokaryote: 'NO (nucleoid region)', eukaryote: 'YES (true nucleus)' },
+    { feature: 'DNA', prokaryote: 'Circular, no histones', eukaryote: 'Linear, with histones' },
+    { feature: 'Ribosomes', prokaryote: '70S', eukaryote: '80S' },
+    { feature: 'Membrane Organelles', prokaryote: 'ABSENT', eukaryote: 'PRESENT (ER, Golgi, mitochondria, etc.)' },
+    { feature: 'Cell Wall', prokaryote: 'Peptidoglycan', eukaryote: 'Cellulose (plants) or Absent (animals)' },
+    { feature: 'Cell Division', prokaryote: 'Binary fission', eukaryote: 'Mitosis/Meiosis' },
+    { feature: 'Examples', prokaryote: 'Bacteria, Cyanobacteria', eukaryote: 'Animals, Plants, Fungi, Protists' }
+  ];
+
+  // Export functions
+  const exportSVG = () => {
+    if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
+    const blob = new Blob([svgData], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'prokaryotic_cell.svg';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportPNG = () => {
+    if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+
+    img.onload = () => {
+      canvas.width = img.width * 2;
+      canvas.height = img.height * 2;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'prokaryotic_cell.png';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    };
+
+    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+  };
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Escape') {
+        setSelectedComponent(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
+
+  return (
+    <div className="prokaryotic-cell-container">
+      <header className="header">
+        <h1>Prokaryotic Cell - Interactive Bacterial Cell Structure</h1>
+        <p className="subtitle">Figure 5.1: Simplest Cell Type - Foundation of Life</p>
+        <p className="exam-note">⭐ Critical for Understanding Cell Evolution - Kerala Board & NEET</p>
+      </header>
+
+      {/* Controls Panel */}
+      <div className="controls-panel">
+        <div className="control-group">
+          <button onClick={() => setShowComparison(!showComparison)}>
+            {showComparison ? '📊 Hide Comparison' : '📊 Show Prokaryote vs Eukaryote'}
+          </button>
+          <button onClick={() => setColorblindMode(!colorblindMode)}>
+            {colorblindMode ? '🎨 Standard Colors' : '♿ Colorblind Mode'}
+          </button>
+          <button onClick={exportSVG}>📥 Export SVG</button>
+          <button onClick={exportPNG}>📥 Export PNG</button>
+        </div>
+      </div>
+
+      {/* SVG Diagram */}
+      <div className="diagram-container">
+        <svg
+          ref={svgRef}
+          viewBox="0 0 1100 700"
+          className="prokaryotic-svg"
+          role="img"
+          aria-label="Prokaryotic Cell Structure Diagram"
+        >
+          <text x="550" y="35" textAnchor="middle" fontSize="20" fontWeight="bold" fill="#000080">
+            PROKARYOTIC CELL (Bacterial Cell)
+          </text>
+
+          {/* Cell Wall (outermost) */}
+          <ellipse
+            cx="550"
+            cy="350"
+            rx="350"
+            ry="250"
+            fill={currentColors.cellWall}
+            stroke={currentColors.cellWallStroke}
+            strokeWidth="4"
+            className="cell-wall"
+            onMouseEnter={() => setHoveredComponent('cellWall')}
+            onMouseLeave={() => setHoveredComponent(null)}
+            onClick={() => setSelectedComponent('cellWall')}
+            style={{ cursor: 'pointer' }}
+          />
+
+          {/* Plasma Membrane */}
+          <ellipse
+            cx="550"
+            cy="350"
+            rx="330"
+            ry="230"
+            fill={currentColors.plasmaMembrane}
+            stroke={currentColors.membraneStroke}
+            strokeWidth="3"
+            className="plasma-membrane"
+          />
+
+          {/* Cytoplasm */}
+          <ellipse
+            cx="550"
+            cy="350"
+            rx="310"
+            ry="210"
+            fill={currentColors.cytoplasm}
+            opacity="0.8"
+            className="cytoplasm"
+          />
+
+          {/* Nucleoid Region (NO membrane!) */}
+          <ellipse
+            cx="550"
+            cy="320"
+            rx="150"
+            ry="100"
+            fill={currentColors.nucleoid}
+            stroke={currentColors.nucleoidStroke}
+            strokeWidth="2"
+            strokeDasharray="8 4"
+            className="nucleoid"
+            onMouseEnter={() => setHoveredComponent('nucleoid')}
+            onMouseLeave={() => setHoveredComponent(null)}
+            onClick={() => setSelectedComponent('nucleoid')}
+            style={{ cursor: 'pointer' }}
+          />
+          {/* DNA inside nucleoid */}
+          <path
+            d="M 480 310 Q 520 290, 560 310 T 640 310 Q 600 330, 560 330 T 480 330"
+            fill="none"
+            stroke={currentColors.dna}
+            strokeWidth="3"
+            className="dna-strand"
+          />
+          <text x="550" y="345" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#8B6914">
+            Nucleoid (Circular DNA)
+          </text>
+          <text x="550" y="360" textAnchor="middle" fontSize="9" fill="#8B6914" fontStyle="italic">
+            (NO membrane!)
+          </text>
+
+          {/* 70S Ribosomes scattered */}
+          {[
+            [300, 250], [360, 230], [320, 300], [380, 280],
+            [760, 300], [730, 350], [780, 380],
+            [340, 470], [290, 500], [720, 440],
+            [460, 450], [640, 450], [490, 240], [610, 240]
+          ].map((pos, idx) => (
+            <circle
+              key={`ribosome-${idx}`}
+              cx={pos[0]}
+              cy={pos[1]}
+              r="7"
+              fill={currentColors.ribosome}
+              stroke="#000080"
+              strokeWidth="1"
+              className="ribosome"
+              onMouseEnter={() => setHoveredComponent('ribosomes')}
+              onMouseLeave={() => setHoveredComponent(null)}
+              onClick={() => setSelectedComponent('ribosomes')}
+              style={{ cursor: 'pointer' }}
+            />
+          ))}
+          <text x="950" y="290" fontSize="10" fontWeight="bold" fill="#000">70S Ribosomes</text>
+
+          {/* Plasmid */}
+          <circle
+            cx="310"
+            cy="400"
+            r="30"
+            fill={currentColors.plasmid}
+            stroke={currentColors.plasmidStroke}
+            strokeWidth="2"
+            strokeDasharray="4 2"
+            className="plasmid"
+            onMouseEnter={() => setHoveredComponent('plasmid')}
+            onMouseLeave={() => setHoveredComponent(null)}
+            onClick={() => setSelectedComponent('plasmid')}
+            style={{ cursor: 'pointer' }}
+          />
+          <circle cx="310" cy="400" r="20" fill="none" stroke={currentColors.plasmidStroke} strokeWidth="2" />
+          <text x="120" y="405" fontSize="10" fontWeight="bold" fill="#000">Plasmid (Extra DNA)</text>
+
+          {/* Flagellum */}
+          <path
+            d="M 900 350 Q 950 360, 1000 340 T 1080 320"
+            fill="none"
+            stroke={currentColors.flagellum}
+            strokeWidth="5"
+            className="flagellum"
+            onMouseEnter={() => setHoveredComponent('flagellum')}
+            onMouseLeave={() => setHoveredComponent(null)}
+            onClick={() => setSelectedComponent('flagellum')}
+            style={{ cursor: 'pointer' }}
+          />
+          <text x="1000" y="310" fontSize="10" fontWeight="bold" fill="#000">Flagellum</text>
+
+          {/* Pili */}
+          {[350, 450, 550, 650, 750].map((x, idx) => (
+            <line
+              key={`pili-${idx}`}
+              x1={x}
+              y1="110"
+              x2={x + 10}
+              y2="70"
+              stroke={currentColors.pili}
+              strokeWidth="3"
+              className="pili"
+              onMouseEnter={() => setHoveredComponent('pili')}
+              onMouseLeave={() => setHoveredComponent(null)}
+              onClick={() => setSelectedComponent('pili')}
+              style={{ cursor: 'pointer' }}
+            />
+          ))}
+          <text x="550" y="60" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#000">Pili</text>
+
+          {/* Mesosome */}
+          <path
+            d="M 540 560 Q 530 570, 540 580 Q 550 590, 560 580 Q 570 570, 560 560"
+            fill={currentColors.mesosome}
+            stroke={currentColors.membraneStroke}
+            strokeWidth="2"
+            className="mesosome"
+            onMouseEnter={() => setHoveredComponent('mesosome')}
+            onMouseLeave={() => setHoveredComponent(null)}
+            onClick={() => setSelectedComponent('mesosome')}
+            style={{ cursor: 'pointer' }}
+          />
+          <text x="100" y="580" fontSize="10" fontWeight="bold" fill="#000">Mesosome</text>
+
+          {/* Inclusion Body */}
+          <circle
+            cx="750"
+            cy="230"
+            r="25"
+            fill={currentColors.inclusion}
+            stroke="#DAA520"
+            strokeWidth="2"
+            className="inclusion"
+            onMouseEnter={() => setHoveredComponent('inclusionBody')}
+            onMouseLeave={() => setHoveredComponent(null)}
+            onClick={() => setSelectedComponent('inclusionBody')}
+            style={{ cursor: 'pointer' }}
+          />
+          <text x="950" y="235" fontSize="10" fontWeight="bold" fill="#000">Inclusion Body</text>
+
+          {/* Labels */}
+          <text x="100" y="160" fontSize="11" fontWeight="bold" fill="#000">Cell Wall</text>
+          <text x="100" y="175" fontSize="9" fill="#555">(Peptidoglycan)</text>
+          <line x1="180" y1="167" x2="220" y2="167" stroke="#000" strokeWidth="1.5" markerEnd="url(#arrow)" />
+
+          <text x="100" y="220" fontSize="11" fontWeight="bold" fill="#000">Plasma Membrane</text>
+          <line x1="210" y1="220" x2="240" y2="220" stroke="#000" strokeWidth="1.5" markerEnd="url(#arrow)" />
+
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+              <polygon points="0 0, 10 3, 0 6" fill="#000" />
+            </marker>
+          </defs>
+        </svg>
+      </div>
+
+      {/* Hover Tooltip */}
+      {hoveredComponent && components[hoveredComponent] && (
+        <div className="tooltip">
+          <strong>{components[hoveredComponent].name}</strong>
+        </div>
+      )}
+
+      {/* Details Panel */}
+      {selectedComponent && components[selectedComponent] && (
+        <div className="details-panel active">
+          <button className="close-btn" onClick={() => setSelectedComponent(null)}>✕</button>
+          <h2>{components[selectedComponent].name}</h2>
+
+          {components[selectedComponent].composition && (
+            <p className="composition"><strong>Composition:</strong> {components[selectedComponent].composition}</p>
+          )}
+
+          {components[selectedComponent].size && (
+            <p className="size-info"><strong>Size:</strong> {components[selectedComponent].size}</p>
+          )}
+
+          {components[selectedComponent].characteristics && (
+            <div className="details-section">
+              <h3>Characteristics</h3>
+              <ul>
+                {components[selectedComponent].characteristics.map((char, idx) => (
+                  <li key={idx}>{char}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {components[selectedComponent].functions && (
+            <div className="details-section">
+              <h3>Functions</h3>
+              <ul>
+                {components[selectedComponent].functions.map((func, idx) => (
+                  <li key={idx}>{func}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {components[selectedComponent].contents && (
+            <div className="details-section">
+              <h3>Contents</h3>
+              <ul>
+                {components[selectedComponent].contents.map((content, idx) => (
+                  <li key={idx}>{content}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {components[selectedComponent].examples && (
+            <div className="details-section">
+              <h3>Examples</h3>
+              <ul>
+                {components[selectedComponent].examples.map((example, idx) => (
+                  <li key={idx}>{example}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {components[selectedComponent].examImportance && (
+            <div className="exam-info">
+              <h3>Exam Importance</h3>
+              <p><strong>Kerala Board:</strong> {components[selectedComponent].keralaBoardFrequency}</p>
+              <p><strong>NEET:</strong> {components[selectedComponent].neetFrequency}</p>
+              <p className="importance-level">{components[selectedComponent].examImportance}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].note && (
+            <div className="note">
+              <p><strong>Note:</strong> {components[selectedComponent].note}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].commonMistake && (
+            <div className="mistake-alert">
+              <h3>⚠️ Common Mistake</h3>
+              <p>{components[selectedComponent].commonMistake}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].examQuestion && (
+            <div className="exam-question">
+              <h3>📝 Typical Exam Question</h3>
+              <p>{components[selectedComponent].examQuestion}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Comparison Table */}
+      {showComparison && (
+        <div className="comparison-table-container">
+          <h2>📊 Prokaryote vs Eukaryote - Key Differences</h2>
+          <table className="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th className="prokaryote-header">PROKARYOTE</th>
+                <th className="eukaryote-header">EUKARYOTE</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparison.map((row, idx) => (
+                <tr key={idx}>
+                  <td className="feature-name">{row.feature}</td>
+                  <td className="prokaryote-cell">{row.prokaryote}</td>
+                  <td className="eukaryote-cell">{row.eukaryote}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Key Points Summary */}
+      <div className="summary-section">
+        <h2>🎯 Key Points - Must Know for Exams!</h2>
+        <div className="summary-grid">
+          <div className="summary-card unique-features">
+            <h3>UNIQUE TO PROKARYOTES</h3>
+            <ul>
+              <li><strong>NO TRUE NUCLEUS</strong> - Nucleoid region (no membrane)</li>
+              <li><strong>NO Membrane Organelles</strong> - No ER, Golgi, mitochondria, chloroplasts</li>
+              <li><strong>70S Ribosomes</strong> (NOT 80S!)</li>
+              <li><strong>Circular DNA</strong> - Single chromosome, no histones</li>
+              <li><strong>Peptidoglycan Cell Wall</strong> (NOT cellulose)</li>
+              <li><strong>Plasmids</strong> - Extra-chromosomal DNA</li>
+              <li><strong>Binary Fission</strong> - Simple cell division</li>
+            </ul>
+          </div>
+
+          <div className="summary-card key-components">
+            <h3>KEY COMPONENTS</h3>
+            <ul>
+              <li><strong>Size:</strong> 1-10 μm (small)</li>
+              <li><strong>Cell Wall:</strong> Peptidoglycan</li>
+              <li><strong>Nucleoid:</strong> Circular DNA (no membrane)</li>
+              <li><strong>Ribosomes:</strong> 70S (50S + 30S)</li>
+              <li><strong>Plasmids:</strong> Extra DNA for special functions</li>
+              <li><strong>Flagellum:</strong> Locomotion</li>
+              <li><strong>Pili:</strong> Attachment, conjugation</li>
+              <li><strong>Mesosome:</strong> Respiration (like mitochondria)</li>
+            </ul>
+          </div>
+
+          <div className="summary-card exam-focus">
+            <h3>EXAM FOCUS</h3>
+            <ul>
+              <li><strong>Most Asked:</strong> Prokaryote vs Eukaryote differences</li>
+              <li><strong>Ribosome Type:</strong> 70S (key identifier!)</li>
+              <li><strong>DNA Type:</strong> Circular, NOT linear</li>
+              <li><strong>Cell Wall:</strong> Peptidoglycan, NOT cellulose</li>
+              <li><strong>Examples:</strong> Bacteria, Cyanobacteria</li>
+              <li><strong>Evolution:</strong> Simplest, oldest cell type</li>
+              <li><strong>Common Mistake:</strong> Don't confuse with plant cells!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Exam Tips */}
+      <div className="exam-tips">
+        <h2>💡 Top Exam Tips</h2>
+        <ol>
+          <li><strong>Main Identifier:</strong> NO true nucleus, NO membrane-bound organelles</li>
+          <li><strong>Ribosome Type:</strong> 70S (Prokaryotes), 80S (Eukaryotes) - most common MCQ!</li>
+          <li><strong>DNA:</strong> Circular (prokaryotes), Linear (eukaryotes)</li>
+          <li><strong>Cell Wall:</strong> Peptidoglycan (bacteria), Cellulose (plants)</li>
+          <li><strong>Size:</strong> Prokaryotes are MUCH smaller (1-10 μm vs 10-100 μm)</li>
+          <li><strong>Organelles:</strong> Prokaryotes lack ER, Golgi, mitochondria, chloroplasts</li>
+          <li><strong>Plasmid Importance:</strong> Used in genetic engineering/biotechnology</li>
+          <li><strong>Cell Division:</strong> Binary fission (prokaryotes), Mitosis (eukaryotes)</li>
+          <li><strong>Examples:</strong> E. coli, Staphylococcus, Cyanobacteria</li>
+          <li><strong>Evolution:</strong> Prokaryotes appeared first (~3.5 billion years ago)</li>
+        </ol>
+      </div>
+
+      <footer className="footer">
+        <p>Interactive diagram for Plus One (Class 11) Botany - Kerala Board & NEET</p>
+        <p>Figure 5.1: Prokaryotic Cell Structure - Foundation of Life</p>
+        <p>Click any component to learn more • Toggle comparison table • Use keyboard (Esc to close)</p>
+      </footer>
+    </div>
+  );
+};
+
+        // Render the component
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<ProkaryoticCellInteractive />);
+    </script>
+</body>
+</html>

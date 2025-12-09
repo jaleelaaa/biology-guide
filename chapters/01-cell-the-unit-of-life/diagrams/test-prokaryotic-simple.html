@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Prokaryotic Cell - Simplified</title>
+
+    <!-- React and Babel from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const ProkaryoticCellSimple = () => {
+            const [hoveredComponent, setHoveredComponent] = useState(null);
+
+            const components = {
+                cellWall: {
+                    name: 'Cell Wall',
+                    description: 'Rigid outer layer - Protection',
+                    color: '#D2B48C'
+                },
+                membrane: {
+                    name: 'Plasma Membrane',
+                    description: 'Selectively permeable barrier',
+                    color: '#FFE4B5'
+                },
+                nucleoid: {
+                    name: 'Nucleoid',
+                    description: 'Contains circular DNA',
+                    color: '#FFFACD'
+                }
+            };
+
+            return (
+                <div style={{ padding: '50px', fontFamily: 'Arial' }}>
+                    <h1>Prokaryotic Cell - Simplified Test</h1>
+
+                    <svg width="400" height="400" style={{ border: '1px solid #ccc', marginTop: '20px' }}>
+                        {/* Cell Wall */}
+                        <circle
+                            cx="200"
+                            cy="200"
+                            r="150"
+                            fill={components.cellWall.color}
+                            stroke="#8B4513"
+                            strokeWidth="3"
+                            onMouseEnter={() => setHoveredComponent('cellWall')}
+                            onMouseLeave={() => setHoveredComponent(null)}
+                            style={{ cursor: 'pointer' }}
+                        />
+
+                        {/* Plasma Membrane */}
+                        <circle
+                            cx="200"
+                            cy="200"
+                            r="130"
+                            fill={components.membrane.color}
+                            stroke="#FF8C00"
+                            strokeWidth="2"
+                            onMouseEnter={() => setHoveredComponent('membrane')}
+                            onMouseLeave={() => setHoveredComponent(null)}
+                            style={{ cursor: 'pointer' }}
+                        />
+
+                        {/* Nucleoid */}
+                        <ellipse
+                            cx="200"
+                            cy="200"
+                            rx="50"
+                            ry="40"
+                            fill={components.nucleoid.color}
+                            stroke="#FFD700"
+                            strokeWidth="2"
+                            onMouseEnter={() => setHoveredComponent('nucleoid')}
+                            onMouseLeave={() => setHoveredComponent(null)}
+                            style={{ cursor: 'pointer' }}
+                        />
+                    </svg>
+
+                    {hoveredComponent && (
+                        <div style={{
+                            marginTop: '20px',
+                            padding: '15px',
+                            backgroundColor: '#f0f0f0',
+                            borderRadius: '8px'
+                        }}>
+                            <h3>{components[hoveredComponent].name}</h3>
+                            <p>{components[hoveredComponent].description}</p>
+                        </div>
+                    )}
+
+                    <p style={{ marginTop: '20px', color: 'green' }}>
+                        ✓ If you see the diagram above, SVG rendering is working!
+                    </p>
+                    <p style={{ fontSize: '14px', color: '#666' }}>
+                        Hover over the circles to test interactivity
+                    </p>
+                </div>
+            );
+        };
+
+        // Render the component
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<ProkaryoticCellSimple />);
+    </script>
+</body>
+</html>

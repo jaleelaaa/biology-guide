@@ -1,0 +1,4539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Study Notes - Cell: The Unit of Life | Plus One Biology</title>
+    <link rel="stylesheet" href="../../css/base.css">
+    <!-- Distinctive Typography from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Educational Science Theme - Organic & Professional */
+            --color-primary: #2E7D32;
+            --color-primary-light: #4CAF50;
+            --color-secondary: #1565C0;
+            --color-secondary-light: #42A5F5;
+            --color-accent: #F57C00;
+            --color-background: #FAFAF8;
+            --color-surface: #FFFFFF;
+            --color-text: #1A1A1A;
+            --color-text-light: #4A4A4A;
+
+            /* Typography */
+            --font-display: 'Playfair Display', Georgia, serif;
+            --font-body: 'Crimson Text', 'Times New Roman', serif;
+            --font-heading: 'Space Grotesk', 'Segoe UI', sans-serif;
+
+            /* Shadows & Effects */
+            --shadow-sm: 0 2px 8px rgba(46, 125, 50, 0.1);
+            --shadow-md: 0 4px 16px rgba(46, 125, 50, 0.15);
+            --shadow-lg: 0 8px 32px rgba(46, 125, 50, 0.2);
+            --glow-green: 0 0 20px rgba(76, 175, 80, 0.3);
+            --glow-blue: 0 0 20px rgba(66, 165, 245, 0.3);
+        }
+
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 18px;
+            line-height: 1.9;
+            color: var(--color-text);
+            position: relative;
+            /* Organic gradient mesh background */
+            background:
+                radial-gradient(circle at 10% 20%, rgba(76, 175, 80, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(66, 165, 245, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(245, 124, 0, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, #FAFAF8 0%, #F5F3EF 100%);
+            background-attachment: fixed;
+        }
+
+        /* Subtle texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(46, 125, 50, 0.02) 2px, rgba(46, 125, 50, 0.02) 4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Reading Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50 0%, #4169E1 100%);
+            z-index: 10000;
+            transition: width 0.1s ease;
+        }
+
+        nav {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            padding: 18px 40px;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(10px);
+            font-family: var(--font-heading);
+        }
+        nav.scrolled {
+            padding: 12px 40px;
+            box-shadow: 0 12px 36px rgba(46, 125, 50, 0.25);
+            background: linear-gradient(135deg, rgba(46, 125, 50, 0.95) 0%, rgba(21, 101, 192, 0.95) 100%);
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            padding: 8px 16px;
+            border-radius: 6px;
+            letter-spacing: 0.3px;
+        }
+        nav a:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(255,255,255,0.2);
+        }
+
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4169E1 0%, #0047AB 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Floating Table of Contents */
+        #toc-toggle {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 998;
+            transition: all 0.3s ease;
+        }
+        #toc-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        }
+        #toc-panel {
+            position: fixed;
+            top: 130px;
+            right: 20px;
+            width: 280px;
+            max-height: 70vh;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            padding: 20px;
+            overflow-y: auto;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(20px);
+            transition: all 0.3s ease;
+            z-index: 997;
+        }
+        #toc-panel.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+        #toc-panel h3 {
+            margin-top: 0;
+            color: #4169E1;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #4169E1;
+            padding-bottom: 10px;
+        }
+        #toc-panel ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        #toc-panel li {
+            margin: 8px 0;
+        }
+        #toc-panel a {
+            color: #2C3E50;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+        #toc-panel a:hover {
+            background: #E3F2FD;
+            transform: translateX(5px);
+        }
+        #toc-panel a.active {
+            background: linear-gradient(135deg, #4169E1 0%, #0047AB 100%);
+            color: white;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 60px;
+            background: var(--color-surface);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-secondary-light), var(--color-accent));
+            border-radius: 24px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.6s ease;
+        }
+        .container:hover::before {
+            opacity: 0.05;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            color: var(--color-primary);
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            border-bottom: 5px solid var(--color-primary-light);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            animation: slideInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-shadow: 2px 2px 0px rgba(76, 175, 80, 0.1);
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-80px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            color: var(--color-secondary);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            margin-top: 60px;
+            margin-bottom: 30px;
+            border-left: 8px solid var(--color-primary-light);
+            padding-left: 24px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        h2:hover {
+            transform: translateX(15px);
+            border-left-color: var(--color-accent);
+            color: var(--color-primary);
+            text-shadow: 0 0 20px rgba(245, 124, 0, 0.3);
+        }
+        h3 {
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        h3:hover {
+            color: var(--color-accent);
+            transform: translateX(8px);
+        }
+        h3::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background: linear-gradient(180deg, var(--color-primary-light) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        h3:hover::before {
+            opacity: 1;
+        }
+        h4 {
+            font-family: var(--font-body);
+            color: var(--color-text-light);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 30px;
+            margin-bottom: 18px;
+        }
+        p {
+            margin: 15px 0;
+            line-height: 1.9;
+        }
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 35px 0;
+            box-shadow: var(--shadow-md);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: var(--font-body);
+        }
+        table:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        th {
+            background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+            color: white;
+            padding: 18px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
+        }
+        td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(46, 125, 50, 0.08);
+            transition: all 0.3s ease;
+        }
+        tr:hover td {
+            background: linear-gradient(90deg, rgba(76, 175, 80, 0.08) 0%, rgba(66, 165, 245, 0.05) 100%);
+            transform: scale(1.01);
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        blockquote {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border-left: 6px solid #2196F3;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        blockquote:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 12px rgba(33,150,243,0.2);
+        }
+        blockquote p {
+            margin: 10px 0;
+        }
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+            line-height: 1.9;
+        }
+        li {
+            margin: 8px 0;
+            transition: all 0.2s ease;
+        }
+        li:hover {
+            transform: translateX(5px);
+        }
+        code {
+            background: #f4f4f4;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #c7254e;
+        }
+        strong {
+            color: #2C3E50;
+            font-weight: 600;
+        }
+        em {
+            color: #546E7A;
+            font-style: italic;
+        }
+
+        /* Enhanced Details/Summary */
+        details {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+        details:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: #4169E1;
+        }
+        details[open] {
+            background: white;
+            border-color: #4169E1;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: #4169E1;
+            padding: 10px;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+        summary:hover {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 50%);
+            border-radius: 6px;
+            transform: translateX(5px);
+        }
+
+        /* Interactive Diagram Links - Distinctive Educational Design */
+        a[href*="diagrams/"] {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+            color: white !important;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 16px rgba(76,175,80,0.25);
+            font-weight: 700;
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        a[href*="diagrams/"]::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        a[href*="diagrams/"]:hover::before {
+            left: 100%;
+        }
+        a[href*="diagrams/"]:hover {
+            transform: translateY(-6px) scale(1.08);
+            box-shadow: var(--glow-green), var(--shadow-lg);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 6px 24px rgba(76,175,80,0.4);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(76,175,80,0.6), 0 0 40px rgba(76,175,80,0.3);
+            }
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 40px 0;
+        }
+
+        /* Scroll Reveal Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            #toc-toggle, #toc-panel {
+                display: none;
+            }
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Reading Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" title="Back to top">↑</button>
+
+    <!-- Table of Contents Toggle -->
+    <button id="toc-toggle">📑 Contents</button>
+
+    <!-- Table of Contents Panel -->
+    <div id="toc-panel">
+        <h3>📚 Quick Navigation</h3>
+        <ul id="toc-list"></ul>
+    </div>
+
+    <nav id="main-nav">
+        <a href="index.html">← Back to Chapter Overview</a>
+        <span style="margin: 0 15px;">|</span>
+        <span>Complete Study Notes</span>
+    </nav>
+
+    <div class="container">
+        <h1 id="cell-the-unit-of-life">Cell - The Unit of Life</h1>
+
+<p><strong>Class</strong>: Plus One (Class 11) - Botany<br />
+<strong>Board</strong>: Kerala State Board<br />
+<strong>Prepared for</strong>: Board Exams + NEET Preparation<br />
+<strong>Chapter</strong>: 8 (NCERT Biology Part I - Unit 3)</p>
+
+<hr />
+
+<h2 id="learning-objectives">Learning Objectives</h2>
+
+<p>By the end of this chapter, you should be able to:</p>
+
+<ul>
+<li>Understand the cell theory and contributions of scientists to cell biology</li>
+<li>Differentiate between prokaryotic and eukaryotic cells with clear examples</li>
+<li>Identify and describe the structure and function of various cell organelles</li>
+<li>Explain the Fluid Mosaic Model of cell membrane structure</li>
+<li>Understand the differences between plant and animal cells</li>
+<li>Describe the endomembrane system and its coordination</li>
+<li>Explain passive and active transport mechanisms</li>
+<li>Apply knowledge of cell structure to solve exam questions</li>
+<li>Score excellent marks in Kerala Board and NEET examinations</li>
+</ul>
+
+<hr />
+
+<h2 id="introduction">Introduction</h2>
+
+<p>When you look around, you see both living and non-living things. What makes an organism living? <strong>The answer is the presence of the basic unit of life – the cell in all living organisms.</strong></p>
+
+<p>All organisms are composed of cells. Some are composed of a single cell and are called <strong>unicellular organisms</strong> (like <em>Amoeba</em>, bacteria), while others, like us, composed of many cells, are called <strong>multicellular organisms</strong>.</p>
+
+<p><strong>Why This Chapter Matters</strong>:</p>
+
+<ul>
+<li><strong>For Kerala Board Exams</strong>: This chapter typically has 2-5 questions worth 8-12 marks. Topics like cell organelles, prokaryotic vs eukaryotic cells, and cell membrane structure are frequently asked.</li>
+<li><strong>For NEET</strong>: Cell biology forms the foundation for many other biology topics. <strong>2-5 questions</strong> on cell structure appear in NEET every year, making this a high-scoring chapter. Questions are straightforward and easy if concepts are clear.</li>
+</ul>
+
+<p><strong>NEET Weightage</strong>: According to recent analysis, this chapter can yield 2-5 questions in NEET, making it an important scoring opportunity.</p>
+
+<hr />
+
+<h2 id="1-what-is-a-cell">1. What is a Cell?</h2>
+
+<h3 id="11-definition">1.1 Definition</h3>
+
+<p><strong>Cell</strong>: The fundamental structural and functional unit of all living organisms. It is the smallest unit of life that can function independently and perform all the necessary functions of life.</p>
+
+<p><strong>Why Cell is Called the Unit of Life</strong>:</p>
+
+<ol>
+<li><strong>Smallest Independent Unit</strong>: Unicellular organisms like <em>Amoeba</em> can perform all life processes (digestion, reproduction, excretion, growth) with just one cell</li>
+<li><strong>Organelles Cannot Exist Independently</strong>: Only complete cells can survive and function independently</li>
+<li><strong>Structural Unit</strong>: All organisms are made of cells</li>
+<li><strong>Functional Unit</strong>: All life processes occur within cells</li>
+</ol>
+
+<blockquote>
+  <p><strong>Key Point</strong>: Anything less than a complete structure of a cell does not ensure independent living. Hence, cell is the fundamental structural and functional unit of all living organisms.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="2-discovery-of-cell-and-cell-theory">2. Discovery of Cell and Cell Theory</h2>
+
+<h3 id="21-history-of-cell-discovery">2.1 History of Cell Discovery</h3>
+
+<p><strong>Timeline of Major Discoveries:</strong></p>
+
+<table>
+<thead>
+<tr>
+  <th>Year</th>
+  <th>Scientist</th>
+  <th>Discovery</th>
+  <th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Before 1665</strong></td>
+  <td><strong>Anton van Leeuwenhoek</strong></td>
+  <td>First to observe living cells</td>
+  <td>Observed protozoans ("animalcules") under microscope</td>
+</tr>
+<tr>
+  <td><strong>1665</strong></td>
+  <td><strong>Robert Hooke</strong></td>
+  <td>Observed dead cells</td>
+  <td>Saw box-like structures in cork, called them "cells" (meaning small rooms)</td>
+</tr>
+<tr>
+  <td><strong>1831</strong></td>
+  <td><strong>Robert Brown</strong></td>
+  <td>Discovered nucleus</td>
+  <td>First person to describe the nucleus as a cell organelle</td>
+</tr>
+<tr>
+  <td><strong>1838</strong></td>
+  <td><strong>Matthias Schleiden</strong></td>
+  <td>Plant cell observation</td>
+  <td>German botanist; observed that all plants are composed of different kinds of cells</td>
+</tr>
+<tr>
+  <td><strong>1839</strong></td>
+  <td><strong>Theodor Schwann</strong></td>
+  <td>Animal cell observation</td>
+  <td>German zoologist; studied animal cells, identified plasma membrane, extended cell theory to animals</td>
+</tr>
+<tr>
+  <td><strong>1855</strong></td>
+  <td><strong>Rudolf Virchow</strong></td>
+  <td>Cell division</td>
+  <td>Explained that new cells arise from pre-existing cells (<em>Omnis cellula-e cellula</em>)</td>
+</tr>
+<tr>
+  <td><strong>1898</strong></td>
+  <td><strong>Camillo Golgi</strong></td>
+  <td>Golgi apparatus</td>
+  <td>First discovered Golgi bodies</td>
+</tr>
+<tr>
+  <td><strong>1953</strong></td>
+  <td><strong>George Palade</strong></td>
+  <td>Ribosomes</td>
+  <td>Discovered ribosomes (hence called "Palade particles")</td>
+</tr>
+<tr>
+  <td><strong>1972</strong></td>
+  <td><strong>Singer and Nicolson</strong></td>
+  <td>Fluid Mosaic Model</td>
+  <td>Proposed the Fluid Mosaic Model of cell membrane</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+  <p><strong>Memory Tip - "Brown Saw Schwann Virtually Gained Proof"</strong>:</p>
+  
+  <ul>
+  <li><strong>Brown</strong> (1831) - Nucleus</li>
+  <li><strong>Saw</strong> = <strong>S</strong>chleiden (1838) - Plant cells</li>
+  <li><strong>Schwann</strong> (1839) - Cell theory</li>
+  <li><strong>Virtually</strong> = <strong>V</strong>irchow (1855) - Cell division</li>
+  <li><strong>Gained</strong> = <strong>G</strong>olgi (1898) - Golgi apparatus</li>
+  <li><strong>Proof</strong> = <strong>P</strong>alade (1953) - Ribosomes</li>
+  </ul>
+</blockquote>
+
+<h3 id="22-cell-theory">2.2 Cell Theory</h3>
+
+<p><strong>Formulated by</strong>: Matthias Schleiden (1838) and Theodor Schwann (1839)<br />
+<strong>Modified by</strong>: Rudolf Virchow (1855)</p>
+
+<p><strong>The Three Postulates of Cell Theory:</strong></p>
+
+<ol>
+<li><p><strong>All living organisms are composed of cells and products of cells</strong></p>
+
+<ul>
+<li>Every living thing, whether bacteria or human, is made up of one or more cells</li>
+</ul></li>
+<li><p><strong>The cell is the basic unit of life</strong></p>
+
+<ul>
+<li>Cells are the smallest units that can perform all life functions independently</li>
+</ul></li>
+<li><p><strong>All cells arise from pre-existing cells</strong></p>
+
+<ul>
+<li>New cells are formed only by division of existing cells (added by Virchow)</li>
+<li>Cells cannot form <em>de novo</em> from non-living materials</li>
+</ul></li>
+</ol>
+
+<blockquote>
+  <p><strong>Important</strong>: Rudolf Virchow's contribution (<em>Omnis cellula-e cellula</em> - all cells from cells) was crucial in completing the cell theory.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Common Mistake</strong>: Don't say prokaryotes have "no nucleus" - they have genetic material, just not enclosed in a nuclear membrane. Say "no well-defined nucleus" or "no membrane-bound nucleus."</p>
+</blockquote>
+
+<hr />
+
+<h2 id="flashcards-cell-discovery-and-theory">Flashcards: Cell Discovery and Theory</h2>
+
+<p><details><br />
+<summary><strong>Q1: Who discovered the cell and when?</strong></summary></p>
+
+<p><strong>Answer</strong>: Robert Hooke discovered the cell in <strong>1665</strong> while observing a thin slice of cork under a microscope. He saw box-like structures and called them "cells" (from Latin <em>cellula</em> meaning small rooms).</p>
+
+<p><strong>Why it matters</strong>: This is a basic fact question frequently asked in both Kerala Board and NEET exams. Remember: Robert Hooke (1665) + Cork.</p>
+
+<p><strong>Note</strong>: What Hooke actually saw were dead plant cell walls, not living cells.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q2: Who first observed living cells?</strong></summary></p>
+
+<p><strong>Answer</strong>: <strong>Anton van Leeuwenhoek</strong> first observed living cells under a microscope. He observed protozoans which he called "animal cules".</p>
+
+<p><strong>Why it matters</strong>: This distinguishes between Hooke (who saw dead cells) and Leeuwenhoek (who saw living cells).</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q3: State the three postulates of Cell Theory and name the scientists</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<p><strong>Three Postulates</strong>:</p>
+
+<ol>
+<li>All living organisms are composed of cells and products of cells</li>
+<li>The cell is the basic unit of life</li>
+<li>All cells arise from pre-existing cells</li>
+</ol>
+
+<p><strong>Scientists</strong>:</p>
+
+<ul>
+<li><strong>Matthias Schleiden</strong> (1838) - Studied plants, concluded plant tissues are made of cells</li>
+<li><strong>Theodor Schwann</strong> (1839) - Extended idea to animals, formulated cell theory with Schleiden</li>
+<li><strong>Rudolf Virchow</strong> (1855) - Added third postulate about cell division</li>
+</ul>
+
+<p><strong>Why it matters</strong>: Cell theory questions appear almost every year in exams. Knowing all three postulates with scientists' names is essential for full marks.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q4: Who discovered the nucleus and when?</strong></summary></p>
+
+<p><strong>Answer</strong>: <strong>Robert Brown</strong> discovered the nucleus in <strong>1831</strong>. He was the first person to describe the nucleus as a cell organelle.</p>
+
+<p><strong>Why it matters</strong>: Often confused with Robert Hooke. Remember: Hooke = Cell (1665), Brown = Nucleus (1831).</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q5: What does "Omnis cellula-e cellula" mean?</strong></summary></p>
+
+<p><strong>Answer</strong>: This is a Latin phrase meaning <strong>"all cells from cells"</strong>, stated by Rudolf Virchow in 1855. It means all cells arise from pre-existing cells through cell division.</p>
+
+<p><strong>Why it matters</strong>: This phrase completed the cell theory and appears in exam questions about historical discoveries.</p>
+
+<p></details></p>
+
+<hr />
+
+<h2 id="quick-revision-cell-discovery-and-theory">Quick Revision: Cell Discovery and Theory</h2>
+
+<ul>
+<li><strong>Cell Discovery</strong>: Robert Hooke (1665) - observed cork cells</li>
+<li><strong>Living Cells</strong>: Anton van Leeuwenhoek - first to see living protozoans</li>
+<li><strong>Nucleus Discovery</strong>: Robert Brown (1831)</li>
+<li><strong>Cell Theory</strong>: Schleiden (plants - 1838), Schwann (animals - 1839), Virchow (cell division - 1855)</li>
+<li><strong>Three Postulates</strong>: (1) All organisms made of cells, (2) Cell is basic unit of life, (3) Cells from pre-existing cells</li>
+<li><strong>Key Diagrams to Review</strong>: Diagram 01 (Timeline)</li>
+<li><strong>Important Terms</strong>: Cell, cell theory, <em>Omnis cellula-e cellula</em></li>
+</ul>
+
+<hr />
+
+<h2 id="3-overview-of-cell-structure">3. Overview of Cell Structure</h2>
+
+<h3 id="31-basic-cell-structure">3.1 Basic Cell Structure</h3>
+
+<p>All cells have certain common features:</p>
+
+<p><strong>Universal Components</strong> (Found in ALL cells - both prokaryotic and eukaryotic):</p>
+
+<ol>
+<li><strong>Cell Membrane (Plasma Membrane)</strong>: Outer boundary separating cell from environment</li>
+<li><strong>Cytoplasm</strong>: Semi-fluid matrix where cellular activities occur</li>
+<li><strong>Genetic Material (DNA)</strong>: Stores hereditary information</li>
+<li><strong>Ribosomes</strong>: Site of protein synthesis</li>
+</ol>
+
+<p><strong>Additional Components</strong> (vary between cell types):</p>
+
+<ul>
+<li><strong>Cell Wall</strong>: Present in plants, fungi, bacteria; absent in animals</li>
+<li><strong>Nucleus</strong>: Well-defined in eukaryotes; absent in prokaryotes</li>
+<li><strong>Membrane-bound Organelles</strong>: Present in eukaryotes; absent in prokaryotes</li>
+</ul>
+
+<h3 id="32-cell-size-and-shape">3.2 Cell Size and Shape</h3>
+
+<p><strong>Size Range:</strong></p>
+
+<ul>
+<li><strong>Smallest</strong>: Mycoplasma (0.3 μm) - smallest cells, wall-less prokaryotes</li>
+<li><strong>Bacteria</strong>: 3-5 μm (e.g., <em>E. coli</em>)</li>
+<li><strong>Human RBC</strong>: ~7 μm diameter</li>
+<li><strong>Typical Eukaryotic Cell</strong>: 10-100 μm</li>
+<li><strong>Largest Single Cell</strong>: Ostrich egg</li>
+</ul>
+
+<blockquote>
+  <p><strong>Important</strong>: μm (micrometer) = 1/1000 mm. So 1 mm = 1000 μm.</p>
+</blockquote>
+
+<p><strong>Shape Variation:</strong></p>
+
+<p>Cells vary greatly in shape according to their function:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Cell Type</th>
+  <th>Shape</th>
+  <th>Function/Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Human RBC</strong></td>
+  <td>Biconcave disc</td>
+  <td>Increases surface area for oxygen transport; can squeeze through capillaries</td>
+</tr>
+<tr>
+  <td><strong>White Blood Cells</strong></td>
+  <td>Amoeboid (irregular)</td>
+  <td>Can change shape to squeeze out of blood vessels to reach infection sites</td>
+</tr>
+<tr>
+  <td><strong>Nerve Cells</strong></td>
+  <td>Branched with long tail</td>
+  <td>Transfer information quickly over long distances</td>
+</tr>
+<tr>
+  <td><strong>Muscle Cells</strong></td>
+  <td>Elongated, spindle-shaped</td>
+  <td>Facilitate contraction and movement</td>
+</tr>
+<tr>
+  <td><strong>Mesophyll Cells</strong></td>
+  <td>Round/Oval with chloroplasts</td>
+  <td>Optimized for photosynthesis</td>
+</tr>
+<tr>
+  <td><strong>Tracheids</strong></td>
+  <td>Tubular, elongated</td>
+  <td>Facilitate water transport against gravity; dead at maturity</td>
+</tr>
+<tr>
+  <td><strong>Columnar Epithelial</strong></td>
+  <td>Column-shaped</td>
+  <td>Protection, secretion, absorption in intestines</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+  <p><strong>Key Concept</strong>: <strong>Form follows function</strong> - The shape of a cell is related to the function it performs.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="4-types-of-cells-prokaryotic-and-eukaryotic">4. Types of Cells: Prokaryotic and Eukaryotic</h2>
+
+<h3 id="41-classification-based-on-nuclear-organization">4.1 Classification Based on Nuclear Organization</h3>
+
+<p><strong>Prokaryotic Cells</strong> (<em>pro</em> = primitive, <em>karyon</em> = nucleus):</p>
+
+<ul>
+<li>Cells whose DNA is <strong>NOT</strong> bound by a nuclear membrane</li>
+<li>Primitive, simple cells</li>
+<li>No membrane-bound organelles</li>
+</ul>
+
+<p><strong>Eukaryotic Cells</strong> (<em>eu</em> = true, <em>karyon</em> = nucleus):</p>
+
+<ul>
+<li>Cells with a <strong>well-defined</strong> membrane-bound nucleus</li>
+<li>Advanced, complex cells</li>
+<li>Membrane-bound organelles present</li>
+</ul>
+
+<hr />
+
+<h2 id="5-prokaryotic-cells">5. Prokaryotic Cells</h2>
+
+<h3 id="51-general-characteristics">5.1 General Characteristics</h3>
+
+<p><strong>Examples</strong>: Bacteria, Blue-green algae (Cyanobacteria), Mycoplasma, PPLO (Pleuro Pneumonia Like Organisms)</p>
+
+<p><strong>Key Features</strong>:</p>
+
+<ol>
+<li><strong>No true nucleus</strong>: Genetic material (DNA) in nucleoid region, not enclosed by nuclear membrane</li>
+<li><strong>No membrane-bound organelles</strong>: No mitochondria, ER, Golgi apparatus, lysosomes, chloroplasts</li>
+<li><strong>Smaller size</strong>: Generally 1-10 μm (smaller than eukaryotes)</li>
+<li><strong>70S ribosomes</strong>: Only ribosome type present</li>
+<li><strong>Cell wall</strong>: Present (except Mycoplasma which is wall-less)</li>
+<li><strong>Cell division</strong>: By binary fission (simple splitting)</li>
+<li><strong>DNA</strong>: Single circular chromosome + plasmids (small circular DNA)</li>
+<li><strong>Rapid multiplication</strong>: Divide more quickly than eukaryotic cells</li>
+</ol>
+
+<h3 id="52-bacterial-shapes">5.2 Bacterial Shapes</h3>
+
+<p>Bacteria exhibit four basic shapes:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Shape Name</th>
+  <th>Description</th>
+  <th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Coccus</strong> (plural: cocci)</td>
+  <td>Spherical/Round</td>
+  <td><em>Staphylococcus</em></td>
+</tr>
+<tr>
+  <td><strong>Bacillus</strong> (plural: bacilli)</td>
+  <td>Rod-shaped</td>
+  <td><em>E. coli</em>, <em>Lactobacillus</em></td>
+</tr>
+<tr>
+  <td><strong>Spirillum</strong> (plural: spirilla)</td>
+  <td>Spiral-shaped</td>
+  <td><em>Spirillum</em></td>
+</tr>
+<tr>
+  <td><strong>Vibrio</strong> (plural: vibrios)</td>
+  <td>Comma-shaped</td>
+  <td><em>Vibrio cholerae</em></td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+  <p><strong>Memory Tip - CBSV</strong>:</p>
+  
+  <ul>
+  <li><strong>C</strong>occus - <strong>C</strong>ircular/Spherical</li>
+  <li><strong>B</strong>acillus - <strong>B</strong>at (Rod-shaped like a baseball bat)</li>
+  <li><strong>S</strong>pirillum - <strong>S</strong>piral</li>
+  <li><strong>V</strong>ibrio - <strong>V</strong>ibrating comma</li>
+  </ul>
+</blockquote>
+
+<h3 id="53-prokaryotic-cell-structure">5.3 Prokaryotic Cell Structure</h3>
+
+<p><strong>A. Cell Envelope</strong> (Three-layered protective covering)</p>
+
+<p><strong>1. Glycocalyx</strong> (Outermost Layer)</p>
+
+<ul>
+<li><strong>Composition</strong>: Polysaccharides</li>
+<li><strong>Two Types</strong>:
+<ul>
+<li><strong>Capsule</strong>: Thick, tightly bound, hard to remove - provides protection</li>
+<li><strong>Slime Layer/Sheath</strong>: Thin, loosely bound, easy to remove</li>
+</ul></li>
+</ul>
+
+<p><strong>2. Cell Wall</strong> (Middle Layer)</p>
+
+<ul>
+<li><strong>Composition</strong>: <strong>Peptidoglycan</strong> (in bacteria)</li>
+<li><strong>Exception</strong>: Mycoplasma lacks cell wall (wall-less prokaryote)</li>
+<li><strong>Functions</strong>:
+<ul>
+<li>Determines cell shape</li>
+<li>Provides structural and mechanical support</li>
+<li>Prevents bursting or collapsing of cell</li>
+</ul></li>
+</ul>
+
+<p><strong>Gram Staining</strong> (Classification based on cell wall):</p>
+
+<p>Developed by <strong>Christian Gram</strong>, a staining procedure to classify bacteria:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Gram Positive (+)</th>
+  <th>Gram Negative (-)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Stain Retention</strong></td>
+  <td>Retains Gram stain (blue)</td>
+  <td>Loses stain (appears red/pink)</td>
+</tr>
+<tr>
+  <td><strong>Peptidoglycan Layer</strong></td>
+  <td>Thick</td>
+  <td>Thin</td>
+</tr>
+<tr>
+  <td><strong>Outer Membrane</strong></td>
+  <td>Absent</td>
+  <td>Present (additional layer)</td>
+</tr>
+<tr>
+  <td><strong>Cell Envelope</strong></td>
+  <td>Glycocalyx + thick peptidoglycan + plasma membrane</td>
+  <td>Glycocalyx + outer membrane + thin peptidoglycan + plasma membrane</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+  <p><strong>Memory Tip</strong>: "Positive People are Thick-skinned" (Gram + = thick peptidoglycan)<br />
+  "Negative People have Extra layers" (Gram - = extra outer membrane)</p>
+</blockquote>
+
+<p><strong>3. Plasma Membrane</strong> (Innermost Layer)</p>
+
+<ul>
+<li><strong>Structure</strong>: Similar to eukaryotic membrane (phospholipid bilayer)</li>
+<li><strong>Function</strong>: Selectively permeable; controls transport in/out of cell</li>
+</ul>
+
+<p><strong>B. Mesosome</strong> (Unique Prokaryotic Structure)</p>
+
+<ul>
+<li><strong>Structure</strong>: Infoldings/extensions of plasma membrane into the cytoplasm</li>
+<li><strong>Forms</strong>: Vesicles, tubules, and lamellae</li>
+<li><strong>Functions</strong>:
+<ol>
+<li><strong>ATP synthesis</strong> (cellular respiration) - PRIMARY FUNCTION</li>
+<li>DNA replication assistance</li>
+<li>Cell wall formation</li>
+<li>Secretion processes</li>
+<li>Increases surface area of plasma membrane and enzymatic content</li>
+</ol></li>
+</ul>
+
+<blockquote>
+  <p><strong>Why Mesosomes</strong>: Prokaryotes lack mitochondria, so mesosomes provide increased membrane surface area for ATP synthase enzymes.</p>
+</blockquote>
+
+<p><strong>C. Chromatophores</strong> (In Photosynthetic Bacteria)</p>
+
+<ul>
+<li><strong>Found in</strong>: Cyanobacteria (blue-green algae)</li>
+<li><strong>Structure</strong>: Membranous extensions/infoldings of plasma membrane</li>
+<li><strong>Content</strong>: Photosynthetic pigments</li>
+<li><strong>Function</strong>: Photosynthesis (replaces chloroplast function in prokaryotes)</li>
+</ul>
+
+<blockquote>
+  <p><strong>Why Chromatophores</strong>: Since prokaryotes lack membrane-bound chloroplasts, plasma membrane infoldings contain photosynthetic pigments and increase surface area for pigment accommodation.</p>
+</blockquote>
+
+<p><strong>D. Flagella, Pili, and Fimbriae</strong> (Surface Structures)</p>
+
+<p><strong>Flagella</strong> (Prokaryotic):</p>
+
+<ul>
+<li><strong>Structure</strong>: Three parts
+<ol>
+<li><strong>Basal body</strong>: Anchored in plasma membrane</li>
+<li><strong>Hook</strong>: Flexible connecting region</li>
+<li><strong>Filament</strong>: Longest portion extending outside</li>
+</ol></li>
+<li><strong>Composition</strong>: Flagellin protein</li>
+<li><strong>Function</strong>: Locomotion (only in motile bacteria)</li>
+<li><strong>Number</strong>: Varies (one to many; various arrangements)</li>
+</ul>
+
+<p><strong>Pili</strong>:</p>
+
+<ul>
+<li><strong>Structure</strong>: Elongated tubular structures</li>
+<li><strong>Composition</strong>: Pilin protein</li>
+<li><strong>Function</strong>: <strong>Conjugation</strong> (bacterial sexual reproduction)
+<ul>
+<li>Forms channel between bacteria</li>
+<li>Genetic material (DNA) transfers through pilus</li>
+</ul></li>
+</ul>
+
+<p><strong>Fimbriae</strong>:</p>
+
+<ul>
+<li><strong>Structure</strong>: Short, numerous bristle-like fibers</li>
+<li><strong>Function</strong>: <strong>Attachment</strong>
+<ul>
+<li>To other bacteria (colony formation)</li>
+<li>To host tissues (if parasitic)</li>
+<li>To rocks/surfaces in streams</li>
+</ul></li>
+</ul>
+
+<p><strong>E. Ribosomes</strong> (Prokaryotic)</p>
+
+<ul>
+<li><strong>Type</strong>: <strong>70S</strong> (50S large subunit + 30S small subunit)</li>
+<li><strong>Composition</strong>: Ribosomal RNA (rRNA) + proteins</li>
+<li><strong>Location</strong>: Free-floating in cytoplasm (associated with plasma membrane)</li>
+<li><strong>Function</strong>: Protein synthesis</li>
+<li><strong>Polysome</strong>: Multiple ribosomes on one mRNA strand for efficient protein production</li>
+</ul>
+
+<blockquote>
+  <p><strong>Important</strong>: "S" stands for <strong>Svedberg Unit</strong>, a sedimentation coefficient measuring density and size during centrifugation. S values are NOT additive (50S + 30S ≠ 80S, but = 70S because combined density changes).</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Memory Tip</strong>: Prokaryotic = "7-Eleven is 24/7" (always open) - <strong>70S</strong> ribosomes</p>
+</blockquote>
+
+<p><strong>F. Inclusion Bodies</strong></p>
+
+<ul>
+<li><strong>Structure</strong>: Reserve material storage granules (NOT membrane-bound)</li>
+<li><strong>Location</strong>: Free in cytoplasm</li>
+<li><strong>Types</strong>:
+<ul>
+<li>Phosphate granules</li>
+<li>Cyanophycean granules</li>
+<li>Glycogen granules</li>
+</ul></li>
+<li><strong>Function</strong>: Store reserve food materials</li>
+</ul>
+
+<p><strong>G. Gas Vacuoles</strong></p>
+
+<ul>
+<li><strong>Found in</strong>: Aquatic photosynthetic bacteria</li>
+<li><strong>Structure</strong>: Not membrane-bound</li>
+<li><strong>Function</strong>: Provide <strong>buoyancy</strong> - help bacteria float to access sunlight for photosynthesis</li>
+</ul>
+
+<p><strong>H. Genetic Material</strong></p>
+
+<ul>
+<li><strong>Genomic DNA</strong>: Single circular chromosome in nucleoid region (not membrane-bound)</li>
+<li><strong>Plasmids</strong>: Small circular DNA outside genomic DNA
+<ul>
+<li>Confer unique characteristics (e.g., antibiotic resistance)</li>
+<li>Used in genetic engineering for bacterial transformation</li>
+</ul></li>
+</ul>
+
+<p><strong>🎯 Interactive Diagrams</strong>:</p>
+
+<ul>
+<li><a href="diagrams/prokaryotic-cell.html" target="_blank">🎯 <strong>Prokaryotic Cell Structure (Interactive)</strong> - Click to Explore</a></li>
+<li><a href="diagrams/prokaryotic-cell.html" target="_blank">🎯 <strong>Bacterial Cell Envelope (Interactive)</strong> - Click to Explore</a></li>
+</ul>
+
+<hr />
+
+<hr />
+
+<h2 id="flashcards-prokaryotic-cells">Flashcards: Prokaryotic Cells</h2>
+
+<p><details><br />
+<summary><strong>Q1: What is the main difference between prokaryotic and eukaryotic cells?</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<ul>
+<li><strong>Prokaryotic</strong>: No well-defined nucleus (nuclear material not enclosed by nuclear membrane); no membrane-bound organelles</li>
+<li><strong>Eukaryotic</strong>: Well-defined nucleus enclosed by nuclear membrane; membrane-bound organelles present</li>
+</ul>
+
+<p><strong>Why it matters</strong>: This is THE most important comparison in the chapter. Appears in almost every exam as a 2-3 mark question or MCQ.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q2: Give two examples each of prokaryotic and eukaryotic organisms</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<ul>
+<li><strong>Prokaryotic</strong>: Bacteria (e.g., <em>E. coli</em>, <em>Lactobacillus</em>), Cyanobacteria (e.g., <em>Nostoc</em>, <em>Anabaena</em>)</li>
+<li><strong>Eukaryotic</strong>: Plant cells, Animal cells, Fungi (Yeast), Protists (<em>Amoeba</em>, <em>Paramecium</em>)</li>
+</ul>
+
+<p><strong>Why it matters</strong>: Example-based questions test understanding. Use scientific names where possible for Kerala Board exams.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q3: What type of ribosomes are found in prokaryotic cells?</strong></summary></p>
+
+<p><strong>Answer</strong>: Prokaryotic cells contain <strong>70S ribosomes</strong> (made of 50S large subunit + 30S small subunit).</p>
+
+<p><strong>Why it matters</strong>: Ribosome type is a key distinguishing feature tested in NEET MCQs. Remember: Prokaryotes = 70S; Eukaryotes = 80S (in cytoplasm), but mitochondria and chloroplasts also have 70S.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q4: What is a mesosome and what are its functions?</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<p><strong>Mesosome</strong>: Specialized membranous structure formed by infoldings of plasma membrane in prokaryotic cells (vesicles, tubules, lamellae).</p>
+
+<p><strong>Functions</strong>:</p>
+
+<ol>
+<li>ATP synthesis (cellular respiration) - PRIMARY function</li>
+<li>DNA replication assistance</li>
+<li>Cell wall formation</li>
+<li>Secretion processes</li>
+<li>Increases surface area of plasma membrane</li>
+</ol>
+
+<p><strong>Why it matters</strong>: Mesosomes are unique to prokaryotes. Understanding why they exist (no mitochondria) helps answer function questions.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q5: What are the four bacterial shapes?</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<ol>
+<li><strong>Coccus</strong> - Spherical (e.g., <em>Staphylococcus</em>)</li>
+<li><strong>Bacillus</strong> - Rod-shaped (e.g., <em>E. coli</em>)</li>
+<li><strong>Spirillum</strong> - Spiral</li>
+<li><strong>Vibrio</strong> - Comma-shaped (e.g., <em>Vibrio cholerae</em>)</li>
+</ol>
+
+<p><strong>Why it matters</strong>: Shape-based questions are common in diagrams and MCQs. Use the CBSV mnemonic.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q6: Differentiate between Gram positive and Gram negative bacteria</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Gram Positive</th>
+  <th>Gram Negative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Stain retention</td>
+  <td>Retains blue stain</td>
+  <td>Loses stain, appears red</td>
+</tr>
+<tr>
+  <td>Peptidoglycan</td>
+  <td>Thick layer</td>
+  <td>Thin layer</td>
+</tr>
+<tr>
+  <td>Outer membrane</td>
+  <td>Absent</td>
+  <td>Present</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Why it matters</strong>: Gram staining is an important classification tool. Remember: "Thick" goes with "Positive".</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q7: What are pili and what is their function?</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<p><strong>Pili</strong>: Elongated tubular structures made of pilin protein on bacterial surface.</p>
+
+<p><strong>Function</strong>: <strong>Conjugation</strong> - bacterial sexual reproduction. Pilus forms a channel through which genetic material (DNA) is transferred from one bacterium to another.</p>
+
+<p><strong>Why it matters</strong>: Often confused with flagella. Remember: Pili = conjugation (sex); Flagella = locomotion (movement).</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q8: Why is Mycoplasma an exception among prokaryotes?</strong></summary></p>
+
+<p><strong>Answer</strong>: Mycoplasma is a prokaryote but <strong>lacks a cell wall</strong>, making it wall-less. It is the smallest prokaryotic cell (0.3 μm).</p>
+
+<p><strong>Why it matters</strong>: Mycoplasma appears in "exception" type questions in both Kerala Board and NEET exams.</p>
+
+<p></details></p>
+
+<hr />
+
+<h2 id="quick-revision-prokaryotic-cells">Quick Revision: Prokaryotic Cells</h2>
+
+<ul>
+<li><strong>Definition</strong>: Cells without membrane-bound nucleus</li>
+<li><strong>Size</strong>: 1-10 μm (smaller than eukaryotes)</li>
+<li><strong>Ribosomes</strong>: 70S type (50S + 30S)</li>
+<li><strong>DNA</strong>: Single circular chromosome + plasmids</li>
+<li><strong>Cell Envelope</strong>: Glycocalyx + Cell Wall (peptidoglycan) + Plasma Membrane</li>
+<li><strong>Unique Structures</strong>: Mesosome (ATP synthesis), Chromatophores (photosynthesis in cyanobacteria)</li>
+<li><strong>Movement</strong>: Flagella (basal body + hook + filament)</li>
+<li><strong>Shapes</strong>: Coccus (sphere), Bacillus (rod), Spirillum (spiral), Vibrio (comma)</li>
+<li><strong>Examples</strong>: Bacteria, Cyanobacteria, Mycoplasma</li>
+<li><strong>Key Diagrams to Review</strong>: Diagram 03 (Prokaryotic structure), Diagram 04 (Cell envelope)</li>
+<li><strong>Important Terms</strong>: Nucleoid, mesosome, chromatophores, peptidoglycan, plasmid</li>
+</ul>
+
+<hr />
+
+<h2 id="6-eukaryotic-cells">6. Eukaryotic Cells</h2>
+
+<h3 id="61-general-characteristics">6.1 General Characteristics</h3>
+
+<p><strong>Eukaryotes</strong> include all protists, plants, animals, and fungi.</p>
+
+<p><strong>Key Features</strong>:</p>
+
+<ol>
+<li><strong>Well-defined nucleus</strong>: Enclosed by nuclear membrane (nuclear envelope)</li>
+<li><strong>Membrane-bound organelles</strong>: ER, Golgi, lysosomes, mitochondria, chloroplasts (in plants), vacuoles</li>
+<li><strong>Larger size</strong>: Generally 10-100 μm (larger than prokaryotes)</li>
+<li><strong>80S ribosomes</strong>: In cytoplasm; 70S in mitochondria and chloroplasts</li>
+<li><strong>Complex locomotory structures</strong>: Cilia, flagella with 9+2 arrangement</li>
+<li><strong>Cytoskeleton</strong>: Network of protein filaments</li>
+<li><strong>Genetic material</strong>: Organized into linear chromosomes</li>
+<li><strong>Cell division</strong>: Mitosis and meiosis</li>
+</ol>
+
+<h3 id="62-plant-cell-vs-animal-cell">6.2 Plant Cell vs Animal Cell</h3>
+
+<p><strong>Common Features</strong> (Both have):</p>
+
+<ul>
+<li>Plasma membrane</li>
+<li>Nucleus with nuclear envelope</li>
+<li>Cytoplasm</li>
+<li>Mitochondria</li>
+<li>Endoplasmic Reticulum (ER)</li>
+<li>Golgi apparatus</li>
+<li>Ribosomes (80S in cytoplasm)</li>
+</ul>
+
+<p><strong>Differences</strong>:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Plant Cell</th>
+  <th>Animal Cell</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Cell Wall</strong></td>
+  <td>Present (cellulose)</td>
+  <td>Absent</td>
+</tr>
+<tr>
+  <td><strong>Chloroplasts</strong></td>
+  <td>Present</td>
+  <td>Absent</td>
+</tr>
+<tr>
+  <td><strong>Other Plastids</strong></td>
+  <td>Present (chromoplasts, leucoplasts)</td>
+  <td>Absent</td>
+</tr>
+<tr>
+  <td><strong>Vacuole</strong></td>
+  <td>Large central vacuole (up to 90% of cell volume)</td>
+  <td>Small or absent</td>
+</tr>
+<tr>
+  <td><strong>Centrioles</strong></td>
+  <td>Absent (except in lower plants)</td>
+  <td>Present</td>
+</tr>
+<tr>
+  <td><strong>Shape</strong></td>
+  <td>Fixed (due to cell wall)</td>
+  <td>Variable</td>
+</tr>
+<tr>
+  <td><strong>Plasmodesmata</strong></td>
+  <td>Present (cytoplasmic connections)</td>
+  <td>Absent</td>
+</tr>
+<tr>
+  <td><strong>Lysosomes</strong></td>
+  <td>Rare</td>
+  <td>Common</td>
+</tr>
+<tr>
+  <td><strong>Nucleus Position</strong></td>
+  <td>Peripheral (pushed by vacuole)</td>
+  <td>Central</td>
+</tr>
+<tr>
+  <td><strong>Energy Storage</strong></td>
+  <td>Starch</td>
+  <td>Glycogen</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>🎯 Interactive Diagram</strong>: See <a href="diagrams/plant-animal-cells.html" target="_blank">🎯 <strong>Plant vs Animal Cells (Interactive Comparison)</strong> - Click to Explore</a></p>
+
+<hr />
+
+<hr />
+
+<h2 id="7-cell-membrane-plasma-membrane">7. Cell Membrane (Plasma Membrane)</h2>
+
+<h3 id="71-structure">7.1 Structure</h3>
+
+<p><strong>Discovery</strong>: Detailed structure studied after electron microscope invention (1950s)</p>
+
+<p><strong>Composition</strong> (Human RBC example):</p>
+
+<ul>
+<li><strong>Proteins</strong>: ~52%</li>
+<li><strong>Lipids</strong>: ~40%</li>
+<li><strong>Carbohydrates</strong>: Small amounts (as glycolipids and glycoproteins)</li>
+</ul>
+
+<p><strong>Phospholipid Bilayer</strong>:</p>
+
+<p><strong>Structure of Phospholipid</strong>:</p>
+
+<ul>
+<li><strong>Hydrophilic head</strong>: Phosphate group (water-loving) - faces outward</li>
+<li><strong>Hydrophobic tails</strong>: Two fatty acid chains (water-fearing) - face inward</li>
+</ul>
+
+<p><strong>Why Bilayer?</strong></p>
+
+<ul>
+<li>Water present outside cell</li>
+<li>Water present inside cell (cytoplasm)</li>
+<li>Hydrophobic tails hide in middle</li>
+<li>Hydrophilic heads face both aqueous environments</li>
+</ul>
+
+<p><strong>Other Components</strong>:</p>
+
+<ul>
+<li><strong>Cholesterol</strong>: Provides stability and fluidity</li>
+<li><strong>Integral Proteins</strong>: Embedded fully or partially in membrane</li>
+<li><strong>Peripheral Proteins</strong>: Lie on surface</li>
+<li><strong>Glycolipids</strong>: Carbohydrate + lipid</li>
+<li><strong>Glycoproteins</strong>: Carbohydrate + protein</li>
+</ul>
+
+<h3 id="72-fluid-mosaic-model">7.2 Fluid Mosaic Model</h3>
+
+<p><strong>Proposed by</strong>: Singer and Nicolson (<strong>1972</strong>)</p>
+
+<p><strong>Key Concepts</strong>:</p>
+
+<ol>
+<li><strong>Quasi-fluid</strong>: Lipid bilayer has oil-like consistency</li>
+<li><strong>Mosaic</strong>: Proteins scattered like patches in lipid sea</li>
+<li><strong>Lateral movement</strong>: Lipids and proteins can move laterally within membrane</li>
+<li><strong>Fluidity</strong>: Ability of molecules to move - measured as membrane fluidity</li>
+</ol>
+
+<p><strong>Importance of Fluidity</strong>:</p>
+
+<ul>
+<li>Cell growth</li>
+<li>Formation of intercellular junctions</li>
+<li>Secretion</li>
+<li>Endocytosis</li>
+<li>Cell division</li>
+</ul>
+
+<hr />
+
+<hr />
+
+<p>&gt;</p>
+
+<blockquote>
+  <p><strong>📊 Static Diagram</strong> (for printing): See <a href="diagrams/fluid-mosaic-model.html" target="_blank">🎯 <strong>Fluid Mosaic Model (Interactive)</strong> - Click to Explore</a></p>
+</blockquote>
+
+<hr />
+
+<h3 id="73-functions">7.3 Functions</h3>
+
+<ol>
+<li><strong>Selective Permeability</strong>: Controls what enters/exits cell</li>
+<li><strong>Protection</strong>: Protects cell contents</li>
+<li><strong>Transport</strong>: Allows passage of materials</li>
+<li><strong>Cell Recognition</strong>: Glycoproteins help identify cells</li>
+<li><strong>Cell Signaling</strong>: Receptors receive signals</li>
+</ol>
+
+<h3 id="74-transport-mechanisms">7.4 Transport Mechanisms</h3>
+
+<p><strong>A. Passive Transport</strong> (No ATP required)</p>
+
+<p>Movement along concentration gradient (high → low)</p>
+
+<p><strong>1. Simple Diffusion</strong>:</p>
+
+<ul>
+<li>Non-polar molecules pass directly through lipid bilayer</li>
+<li>Examples: O₂, CO₂, lipid-soluble molecules</li>
+<li>Along concentration gradient</li>
+</ul>
+
+<p><strong>2. Osmosis</strong>:</p>
+
+<ul>
+<li>Water diffusion through membrane</li>
+<li>Through aquaporins (water channels)</li>
+<li>From higher water concentration → lower water concentration</li>
+<li>Important for cell turgor</li>
+</ul>
+
+<p><strong>3. Facilitated Diffusion</strong>:</p>
+
+<ul>
+<li>Polar molecules need carrier proteins</li>
+<li>Through protein channels/carriers</li>
+<li>Along concentration gradient</li>
+<li>Examples: Glucose, amino acids</li>
+</ul>
+
+<p><strong>B. Active Transport</strong> (ATP required)</p>
+
+<p>Movement against concentration gradient (low → high)</p>
+
+<p><strong>Example: Sodium-Potassium Pump (Na⁺/K⁺ Pump)</strong>:</p>
+
+<ul>
+<li>3 Na⁺ ions pumped OUT of cell</li>
+<li>2 K⁺ ions pumped INTO cell</li>
+<li>Uses 1 ATP molecule</li>
+<li>Maintains concentration gradients</li>
+</ul>
+
+<blockquote>
+  <p><strong>Memory Tip - Passive = "PAL don't need money"</strong>:<br />
+  "PAL" = Passive, ATP-Less (Simple diffusion, Osmosis, Facilitated diffusion)<br />
+  Active = "A Tap" (needs ATP)</p>
+</blockquote>
+
+<p><strong>Diagrams</strong>:</p>
+
+<ul>
+<li>🎯 <strong>Interactive</strong>: <a href="diagrams/fluid-mosaic-model.html" target="_blank">🎯 <strong>Fluid Mosaic Model (Interactive)</strong> - Click to Explore</a></li>
+</ul>
+
+<hr />
+
+<h2 id="flashcards-cell-membrane">Flashcards: Cell Membrane</h2>
+
+<p><details><br />
+<summary><strong>Q1: Who proposed the Fluid Mosaic Model and when?</strong></summary></p>
+
+<p><strong>Answer</strong>: <strong>Singer and Nicolson</strong> proposed the Fluid Mosaic Model in <strong>1972</strong>.</p>
+
+<p><strong>Why it matters</strong>: This is frequently asked in both Kerala Board (2 marks) and NEET MCQs. Remember the year 1972.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q2: What is the composition of cell membrane?</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<ul>
+<li><strong>Lipids</strong> (~40%): Mainly phospholipids, also cholesterol</li>
+<li><strong>Proteins</strong> (~52%): Integral and peripheral proteins</li>
+<li><strong>Carbohydrates</strong> (small amount): As glycolipids and glycoproteins</li>
+</ul>
+
+<p><strong>Why it matters</strong>: Composition questions appear in exams. Remember proteins &gt; lipids in amount.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q3: Differentiate between passive and active transport</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Passive Transport</th>
+  <th>Active Transport</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>ATP</td>
+  <td>Not required</td>
+  <td>Required</td>
+</tr>
+<tr>
+  <td>Direction</td>
+  <td>High → Low concentration</td>
+  <td>Low → High concentration</td>
+</tr>
+<tr>
+  <td>Types</td>
+  <td>Diffusion, Osmosis, Facilitated diffusion</td>
+  <td>Pumps (Na⁺/K⁺ pump)</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Why it matters</strong>: Transport mechanism questions are common in NEET MCQs and Kerala Board 3-mark questions.</p>
+
+<p></details></p>
+
+<hr />
+
+<h2 id="8-cell-wall">8. Cell Wall</h2>
+
+<p><strong>Found in</strong>: Plants, fungi, algae, bacteria<br />
+<strong>Absent in</strong>: Animals</p>
+
+<h3 id="81-composition-by-organism">8.1 Composition (by organism)</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Organism</th>
+  <th>Cell Wall Composition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Bacteria</strong></td>
+  <td>Peptidoglycan</td>
+</tr>
+<tr>
+  <td><strong>Algae</strong></td>
+  <td>Cellulose, galactans, mannans, calcium carbonate</td>
+</tr>
+<tr>
+  <td><strong>Higher Plants</strong></td>
+  <td>Cellulose, hemicellulose, pectins, proteins</td>
+</tr>
+<tr>
+  <td><strong>Fungi</strong></td>
+  <td>Chitin</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="82-structure-plant-cells">8.2 Structure (Plant Cells)</h3>
+
+<p><strong>Three Layers</strong> (Outside to Inside):</p>
+
+<p><strong>1. Middle Lamella</strong> (Outermost):</p>
+
+<ul>
+<li><strong>Composition</strong>: Calcium pectate</li>
+<li><strong>Formation</strong>: First layer formed during cell division (from cell plate)</li>
+<li><strong>Function</strong>: Cements neighboring cells together</li>
+<li><strong>Location</strong>: Between two adjacent cells</li>
+</ul>
+
+<blockquote>
+  <p><strong>Common Mistake</strong>: Middle lamella is called "middle" because it formed in the MIDDLE of two dividing cells, NOT because of its final position. It's actually the OUTERMOST layer.</p>
+</blockquote>
+
+<p><strong>2. Primary Wall</strong>:</p>
+
+<ul>
+<li><strong>Composition</strong>: Cellulose, hemicellulose, pectin</li>
+<li><strong>Formation</strong>: Forms as cell grows (inside middle lamella)</li>
+<li><strong>Present in</strong>: All plant cells</li>
+<li><strong>Characteristic</strong>: Capable of growth</li>
+<li><strong>Thickness</strong>: Variable by cell type</li>
+</ul>
+
+<p><strong>3. Secondary Wall</strong> (in some cells only):</p>
+
+<ul>
+<li><strong>Composition</strong>: May contain lignin (in sclerenchyma)</li>
+<li><strong>Formation</strong>: After cell stops growing (inside primary wall)</li>
+<li><strong>Present in</strong>: Specialized cells only (not all)</li>
+<li><strong>Characteristic</strong>: Cannot grow; provides rigidity</li>
+<li><strong>Examples</strong>: Sclerenchyma, tracheids</li>
+</ul>
+
+<blockquote>
+  <p><strong>Key Concept</strong>: New cell wall layers can ONLY form toward the cytoplasm (inside), not outside middle lamella, because synthesis occurs in cytoplasm.</p>
+</blockquote>
+
+<p><strong>Plasmodesmata</strong>:</p>
+
+<ul>
+<li>Cytoplasmic connections between neighboring plant cells</li>
+<li>Pass through cell wall</li>
+<li>Allow cell-to-cell communication and transport</li>
+</ul>
+
+<h3 id="83-functions">8.3 Functions</h3>
+
+<ol>
+<li><strong>Shape</strong>: Gives definite shape to cell</li>
+<li><strong>Protection</strong>: Protects from mechanical damage and infection</li>
+<li><strong>Structural Support</strong>: Prevents bursting or collapsing</li>
+<li><strong>Cell-to-cell Interaction</strong>: Facilitates communication</li>
+<li><strong>Barrier</strong>: To undesirable macromolecules</li>
+</ol>
+
+<hr />
+
+<p><strong>🎯 Interactive Diagram</strong>: <a href="diagrams/cell-wall.html" target="_blank">🎯 <strong>Cell Wall Structure (Interactive)</strong> - Click to Explore</a></p>
+
+<hr />
+
+<h2 id="9-endomembrane-system">9. Endomembrane System</h2>
+
+<p><strong>Definition</strong>: Coordinated system of membrane-bound organelles whose functions are interrelated.</p>
+
+<p><strong>Components</strong>:</p>
+
+<ol>
+<li>Endoplasmic Reticulum (ER)</li>
+<li>Golgi Apparatus</li>
+<li>Lysosomes</li>
+<li>Vacuoles</li>
+</ol>
+
+<p><strong>NOT Included</strong> (functions not coordinated with above):</p>
+
+<ul>
+<li>Mitochondria</li>
+<li>Chloroplasts</li>
+<li>Peroxisomes</li>
+</ul>
+
+<blockquote>
+  <p><strong>Memory Tip - "ERGLV"</strong>:<br />
+  "Every Really Good Learner Visits"<br />
+  <strong>E</strong>ndoplasmic <strong>R</strong>eticulum, <strong>G</strong>olgi, <strong>L</strong>ysosomes, <strong>V</strong>acuoles</p>
+</blockquote>
+
+<h3 id="91-endoplasmic-reticulum-er">9.1 Endoplasmic Reticulum (ER)</h3>
+
+<p><strong>Structure</strong>:</p>
+
+<ul>
+<li>Network of tubular/cisternae structures in cytoplasm</li>
+<li>Continuous with nuclear envelope</li>
+<li>Divides cell into two compartments:
+<ul>
+<li><strong>Luminal</strong> (inside ER)</li>
+<li><strong>Extra-luminal</strong> (cytoplasm)</li>
+</ul></li>
+</ul>
+
+<p><strong>Two Types</strong>:</p>
+
+<p><strong>A. Rough ER (RER)</strong>:</p>
+
+<ul>
+<li><strong>Appearance</strong>: Studded with ribosomes on outer surface</li>
+<li><strong>Location</strong>: Abundant in cells actively synthesizing proteins</li>
+<li><strong>Continuous with</strong>: Outer nuclear membrane</li>
+<li><strong>Function</strong>:
+<ul>
+<li><strong>Protein synthesis</strong>: Provides surface for ribosomes</li>
+<li>Protein modification and transport</li>
+</ul></li>
+</ul>
+
+<p><strong>B. Smooth ER (SER)</strong>:</p>
+
+<ul>
+<li><strong>Appearance</strong>: No ribosomes; smooth surface</li>
+<li><strong>Location</strong>: Abundant in cells synthesizing steroid hormones</li>
+<li><strong>Function</strong>:
+<ul>
+<li><strong>Lipid synthesis</strong>: Major site</li>
+<li><strong>Steroid hormone synthesis</strong>: In animal cells</li>
+<li><strong>Detoxification</strong>: In liver cells</li>
+</ul></li>
+</ul>
+
+<p><strong>🎯 Interactive Diagram</strong>: See <a href="diagrams/rer-ser.html" target="_blank">🎯 <strong>Endoplasmic Reticulum (Interactive)</strong> - Click to Explore</a></p>
+
+<hr />
+
+<p><strong>🎯 Interactive Diagram</strong>: <a href="diagrams/rer-ser.html" target="_blank">🎯 <strong>RER vs SER (Interactive Comparison)</strong> - Click to Explore</a></p>
+
+<hr />
+
+<h3 id="92-golgi-apparatus">9.2 Golgi Apparatus</h3>
+
+<p><strong>Discovered by</strong>: Camillo Golgi (<strong>1898</strong>)</p>
+
+<p><strong>Structure</strong>:</p>
+
+<ul>
+<li>Flattened, disc-shaped sacs called <strong>cisternae</strong></li>
+<li>Stacked parallel to each other</li>
+<li>Diameter: 0.5-1.0 μm</li>
+<li>Number of cisternae: Varies</li>
+</ul>
+
+<p><strong>Two Faces</strong>:</p>
+
+<ul>
+<li><strong>Cis face</strong> (Forming face): Convex side toward nucleus and ER - receives vesicles</li>
+<li><strong>Trans face</strong> (Maturing face): Concave side away from nucleus - releases products</li>
+</ul>
+
+<p><strong>Functions</strong>:</p>
+
+<ol>
+<li><strong>Packaging</strong>: Materials packaged in vesicles</li>
+<li><strong>Modification</strong>:
+<ul>
+<li><strong>Glycosylation</strong>: Adding sugars to proteins and lipids</li>
+<li>Forms glycoproteins and glycolipids</li>
+</ul></li>
+<li><strong>Secretion</strong>: Vesicles transport materials to plasma membrane or outside cell</li>
+<li><strong>Lysosome Formation</strong>: Packages hydrolytic enzymes</li>
+</ol>
+
+<p><strong>Process Flow</strong>:</p>
+
+<ol>
+<li>ER synthesizes proteins</li>
+<li>ER pinches off vesicle containing proteins</li>
+<li>Vesicle fuses with <strong>cis face</strong> of Golgi</li>
+<li>Proteins modified as they move through cisternae</li>
+<li>Modified proteins exit from <strong>trans face</strong> in vesicles</li>
+<li>Vesicles go to destination (membrane, secretion, or become lysosomes)</li>
+</ol>
+
+<blockquote>
+  <p><strong>Why Close Association with ER</strong>: Golgi receives materials from ER, so it remains close for efficient vesicle transport.</p>
+</blockquote>
+
+<p><strong>🎯 Interactive Diagram</strong>: See <a href="diagrams/golgi-er.html" target="_blank">🎯 <strong>Golgi Apparatus &amp; ER Connection (Interactive)</strong> - Click to Explore</a></p>
+
+<hr />
+
+<p><strong>🎯 Interactive Diagram</strong>: <a href="diagrams/golgi-er.html" target="_blank">🎯 <strong>Golgi &amp; ER Connection (Interactive)</strong> - Click to Explore</a></p>
+
+<hr />
+
+<h3 id="93-lysosomes">9.3 Lysosomes</h3>
+
+<p><strong>Structure</strong>:</p>
+
+<ul>
+<li>Membrane-bound vesicles</li>
+<li>Formed by Golgi apparatus</li>
+<li>Single membrane</li>
+</ul>
+
+<p><strong>Contents</strong>:</p>
+
+<ul>
+<li><strong>Hydrolytic enzymes</strong> (hydrolases):
+<ul>
+<li><strong>Lipases</strong>: Break down lipids</li>
+<li><strong>Proteases</strong>: Break down proteins</li>
+<li><strong>Carbohydrases</strong>: Break down carbohydrates</li>
+<li><strong>Nucleases</strong>: Break down nucleic acids</li>
+</ul></li>
+<li>Optimally active at <strong>acidic pH (~2)</strong></li>
+</ul>
+
+<p><strong>Functions</strong>:</p>
+
+<ol>
+<li><strong>Intracellular Digestion</strong>: Digest macromolecules</li>
+<li><strong>Autophagy</strong>: Digest damaged organelles</li>
+<li><strong>Autolysis</strong>: Self-destruction of cell</li>
+<li><strong>Food Vacuole Digestion</strong>: In protists like <em>Amoeba</em></li>
+</ol>
+
+<p><strong>Why Called "Suicide Bags"</strong>:</p>
+
+<ul>
+<li>Contain enzymes that can destroy all cellular components</li>
+<li>Can cause cell death if membrane ruptures</li>
+<li>Enzymes activated only at acidic pH (safety mechanism)</li>
+</ul>
+
+<p><strong>Mechanism</strong>:</p>
+
+<ul>
+<li>Protons (H⁺) pumped into lysosome to lower pH to ~2</li>
+<li>Only at this acidic pH are enzymes fully active</li>
+<li>Normal cytoplasm pH (~7) keeps enzymes inactive if leakage occurs</li>
+</ul>
+
+<hr />
+
+<h3 id="94-vacuoles">9.4 Vacuoles</h3>
+
+<p><strong>Structure</strong>:</p>
+
+<ul>
+<li>Membrane-bound sac</li>
+<li>Membrane called <strong>Tonoplast</strong></li>
+<li>Single membrane</li>
+</ul>
+
+<p><strong>Plant Cell Vacuoles</strong>:</p>
+
+<ul>
+<li><strong>Size</strong>: Can occupy up to <strong>90%</strong> of cell volume</li>
+<li><strong>Contents</strong>: Water, sap, ions, waste materials</li>
+<li><strong>Ion concentration</strong>: Higher than cytoplasm (active transport)</li>
+<li><strong>Functions</strong>:
+<ul>
+<li>Storage (water, nutrients, waste)</li>
+<li>Maintains turgor pressure</li>
+<li>Transport against concentration gradient</li>
+<li>Provides rigidity to cell</li>
+</ul></li>
+</ul>
+
+<p><strong>Animal Cell Vacuoles</strong>:</p>
+
+<p><strong>1. Contractile Vacuole</strong> (in <em>Amoeba</em>):</p>
+
+<ul>
+<li><strong>Function</strong>: Osmoregulation and excretion</li>
+<li><strong>Mechanism</strong>:
+<ul>
+<li>Collects excess water (endosmosis)</li>
+<li>Expels water out of cell</li>
+</ul></li>
+<li><strong>Necessity</strong>: Prevents cell bursting in freshwater (no cell wall in <em>Amoeba</em>)</li>
+</ul>
+
+<p><strong>2. Food Vacuole</strong> (in <em>Amoeba</em>):</p>
+
+<ul>
+<li><strong>Function</strong>: Digestion</li>
+<li><strong>Formation</strong>: When food is engulfed (phagocytosis)</li>
+<li><strong>Process</strong>: Fuses with lysosome for digestion</li>
+</ul>
+
+<hr />
+
+<h2 id="flashcards-endomembrane-system">Flashcards: Endomembrane System</h2>
+
+<p><details><br />
+<summary><strong>Q1: What are the components of the endomembrane system?</strong></summary></p>
+
+<p><strong>Answer</strong>: Endoplasmic Reticulum (ER), Golgi apparatus, Lysosomes, and Vacuoles.</p>
+
+<p><strong>Why it matters</strong>: Endomembrane system questions test understanding of how organelles work together. Remember the ERGLV mnemonic.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q2: Differentiate between Rough ER and Smooth ER</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Rough ER</th>
+  <th>Smooth ER</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Ribosomes</td>
+  <td>Present on surface</td>
+  <td>Absent</td>
+</tr>
+<tr>
+  <td>Function</td>
+  <td>Protein synthesis</td>
+  <td>Lipid synthesis</td>
+</tr>
+<tr>
+  <td>Location</td>
+  <td>Abundant in protein-secreting cells</td>
+  <td>Abundant in steroid-producing cells</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Why it matters</strong>: RER vs SER is a standard 2-3 mark question in Kerala Board and NEET MCQ.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q3: Why are lysosomes called "suicide bags"?</strong></summary></p>
+
+<p><strong>Answer</strong>: Lysosomes contain hydrolytic enzymes capable of digesting all cellular components. If the lysosomal membrane ruptures, enzymes are released and can destroy the cell - hence "suicide bags."</p>
+
+<p><strong>Safeguard</strong>: Enzymes are active only at acidic pH (~2), while cytoplasm is neutral (pH ~7).</p>
+
+<p><strong>Why it matters</strong>: The "suicide bag" concept is frequently tested. Understanding the pH mechanism shows deeper knowledge.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q4: What is glycosylation and where does it occur?</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<p><strong>Glycosylation</strong>: Process of adding sugar molecules to proteins or lipids.</p>
+
+<p><strong>Where</strong>: Golgi apparatus</p>
+
+<p><strong>Products</strong>: Glycoproteins (protein + carbohydrate) and Glycolipids (lipid + carbohydrate)</p>
+
+<p><strong>Why it matters</strong>: Golgi function questions often ask about glycosylation. This is a key modification process.</p>
+
+<p></details></p>
+
+<hr />
+
+<h2 id="10-mitochondria-the-powerhouse">10. Mitochondria - The Powerhouse</h2>
+
+<p><strong>Structure</strong>:</p>
+
+<ul>
+<li><strong>Shape</strong>: Sausage-shaped or cylindrical</li>
+<li><strong>Size</strong>:
+<ul>
+<li>Diameter: 0.2-1.0 μm (average 0.5 μm)</li>
+<li>Length: 1.0-4.1 μm</li>
+</ul></li>
+<li><strong>Number</strong>: Varies with metabolic activity (more active = more mitochondria)</li>
+</ul>
+
+<p><strong>Double Membrane Structure</strong>:</p>
+
+<p><strong>1. Outer Membrane</strong>:</p>
+
+<ul>
+<li>Smooth</li>
+<li>Permeable to small molecules</li>
+</ul>
+
+<p><strong>2. Inner Membrane</strong>:</p>
+
+<ul>
+<li>Highly folded into <strong>cristae</strong> (finger-like projections)</li>
+<li><strong>Why cristae?</strong>: Increase surface area for ATP synthase enzymes</li>
+<li>Site of electron transport chain</li>
+</ul>
+
+<p><strong>Compartments</strong>:</p>
+
+<p><strong>1. Intermembrane Space</strong> (Perimito chondrial space):</p>
+
+<ul>
+<li>Between outer and inner membranes</li>
+</ul>
+
+<p><strong>2. Matrix</strong> (inside inner membrane):</p>
+
+<ul>
+<li>Dense, homogeneous substance</li>
+<li>Contains:
+<ul>
+<li>Enzymes for <strong>Krebs cycle</strong></li>
+<li><strong>Circular DNA</strong> (prokaryotic type)</li>
+<li><strong>70S ribosomes</strong> (prokaryotic type)</li>
+<li>Components for protein synthesis</li>
+</ul></li>
+</ul>
+
+<p><strong>Functions</strong>:</p>
+
+<ol>
+<li><strong>ATP Production</strong>: Cellular respiration (oxidative phosphorylation)</li>
+<li><strong>Krebs Cycle</strong>: Occurs in matrix</li>
+<li><strong>Electron Transport Chain</strong>: On cristae of inner membrane</li>
+</ol>
+
+<p><strong>Why "Powerhouse of the Cell"</strong>:</p>
+
+<ul>
+<li>Produces ATP (adenosine triphosphate) - cellular energy currency</li>
+<li>Most ATP generated here through cellular respiration</li>
+</ul>
+
+<p><strong>Semi-autonomous Organelle</strong>:</p>
+
+<ul>
+<li>Has own <strong>circular DNA</strong></li>
+<li>Has own <strong>70S ribosomes</strong> (like bacteria)</li>
+<li>Can synthesize some of its own proteins</li>
+<li>Divides by <strong>fission</strong> (like bacteria)</li>
+<li>Supports <strong>endosymbiotic theory</strong> (mitochondria were once free-living bacteria)</li>
+</ul>
+
+<hr />
+
+<hr />
+
+<h2 id="11-plastids">11. Plastids</h2>
+
+<p><strong>Found in</strong>: Plants and some protists (e.g., <em>Euglena</em>)<br />
+<strong>Absent in</strong>: Animals</p>
+
+<p><strong>General Features</strong>:</p>
+
+<ul>
+<li>Easily visible under microscope (larger than mitochondria)</li>
+<li>Bear specific pigments</li>
+<li>Larger than mitochondria</li>
+</ul>
+
+<p><strong>Classification</strong> (Based on pigments):</p>
+
+<h3 id="111-chloroplasts-green-plastids">11.1 Chloroplasts (Green Plastids)</h3>
+
+<p><strong>Pigments</strong>: Chlorophyll (major) + carotenoids<br />
+<strong>Color</strong>: Green<br />
+<strong>Function</strong>: <strong>Photosynthesis</strong></p>
+
+<p><strong>Structure</strong>:</p>
+
+<p><strong>Shape</strong>: Variable - lens, oval, spherical, discoid, ribbon-like<br />
+<strong>Size</strong>:</p>
+
+<ul>
+<li>Length: 5-10 μm</li>
+<li>Width: 2-4 μm<br />
+<strong>Number</strong>: 1 per cell (<em>Chlamydomonas</em>) to 20-40 per cell (mesophyll)<br />
+<strong>Location</strong>: Mostly in mesophyll cells of leaves</li>
+</ul>
+
+<p><strong>Double Membrane</strong>:</p>
+
+<ul>
+<li><strong>Outer membrane</strong>: Smooth</li>
+<li><strong>Inner membrane</strong>: Smooth</li>
+<li><strong>Intermembrane space</strong> (Periplastid space): Between membranes</li>
+</ul>
+
+<p><strong>Internal Structures</strong>:</p>
+
+<p><strong>1. Stroma</strong> (Matrix):</p>
+
+<ul>
+<li>Granular, fluid-filled space</li>
+<li>Contains:
+<ul>
+<li>Enzymes for <strong>Calvin cycle</strong> (dark reactions)</li>
+<li><strong>Circular DNA</strong> (prokaryotic type)</li>
+<li><strong>70S ribosomes</strong> (prokaryotic type)</li>
+<li>Starch granules</li>
+</ul></li>
+</ul>
+
+<p><strong>2. Thylakoids</strong>:</p>
+
+<ul>
+<li>Flattened membranous sacs</li>
+<li>Stacked like coins</li>
+<li>Contain <strong>chlorophyll</strong> and other photosynthetic pigments</li>
+<li>Site of <strong>light reactions</strong></li>
+</ul>
+
+<p><strong>3. Grana</strong> (singular: Granum):</p>
+
+<ul>
+<li>Stacks of thylakoids</li>
+<li>Multiple grana in one chloroplast</li>
+</ul>
+
+<p><strong>4. Stroma Lamellae</strong>:</p>
+
+<ul>
+<li>Flat membranous tubules</li>
+<li>Connect different grana</li>
+</ul>
+
+<p><strong>Functions</strong>:</p>
+
+<ol>
+<li><strong>Photosynthesis</strong>:
+<ul>
+<li><strong>Light reactions</strong>: In thylakoids/grana</li>
+<li><strong>Dark reactions (Calvin cycle)</strong>: In stroma</li>
+</ul></li>
+<li><strong>ATP production</strong> (during light reactions)</li>
+</ol>
+
+<p><strong>Semi-autonomous</strong>:</p>
+
+<ul>
+<li>Own circular DNA</li>
+<li>Own 70S ribosomes</li>
+<li>Supports endosymbiotic theory</li>
+</ul>
+
+<hr />
+
+<hr />
+
+<h3 id="112-chromoplasts-colored-plastids">11.2 Chromoplasts (Colored Plastids)</h3>
+
+<p><strong>Pigments</strong>: Carotenoids, xanthophylls (fat-soluble)<br />
+<strong>Colors</strong>: Yellow, orange, red<br />
+<strong>Function</strong>: Impart color to flowers and fruits<br />
+<strong>Note</strong>: Pigments are NOT water-soluble (fat-soluble)</p>
+
+<p><strong>Examples</strong>:</p>
+
+<ul>
+<li>Petals of flowers</li>
+<li>Ripe tomatoes, carrots</li>
+</ul>
+
+<hr />
+
+<h3 id="113-leucoplasts-colorless-plastids">11.3 Leucoplasts (Colorless Plastids)</h3>
+
+<p><strong>Color</strong>: Colorless (no pigments)<br />
+<strong>Function</strong>: Storage</p>
+
+<p><strong>Types</strong> (based on what they store):</p>
+
+<table>
+<thead>
+<tr>
+  <th>Type</th>
+  <th>Stores</th>
+  <th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Amyloplast</strong></td>
+  <td>Starch (carbohydrates)</td>
+  <td>Potato tubers</td>
+</tr>
+<tr>
+  <td><strong>Elaioplast</strong></td>
+  <td>Oils/Fats (lipids)</td>
+  <td>Oil-rich seeds</td>
+</tr>
+<tr>
+  <td><strong>Aleuroplast</strong></td>
+  <td>Proteins</td>
+  <td>Protein-rich seeds</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+  <p><strong>Memory Tip - "AAE"</strong>:<br />
+  "All Are Essential"<br />
+  <strong>A</strong>myloplast (starch), <strong>A</strong>leuroplast (protein), <strong>E</strong>laioplast (oils)</p>
+</blockquote>
+
+<hr />
+
+<p><strong>🎯 Interactive Diagram</strong>: <a href="diagrams/plastids.html" target="_blank">🎯 <strong>Types of Plastids (Interactive)</strong> - Click to Explore</a></p>
+
+<hr />
+
+<h2 id="flashcards-mitochondria-and-plastids">Flashcards: Mitochondria and Plastids</h2>
+
+<p><details><br />
+<summary><strong>Q1: Why is mitochondria called the "powerhouse of the cell"?</strong></summary></p>
+
+<p><strong>Answer</strong>: Mitochondria is called the powerhouse because it produces <strong>ATP</strong> (adenosine triphosphate), the cell's energy currency, through cellular respiration (oxidative phosphorylation).</p>
+
+<p><strong>Why it matters</strong>: This is THE most frequently asked fact about mitochondria in both board exams and NEET. Always mention ATP when answering.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q2: Why do mitochondria and chloroplasts have their own DNA and ribosomes?</strong></summary></p>
+
+<p><strong>Answer</strong>: Both are <strong>semi-autonomous organelles</strong>:</p>
+
+<ul>
+<li>Have their own circular DNA (like bacteria)</li>
+<li>Have their own 70S ribosomes (like prokaryotes)</li>
+<li>Can synthesize some of their own proteins</li>
+<li>Divide by fission</li>
+</ul>
+
+<p>This supports the <strong>endosymbiotic theory</strong> - they were once free-living bacteria engulfed by primitive eukaryotic cells.</p>
+
+<p><strong>Why it matters</strong>: This concept connects to evolution and appears in reasoning-based NEET questions.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q3: What is the difference between chloroplasts and mitochondria?</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Chloroplast</th>
+  <th>Mitochondria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Function</td>
+  <td>Photosynthesis (energy capture)</td>
+  <td>Cellular respiration (energy release)</td>
+</tr>
+<tr>
+  <td>Found in</td>
+  <td>Plants, algae</td>
+  <td>All eukaryotes</td>
+</tr>
+<tr>
+  <td>Pigments</td>
+  <td>Chlorophyll, carotenoids</td>
+  <td>None</td>
+</tr>
+<tr>
+  <td>Internal membranes</td>
+  <td>Thylakoids, grana</td>
+  <td>Cristae</td>
+</tr>
+<tr>
+  <td>Both have</td>
+  <td>Circular DNA, 70S ribosomes (semi-autonomous)</td>
+  <td>Circular DNA, 70S ribosomes</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Why it matters</strong>: Comparison questions are common. Both are semi-autonomous despite different functions.</p>
+
+<p></details></p>
+
+<p><details><br />
+<summary><strong>Q4: Name three types of plastids with their functions</strong></summary></p>
+
+<p><strong>Answer</strong>:</p>
+
+<ol>
+<li><strong>Chloroplasts</strong>: Green; contain chlorophyll; perform photosynthesis</li>
+<li><strong>Chromoplasts</strong>: Yellow/orange/red; contain carotenoids; color to flowers/fruits</li>
+<li><strong>Leucoplasts</strong>: Colorless; store nutrients
+<ul>
+<li>Amyloplast: stores starch</li>
+<li>Elaioplast: stores oils/fats</li>
+<li>Aleuroplast: stores proteins</li>
+</ul></li>
+</ol>
+
+<p><strong>Why it matters</strong>: Plastid classification is a standard 3-mark Kerala Board question.</p>
+
+<p></details></p>
+
+<hr />
+
+<h2 id="12-ribosomes">12. Ribosomes</h2>
+
+<p><strong>Discovered by</strong>: George Palade (<strong>1953</strong>) - hence called "Palade particles"</p>
+
+<p><strong>Structure</strong>:</p>
+
+<ul>
+<li><strong>Composition</strong>: Ribosomal RNA (rRNA) + proteins</li>
+<li><strong>Not membrane-bound</strong></li>
+<li><strong>Two subunits</strong>: Large and small</li>
+</ul>
+
+<p><strong>Types</strong>:</p>
+
+<p><strong>Eukaryotic Ribosomes: 80S</strong></p>
+
+<ul>
+<li><strong>Location</strong>: Cytoplasm, on RER, on nuclear envelope</li>
+<li><strong>Subunits</strong>: 60S (large) + 40S (small) = 80S</li>
+<li><strong>Size</strong>: Larger</li>
+</ul>
+
+<p><strong>Prokaryotic Ribosomes: 70S</strong></p>
+
+<ul>
+<li><strong>Location</strong>: Free in cytoplasm, in mitochondria, in chloroplasts</li>
+<li><strong>Subunits</strong>: 50S (large) + 30S (small) = 70S</li>
+<li><strong>Size</strong>: Smaller</li>
+</ul>
+
+<blockquote>
+  <p><strong>Note</strong>: "S" = Svedberg Unit (sedimentation coefficient). NOT additive: 60S + 40S ≠ 100S; = 80S (density changes when combined)</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Memory Tip</strong>:<br />
+  Prokaryotic = "<strong>7</strong>-Eleven is <strong>24/7</strong>" → <strong>70S</strong><br />
+  Eukaryotic = "<strong>8</strong> is great" → <strong>80S</strong></p>
+</blockquote>
+
+<p><strong>Function</strong>: <strong>Protein synthesis</strong> - "Protein factories of the cell"</p>
+
+<p><strong>Polysome (Polyribosome)</strong>:</p>
+
+<ul>
+<li>Multiple ribosomes attached to single mRNA</li>
+<li>All simultaneously synthesizing proteins</li>
+<li>Increases efficiency</li>
+</ul>
+
+<p><strong>Universal Organelle</strong>:</p>
+
+<ul>
+<li>Found in BOTH prokaryotes and eukaryotes</li>
+<li>Only non-membrane bound organelle common to both</li>
+</ul>
+
+<hr />
+
+<h2 id="13-cytoskeleton">13. Cytoskeleton</h2>
+
+<p><strong>Structure</strong>: Network of proteinaceous filaments in cytoplasm</p>
+
+<p><strong>Three Types of Filaments</strong>:</p>
+
+<ol>
+<li><p><strong>Microtubules</strong>:</p>
+
+<ul>
+<li>Tube-like, cylindrical</li>
+<li>Made of tubulin protein</li>
+<li>Throughout cytoplasm</li>
+</ul></li>
+<li><p><strong>Microfilaments</strong> (Actin filaments):</p>
+
+<ul>
+<li>Thin fibers</li>
+<li>Made of actin protein</li>
+<li>Close to plasma membrane</li>
+</ul></li>
+<li><p><strong>Intermediate Filaments</strong>:</p>
+
+<ul>
+<li>Network-like</li>
+<li>Throughout cytoplasm</li>
+</ul></li>
+</ol>
+
+<p><strong>Functions</strong>:</p>
+
+<ol>
+<li><strong>Mechanical Support</strong>: Like skeletal system</li>
+<li><strong>Maintains Cell Shape</strong>: Different shapes maintained by cytoskeleton</li>
+<li><strong>Motility</strong>: Cell movement and internal transport</li>
+</ol>
+
+<hr />
+
+<h2 id="14-cilia-and-flagella">14. Cilia and Flagella</h2>
+
+<p><strong>Structure</strong>: Hair-like projections from cell surface</p>
+
+<p><strong>Similarities</strong>:</p>
+
+<ul>
+<li>Both covered by plasma membrane</li>
+<li>Both have <strong>axoneme</strong> core (microtubule arrangement)</li>
+<li>Both have <strong>9+2 arrangement</strong> of microtubules</li>
+<li>Both emerge from <strong>basal bodies</strong> (centriole-like structures)</li>
+</ul>
+
+<p><strong>Differences</strong>:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Cilia</th>
+  <th>Flagella</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Number</strong></td>
+  <td>Many</td>
+  <td>Few (typically 1-8)</td>
+</tr>
+<tr>
+  <td><strong>Length</strong></td>
+  <td>Shorter</td>
+  <td>Longer</td>
+</tr>
+<tr>
+  <td><strong>Movement</strong></td>
+  <td>Beat together (coordinated)</td>
+  <td>Whip-like motion</td>
+</tr>
+<tr>
+  <td><strong>Examples</strong></td>
+  <td><em>Paramecium</em></td>
+  <td><em>Euglena</em>, sperm cells</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>9+2 Arrangement</strong> (Axoneme Structure):</p>
+
+<p><strong>Peripheral Region</strong>:</p>
+
+<ul>
+<li><strong>9 doublets</strong>: Two microtubules together</li>
+<li>Arranged in circle</li>
+</ul>
+
+<p><strong>Central Region</strong>:</p>
+
+<ul>
+<li><strong>2 singlets</strong>: Single microtubules</li>
+<li><strong>Central sheath</strong>: Surrounds central singlets</li>
+</ul>
+
+<p><strong>Connections</strong>:</p>
+
+<ul>
+<li><strong>Radial spokes</strong>: Connect peripheral doublets to central sheath</li>
+<li><strong>Bridge</strong>: Connects two central singlets</li>
+<li><strong>Linkers</strong>: Connect adjacent peripheral doublets</li>
+</ul>
+
+<p><strong>Function</strong>: Locomotion, movement of substances along cell surface</p>
+
+<hr />
+
+<h2 id="15-centrosome-and-centrioles">15. Centrosome and Centrioles</h2>
+
+<p><strong>Found in</strong>: Animal cells (NOT in most plant cells)</p>
+
+<p><strong>Centrosome</strong>:</p>
+
+<ul>
+<li>Organelle containing two centrioles</li>
+<li>Surrounded by pericentriolar material (amorphous)</li>
+<li>Located near nucleus</li>
+</ul>
+
+<p><strong>Centrioles</strong>:</p>
+
+<ul>
+<li><strong>Two cylindrical structures</strong></li>
+<li><strong>Perpendicular to each other</strong> (90° angle)</li>
+<li><strong>Cartwheel appearance</strong></li>
+</ul>
+
+<p><strong>9+0 Arrangement</strong> (Centriole Structure):</p>
+
+<p><strong>Peripheral Region</strong>:</p>
+
+<ul>
+<li><strong>9 triplets</strong>: Three microtubules together</li>
+<li>Arranged in circle</li>
+</ul>
+
+<p><strong>Central Region</strong>:</p>
+
+<ul>
+<li><strong>0 microtubules</strong>: None (proteinous hub instead)</li>
+</ul>
+
+<p><strong>Connections</strong>:</p>
+
+<ul>
+<li><strong>Radial spokes</strong>: Connect triplets to central hub</li>
+<li><strong>Linkers</strong>: Connect adjacent triplets</li>
+</ul>
+
+<p><strong>Functions</strong>:</p>
+
+<ol>
+<li><strong>Form Basal Body</strong>: For cilia and flagella</li>
+<li><strong>Spindle Formation</strong>: Organize spindle fibers during cell division (mitosis/meiosis)</li>
+</ol>
+
+<blockquote>
+  <p><strong>Comparison</strong>: Cilia/Flagella have <strong>9+2</strong>; Centrioles have <strong>9+0</strong></p>
+</blockquote>
+
+<hr />
+
+<h2 id="16-nucleus">16. Nucleus</h2>
+
+<p><strong>Discovered by</strong>: Robert Brown (<strong>1831</strong>)<br />
+<strong>Chromatin named by</strong>: Flemming</p>
+
+<p><strong>Structure</strong>: Double membrane-bound organelle</p>
+
+<h3 id="161-nuclear-envelope">16.1 Nuclear Envelope</h3>
+
+<p><strong>Double Membrane</strong>:</p>
+
+<ul>
+<li><strong>Outer membrane</strong>: Continuous with ER; bears ribosomes</li>
+<li><strong>Inner membrane</strong>: Smooth</li>
+<li><strong>Perinuclear space</strong>: 10-50 nm between two membranes</li>
+</ul>
+
+<p><strong>Nuclear Pores</strong>:</p>
+
+<ul>
+<li>Formed by fusion of two membranes</li>
+<li>Allow passage of RNA and proteins</li>
+<li>Bidirectional transport (into and out of nucleus)</li>
+<li>Control molecular traffic</li>
+</ul>
+
+<h3 id="162-nucleoplasm">16.2 Nucleoplasm</h3>
+
+<p><strong>Matrix</strong> inside nucleus containing:</p>
+
+<ul>
+<li>Nucleolus</li>
+<li>Chromatin</li>
+<li>Enzymes</li>
+<li>Nucleotides</li>
+</ul>
+
+<h3 id="163-nucleolus">16.3 Nucleolus</h3>
+
+<p><strong>Structure</strong>:</p>
+
+<ul>
+<li>Spherical body</li>
+<li><strong>Not membrane-bound</strong></li>
+<li>Darkly stained (takes up lots of dye)</li>
+<li>Continuous with nucleoplasm</li>
+</ul>
+
+<p><strong>Function</strong>:</p>
+
+<ul>
+<li><strong>Ribosomal RNA (rRNA) synthesis</strong></li>
+<li>Active transcription site</li>
+</ul>
+
+<p><strong>Number</strong>:</p>
+
+<ul>
+<li>One or more per nucleus</li>
+<li>Larger and more numerous in cells actively synthesizing proteins</li>
+</ul>
+
+<h3 id="164-chromatin-and-chromosomes">16.4 Chromatin and Chromosomes</h3>
+
+<p><strong>Chromatin</strong> (During Interphase):</p>
+
+<ul>
+<li><strong>When</strong>: Cell NOT dividing</li>
+<li><strong>Structure</strong>: Thread-like, less condensed DNA + proteins (nucleoprotein)</li>
+<li><strong>Proteins</strong>: Histones (basic proteins) + non-histone proteins</li>
+<li><strong>Named by</strong>: Flemming (chroma = color; stains with basic dyes)</li>
+</ul>
+
+<p><strong>Chromosomes</strong> (During Cell Division):</p>
+
+<ul>
+<li><strong>When</strong>: Cell IS dividing (M phase)</li>
+<li><strong>Structure</strong>: Highly condensed DNA + proteins</li>
+<li><strong>Visible</strong>: Under light microscope</li>
+<li><strong>Same material</strong>: Chromatin condenses to form chromosomes</li>
+</ul>
+
+<p><strong>Chromosome Structure</strong>:</p>
+
+<p><strong>1. Centromere</strong> (Primary Constriction):</p>
+
+<ul>
+<li>Narrow region on chromosome</li>
+<li><strong>Kinetochores</strong> present on both sides</li>
+<li>Attachment site for spindle fibers</li>
+</ul>
+
+<p><strong>2. Kinetochore</strong>:</p>
+
+<ul>
+<li>Disc-shaped proteinaceous structure on centromere</li>
+<li>Where spindle fibers attach during cell division</li>
+</ul>
+
+<p><strong>Classification Based on Centromere Position</strong>:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Type</th>
+  <th>Centromere Position</th>
+  <th>Arm Lengths</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Metacentric</strong></td>
+  <td>Middle</td>
+  <td>Two equal arms</td>
+</tr>
+<tr>
+  <td><strong>Sub-metacentric</strong></td>
+  <td>Slightly off-center</td>
+  <td>Slightly unequal arms</td>
+</tr>
+<tr>
+  <td><strong>Acrocentric</strong></td>
+  <td>Far from center</td>
+  <td>Very short + very long arm</td>
+</tr>
+<tr>
+  <td><strong>Telocentric</strong></td>
+  <td>Terminal (at end)</td>
+  <td>Essentially one arm</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+  <p><strong>Memory Tip - "MetaSubAcroTelo"</strong>:<br />
+  "Most Students Are Talented"<br />
+  <strong>M</strong>etacentric (middle), <strong>S</strong>ub-metacentric (slightly off), <strong>A</strong>crocentric (away), <strong>T</strong>elocentric (terminal)</p>
+</blockquote>
+
+<p><strong>3. Secondary Constriction</strong>:</p>
+
+<ul>
+<li>Additional narrow region (not centromere)</li>
+<li>Present in some chromosomes at constant location</li>
+</ul>
+
+<p><strong>4. Satellite</strong>:</p>
+
+<ul>
+<li>Small fragment beyond secondary constriction</li>
+<li>Chromosomes with satellite called "satellite chromosomes"</li>
+</ul>
+
+<p><strong>Functions of Nucleus</strong>:</p>
+
+<ol>
+<li><strong>Controls Cell Activities</strong>: Regulates organelle functions</li>
+<li><strong>Heredity</strong>: Contains genetic material (DNA)</li>
+<li><strong>Gene Expression</strong>: Controls protein synthesis</li>
+<li><strong>Stores DNA</strong>: Protects genetic information</li>
+</ol>
+
+<p><strong>Variations</strong>:</p>
+
+<ul>
+<li><strong>Most cells</strong>: One nucleus</li>
+<li><strong>Multinucleate</strong>: Some cells have multiple nuclei</li>
+<li><strong>Enucleated</strong>: Some mature cells lack nucleus (RBCs in mammals, sieve tube cells)</li>
+</ul>
+
+<p><strong>🎯 Interactive Diagram</strong>: See <a href="diagrams/nucleus.html" target="_blank">🎯 <strong>Nucleus Structure (Interactive)</strong> - Click to Explore</a></p>
+
+<hr />
+
+<p><strong>🎯 Interactive Diagram</strong>: <a href="diagrams/nucleus.html" target="_blank">🎯 <strong>Nucleus Structure (Interactive)</strong> - Click to Explore</a></p>
+
+<hr />
+
+<h2 id="17-microbodies">17. Microbodies</h2>
+
+<p><strong>Structure</strong>: Small, membrane-bound vesicles containing specific enzymes<br />
+<strong>Found in</strong>: Both plant and animal cells</p>
+
+<p><strong>Peroxisomes</strong>:</p>
+
+<ul>
+<li><strong>Enzyme</strong>: Catalase</li>
+<li><strong>Function</strong>: Breaks down toxic hydrogen peroxide (H₂O₂) into water
+<ul>
+<li>Reaction: 2H₂O₂ → 2H₂O + O₂</li>
+<li>H₂O₂ is toxic; catalase detoxifies it</li>
+</ul></li>
+<li><strong>Location</strong>: Both plant and animal cells</li>
+</ul>
+
+<hr />
+
+<h2 id="quick-revision-eukaryotic-cells-and-organelles">Quick Revision: Eukaryotic Cells and Organelles</h2>
+
+<p><strong>Cell Membrane</strong>:</p>
+
+<ul>
+<li>Fluid Mosaic Model (Singer &amp; Nicolson, 1972)</li>
+<li>Phospholipid bilayer + proteins</li>
+<li>Selective permeability</li>
+<li>Transport: Passive (no ATP) and Active (needs ATP)</li>
+</ul>
+
+<p><strong>Cell Wall</strong> (Plants):</p>
+
+<ul>
+<li>Layers: Middle lamella → Primary wall → Secondary wall (in some)</li>
+<li>Composition: Cellulose, hemicellulose, pectins</li>
+</ul>
+
+<p><strong>Endomembrane System</strong> (ERGLV):</p>
+
+<ul>
+<li>ER (RER - protein synthesis; SER - lipid synthesis)</li>
+<li>Golgi (packaging, glycosylation)</li>
+<li>Lysosomes (digestion, "suicide bags")</li>
+<li>Vacuoles (storage, turgor)</li>
+</ul>
+
+<p><strong>Mitochondria</strong>:</p>
+
+<ul>
+<li>Powerhouse - ATP production</li>
+<li>Double membrane, cristae, matrix</li>
+<li>Semi-autonomous (circular DNA, 70S ribosomes)</li>
+</ul>
+
+<p><strong>Plastids</strong> (Plants only):</p>
+
+<ul>
+<li>Chloroplasts (photosynthesis, green)</li>
+<li>Chromoplasts (colored, carotenoids)</li>
+<li>Leucoplasts (colorless, storage: amyloplast/starch, elaioplast/oils, aleuroplast/proteins)</li>
+</ul>
+
+<p><strong>Ribosomes</strong>:</p>
+
+<ul>
+<li>80S in eukaryotic cytoplasm (60S + 40S)</li>
+<li>70S in prokaryotes, mitochondria, chloroplasts (50S + 30S)</li>
+<li>Protein factories</li>
+</ul>
+
+<p><strong>Nucleus</strong>:</p>
+
+<ul>
+<li>Double membrane with pores</li>
+<li>Contains chromatin/chromosomes, nucleolus</li>
+<li>Controls cell activities and heredity</li>
+<li>Chromosome types: Metacentric, Sub-metacentric, Acrocentric, Telocentric</li>
+</ul>
+
+<hr />
+
+<h1 id="exam-questions-bank-2014-2024-pattern">📝 EXAM QUESTIONS BANK (2014-2024 Pattern)</h1>
+
+<p>This section contains topic-wise questions following Kerala State Board and NEET exam patterns from the last 10 years.</p>
+
+<hr />
+
+<h2 id="kerala-state-board-questions">🎯 KERALA STATE BOARD QUESTIONS</h2>
+
+<h3 id="topic-1-cell-discovery-and-cell-theory">Topic 1: Cell Discovery and Cell Theory</h3>
+
+<h4 id="1-mark-questions">1 Mark Questions</h4>
+
+<p><strong>Q1. Who discovered the cell?</strong></p>
+
+<ul>
+<li><strong>Answer</strong>: Robert Hooke (1665)</li>
+<li><strong>Marks</strong>: 1</li>
+</ul>
+
+<p><strong>Q2. Name the scientist who coined the term 'protoplasm'.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>: Purkinje (1839)</li>
+<li><strong>Marks</strong>: 1</li>
+</ul>
+
+<p><strong>Q3. What did Leeuwenhoek discover?</strong></p>
+
+<ul>
+<li><strong>Answer</strong>: Free-living cells in pond water (bacteria and protozoa)</li>
+<li><strong>Marks</strong>: 1</li>
+</ul>
+
+<p><strong>Q4. Who proposed the cell theory?</strong></p>
+
+<ul>
+<li><strong>Answer</strong>: Schleiden (1838) and Schwann (1839)</li>
+<li><strong>Marks</strong>: 1</li>
+</ul>
+
+<h4 id="2-mark-questions">2 Mark Questions</h4>
+
+<p><strong>Q5. State the cell theory.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ol>
+<li>All living organisms are composed of cells and cell products</li>
+<li>All cells arise from pre-existing cells (Omnis cellula-e cellula - Virchow, 1855)</li>
+</ol></li>
+<li><strong>Marks</strong>: 2</li>
+</ul>
+
+<p><strong>Q6. Mention two limitations of cell theory.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ol>
+<li>Viruses do not have a cellular structure</li>
+<li>RBCs in mammals lack nucleus and organelles</li>
+</ol></li>
+<li><strong>Marks</strong>: 2</li>
+</ul>
+
+<h4 id="3-mark-questions">3 Mark Questions</h4>
+
+<p><strong>Q7. Write a brief note on the contributions of Schleiden and Schwann to cell biology.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Matthias Schleiden (1838)</strong>: German botanist who proposed that all plants are made of cells</li>
+<li><strong>Theodor Schwann (1839)</strong>: British zoologist who extended this to animals, stating all animals are made of cells</li>
+<li><strong>Together</strong>: They formulated the classical cell theory that all living organisms are composed of one or more cells</li>
+<li>This laid the foundation for modern cell biology</li>
+</ul></li>
+<li><strong>Marks</strong>: 3</li>
+</ul>
+
+<p><strong>Q8. Distinguish between prokaryotic and eukaryotic cells (any three points).</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Prokaryotic Cell</th>
+  <th>Eukaryotic Cell</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Nucleus</strong></td>
+  <td>No true nucleus, nucleoid region</td>
+  <td>Well-defined nucleus with nuclear envelope</td>
+</tr>
+<tr>
+  <td><strong>Size</strong></td>
+  <td>1-10 µm</td>
+  <td>10-100 µm</td>
+</tr>
+<tr>
+  <td><strong>Organelles</strong></td>
+  <td>No membrane-bound organelles</td>
+  <td>Membrane-bound organelles present</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>Marks</strong>: 3</li>
+</ul>
+
+<h4 id="4-mark-questions">4 Mark Questions</h4>
+
+<p><strong>Q9. Describe the structure of a prokaryotic cell with a neat labeled diagram.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Cell Wall</strong>: Made of peptidoglycan, provides shape and protection</li>
+<li><strong>Plasma Membrane</strong>: Semi-permeable, controls entry/exit of substances</li>
+<li><strong>Cytoplasm</strong>: Contains ribosomes, inclusion bodies</li>
+<li><strong>Nucleoid</strong>: Contains circular DNA (chromosome), not enclosed by membrane</li>
+<li><strong>Ribosomes</strong>: 70S type, sites of protein synthesis</li>
+<li><strong>Flagella</strong>: For locomotion (when present)</li>
+<li><strong>Pili and Fimbriae</strong>: For attachment and conjugation</li>
+<li><strong>Plasmid</strong>: Extra-chromosomal circular DNA</li>
+<li><em>[Diagram reference: See Figure 5.1 - Prokaryotic Cell Structure]</em></li>
+</ul></li>
+<li><strong>Marks</strong>: 4 (2 for description + 2 for diagram)</li>
+</ul>
+
+<p><strong>Q10. Explain the Fluid Mosaic Model of plasma membrane.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Proposed by</strong>: Singer and Nicolson (1972)</li>
+<li><strong>Structure</strong>:
+<ul>
+<li><strong>Lipid Bilayer</strong>: Composed of phospholipids arranged in two layers</li>
+<li><strong>Quasi-fluid Nature</strong>: Lipids can move laterally, giving fluidity</li>
+<li><strong>Mosaic Pattern</strong>: Proteins are embedded in various patterns like a mosaic</li>
+</ul></li>
+<li><strong>Protein Types</strong>:
+<ul>
+<li><strong>Integral Proteins</strong>: Embedded in lipid bilayer, can be partially or completely buried</li>
+<li><strong>Peripheral Proteins</strong>: Loosely attached to surface, lie on inner or outer surface</li>
+</ul></li>
+<li><strong>Functions</strong>: Selective permeability, transport, cell recognition</li>
+<li><strong><a href="diagrams/fluid-mosaic-model.html" target="_blank">🎯 View Interactive Figure 5.3 - Fluid Mosaic Model</a></strong></li>
+</ul></li>
+<li><strong>Marks</strong>: 4</li>
+</ul>
+
+<hr />
+
+<h3 id="topic-2-cell-organelles-structure-and-function">Topic 2: Cell Organelles - Structure and Function</h3>
+
+<h4 id="1-mark-questions-2">1 Mark Questions</h4>
+
+<p><strong>Q11. Name the powerhouse of the cell.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>: Mitochondria</li>
+<li><strong>Marks</strong>: 1</li>
+</ul>
+
+<p><strong>Q12. Which organelle is called the 'suicidal bag' of the cell?</strong></p>
+
+<ul>
+<li><strong>Answer</strong>: Lysosomes</li>
+<li><strong>Marks</strong>: 1</li>
+</ul>
+
+<p><strong>Q13. What is the function of ribosomes?</strong></p>
+
+<ul>
+<li><strong>Answer</strong>: Protein synthesis</li>
+<li><strong>Marks</strong>: 1</li>
+</ul>
+
+<p><strong>Q14. Name the cell organelle responsible for photosynthesis.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>: Chloroplast</li>
+<li><strong>Marks</strong>: 1</li>
+</ul>
+
+<p><strong>Q15. What is chromatin?</strong></p>
+
+<ul>
+<li><strong>Answer</strong>: A complex of DNA and histone proteins found in the nucleus</li>
+<li><strong>Marks</strong>: 1</li>
+</ul>
+
+<h4 id="2-mark-questions-2">2 Mark Questions</h4>
+
+<p><strong>Q16. What are cristae? Mention their significance.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Cristae</strong> are shelf-like infoldings of the inner mitochondrial membrane</li>
+<li><strong>Significance</strong>: They increase the surface area for ATP synthesis during cellular respiration</li>
+</ul></li>
+<li><strong>Marks</strong>: 2</li>
+</ul>
+
+<p><strong>Q17. Distinguish between RER and SER.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+  <th>RER</th>
+  <th>SER</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Has ribosomes attached</td>
+  <td>No ribosomes</td>
+</tr>
+<tr>
+  <td>Protein synthesis and transport</td>
+  <td>Lipid synthesis, detoxification</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>Marks</strong>: 2</li>
+</ul>
+
+<p><strong>Q18. What are plastids? Name three types.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Plastids</strong> are colored or colorless organelles found in plant cells</li>
+<li><strong>Three types</strong>:
+<ol>
+<li>Chloroplasts (green)</li>
+<li>Chromoplasts (colored: red, yellow, orange)</li>
+<li>Leucoplasts (colorless)</li>
+</ol></li>
+</ul></li>
+<li><strong>Marks</strong>: 2</li>
+</ul>
+
+<p><strong>Q19. What is the significance of nuclear pores?</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li>Nuclear pores are openings in the nuclear envelope</li>
+<li>They allow bidirectional movement of molecules between nucleus and cytoplasm (RNA, ribosomes, proteins)</li>
+</ul></li>
+<li><strong>Marks</strong>: 2</li>
+</ul>
+
+<h4 id="3-mark-questions-2">3 Mark Questions</h4>
+
+<p><strong>Q20. Describe the structure of mitochondria.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Double Membrane</strong>: Outer smooth membrane and inner folded membrane</li>
+<li><strong>Cristae</strong>: Infoldings of inner membrane that increase surface area</li>
+<li><strong>Matrix</strong>: Inner chamber containing enzymes for Krebs cycle</li>
+<li><strong>Own DNA and Ribosomes</strong>: 70S ribosomes and circular DNA (semi-autonomous)</li>
+<li><strong>Function</strong>: ATP production through cellular respiration</li>
+<li><strong><a href="diagrams/mitochondria.html" target="_blank">🎯 View Interactive Figure 5.7 - Mitochondria Structure</a></strong></li>
+</ul></li>
+<li><strong>Marks</strong>: 3</li>
+</ul>
+
+<p><strong>Q21. Explain the endomembrane system of a cell.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Definition</strong>: A network of membrane-bound organelles that work together</li>
+<li><strong>Components</strong>:
+<ol>
+<li><strong>Endoplasmic Reticulum</strong> (RER and SER)</li>
+<li><strong>Golgi Apparatus</strong></li>
+<li><strong>Lysosomes</strong></li>
+<li><strong>Vacuoles</strong></li>
+</ol></li>
+<li><strong>Functions</strong>: Protein synthesis, modification, packaging, secretion, and digestion</li>
+<li><strong>Coordination</strong>: These organelles work together in a coordinated manner for cellular metabolism</li>
+</ul></li>
+<li><strong>Marks</strong>: 3</li>
+</ul>
+
+<p><strong>Q22. Write a note on lysosomes and their functions.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Structure</strong>: Membrane-bound vesicles formed by Golgi apparatus</li>
+<li><strong>Contents</strong>: Rich in hydrolytic enzymes (lipases, proteases, carbohydrases)</li>
+<li><strong>pH</strong>: Acidic interior (pH ~5)</li>
+<li><strong>Functions</strong>:
+<ol>
+<li><strong>Intracellular digestion</strong>: Digest foreign materials</li>
+<li><strong>Autophagy</strong>: Remove damaged organelles</li>
+<li><strong>Autolysis</strong>: Cell death and breakdown after death</li>
+</ol></li>
+<li><strong>Why "Suicidal Bags"</strong>: Can rupture and digest the entire cell</li>
+</ul></li>
+<li><strong>Marks</strong>: 3</li>
+</ul>
+
+<p><strong>Q23. Differentiate between cilia and flagella.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Cilia</th>
+  <th>Flagella</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Number</strong></td>
+  <td>Many per cell</td>
+  <td>One or few per cell</td>
+</tr>
+<tr>
+  <td><strong>Length</strong></td>
+  <td>Short (5-10 µm)</td>
+  <td>Long (150 µm)</td>
+</tr>
+<tr>
+  <td><strong>Movement</strong></td>
+  <td>Rowing motion</td>
+  <td>Whip-like motion</td>
+</tr>
+<tr>
+  <td><strong>Example</strong></td>
+  <td>Paramecium</td>
+  <td>Sperm cells, bacteria</td>
+</tr>
+<tr>
+  <td><strong>Structure</strong></td>
+  <td>Both have 9+2 arrangement of microtubules</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>Marks</strong>: 3</li>
+</ul>
+
+<h4 id="4-mark-questions-2">4 Mark Questions</h4>
+
+<p><strong>Q24. Describe the structure and function of the Golgi apparatus.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Structure</strong>:
+<ul>
+<li>Stack of 4-8 flattened, disc-shaped membranous sacs called <strong>cisternae</strong></li>
+<li><strong>Two faces</strong>: Cis face (forming face, receives materials) and Trans face (maturing face, dispatches materials)</li>
+<li>Contains vesicles and vacuoles</li>
+</ul></li>
+<li><strong>Functions</strong>:
+<ol>
+<li><strong>Modification</strong>: Modifies proteins and lipids from ER</li>
+<li><strong>Packaging</strong>: Packages materials in vesicles</li>
+<li><strong>Secretion</strong>: Sends materials to different destinations</li>
+<li><strong>Glycosylation</strong>: Adds carbohydrate groups to proteins (glycoproteins)</li>
+<li><strong>Lysosome Formation</strong>: Forms lysosomes</li>
+<li><strong>Cell Wall Formation</strong>: Involved in plant cell wall formation</li>
+</ol></li>
+<li><strong><a href="diagrams/golgi-er.html" target="_blank">🎯 View Interactive Figure 5.6 - Golgi Apparatus</a></strong></li>
+</ul></li>
+<li><strong>Marks</strong>: 4</li>
+</ul>
+
+<p><strong>Q25. Explain the structure of chloroplast and its role in photosynthesis.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Structure</strong>:
+<ul>
+<li><strong>Double Membrane</strong>: Outer and inner membrane</li>
+<li><strong>Stroma</strong>: Aqueous matrix containing enzymes, DNA, ribosomes (70S)</li>
+<li><strong>Thylakoids</strong>: Flattened membranous sacs arranged in stacks</li>
+<li><strong>Grana</strong>: Stacks of thylakoids (site of light reactions)</li>
+</ul></li>
+<li><strong>Role in Photosynthesis</strong>:
+<ul>
+<li><strong>Light Reactions</strong>: Occur in thylakoid membranes, produce ATP and NADPH</li>
+<li><strong>Dark Reactions (Calvin Cycle)</strong>: Occur in stroma, fix CO₂ to form glucose</li>
+</ul></li>
+<li><strong>Semi-autonomous</strong>: Has own DNA and 70S ribosomes</li>
+<li><strong><a href="diagrams/chloroplast.html" target="_blank">🎯 View Interactive Figure 5.8 - Chloroplast Structure</a></strong></li>
+</ul></li>
+<li><strong>Marks</strong>: 4</li>
+</ul>
+
+<p><strong>Q26. Describe the structure and functions of the nucleus.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Structure</strong>:
+<ul>
+<li><strong>Nuclear Envelope</strong>: Double membrane with nuclear pores</li>
+<li><strong>Nucleoplasm</strong>: Nuclear matrix containing chromatin</li>
+<li><strong>Chromatin</strong>: DNA + Histone proteins, condenses to form chromosomes during division</li>
+<li><strong>Nucleolus</strong>: Ribosomal RNA synthesis, no membrane</li>
+</ul></li>
+<li><strong>Functions</strong>:
+<ol>
+<li><strong>Genetic Control</strong>: Contains DNA, controls all cellular activities</li>
+<li><strong>Heredity</strong>: Stores and transmits genetic information</li>
+<li><strong>Ribosome Production</strong>: Nucleolus synthesizes rRNA</li>
+<li><strong>Gene Expression</strong>: Regulates which genes are active</li>
+</ol></li>
+<li><strong>Chromosome Types</strong> (based on centromere position):
+<ul>
+<li>Metacentric (middle), Sub-metacentric (slightly off center), Acrocentric (near end), Telocentric (at terminal)</li>
+</ul></li>
+<li><strong><a href="diagrams/nucleus.html" target="_blank">🎯 View Interactive Figure 5.10 - Nucleus Structure</a></strong></li>
+</ul></li>
+<li><strong>Marks</strong>: 4</li>
+</ul>
+
+<hr />
+
+<h3 id="topic-3-cell-wall-and-cell-membrane">Topic 3: Cell Wall and Cell Membrane</h3>
+
+<h4 id="2-mark-questions-3">2 Mark Questions</h4>
+
+<p><strong>Q27. What is the chemical composition of plant cell wall?</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Primary Wall</strong>: Cellulose, hemicellulose, pectin</li>
+<li><strong>Secondary Wall</strong>: Cellulose, hemicellulose, lignin</li>
+<li><strong>Middle Lamella</strong>: Calcium pectate (holds adjacent cells together)</li>
+</ul></li>
+<li><strong>Marks</strong>: 2</li>
+</ul>
+
+<p><strong>Q28. What are plasmodesmata? Mention their function.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Plasmodesmata</strong> are cytoplasmic bridges between adjacent plant cells that pass through cell walls</li>
+<li><strong>Function</strong>: Allow communication and transport of materials between cells</li>
+</ul></li>
+<li><strong>Marks</strong>: 2</li>
+</ul>
+
+<h4 id="3-mark-questions-3">3 Mark Questions</h4>
+
+<p><strong>Q29. Describe the structure of a plant cell wall.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Three Layers</strong>:
+<ol>
+<li><strong>Middle Lamella</strong>: Outermost, made of calcium pectate, holds adjacent cells together</li>
+<li><strong>Primary Wall</strong>: Thin, flexible, made of cellulose, hemicellulose, and pectin</li>
+<li><strong>Secondary Wall</strong>: Thick, rigid, deposited inside primary wall, contains lignin</li>
+</ol></li>
+<li><strong>Plasmodesmata</strong>: Cytoplasmic connections through pits</li>
+<li><strong>Function</strong>: Provides shape, support, and protection</li>
+</ul></li>
+<li><strong>Marks</strong>: 3</li>
+</ul>
+
+<hr />
+
+<h3 id="topic-4-special-topics">Topic 4: Special Topics</h3>
+
+<h4 id="2-mark-questions-4">2 Mark Questions</h4>
+
+<p><strong>Q30. What are satellite chromosomes?</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li>Some chromosomes have a secondary constriction at a constant location</li>
+<li>The portion of chromosome beyond the secondary constriction is called <strong>satellite</strong></li>
+<li>Chromosomes with satellites are called <strong>satellite chromosomes</strong> or <strong>SAT chromosomes</strong></li>
+</ul></li>
+<li><strong>Marks</strong>: 2</li>
+</ul>
+
+<p><strong>Q31. Distinguish between chromatin and chromosome.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+  <th>Chromatin</th>
+  <th>Chromosome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Loosely coiled, thread-like structure</td>
+  <td>Highly condensed, rod-shaped structure</td>
+</tr>
+<tr>
+  <td>Visible during interphase</td>
+  <td>Visible during cell division</td>
+</tr>
+<tr>
+  <td>DNA in extended form</td>
+  <td>DNA in compact form</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li><strong>Marks</strong>: 2</li>
+</ul>
+
+<h4 id="3-mark-questions-4">3 Mark Questions</h4>
+
+<p><strong>Q32. What are microbodies? Describe peroxisomes.</strong></p>
+
+<ul>
+<li><strong>Answer</strong>:
+<ul>
+<li><strong>Microbodies</strong> are small, membrane-bound vesicles containing enzymes</li>
+<li><strong>Peroxisomes</strong>:
+<ul>
+<li>Contain enzymes for <strong>β-oxidation of fatty acids</strong></li>
+<li>Contain enzyme <strong>catalase</strong> that breaks down hydrogen peroxide (H₂O₂) into water and oxygen</li>
+<li>Abundant in liver and kidney cells</li>
+</ul></li>
+<li><strong>Function</strong>: Detoxification and fatty acid metabolism</li>
+</ul></li>
+<li><strong>Marks</strong>: 3</li>
+</ul>
+
+<hr />
+
+<h2 id="exam-preparation-tips">📊 EXAM PREPARATION TIPS</h2>
+
+<h3 id="for-kerala-state-board">For Kerala State Board:</h3>
+
+<ol>
+<li><p><strong>1-Mark Questions</strong>: Focus on definitions, names, years, and one-word answers</p>
+
+<ul>
+<li>Practice all "Who discovered" type questions</li>
+<li>Remember all scientist names with years</li>
+</ul></li>
+<li><p><strong>2-Mark Questions</strong>: Focus on comparisons and short explanations</p>
+
+<ul>
+<li>Practice tables (RER vs SER, Prokaryote vs Eukaryote, etc.)</li>
+<li>Learn functions of all organelles</li>
+</ul></li>
+<li><p><strong>3-Mark Questions</strong>: Practice short notes with 3-4 points</p>
+
+<ul>
+<li>Structure of organelles</li>
+<li>Endomembrane system components</li>
+</ul></li>
+<li><p><strong>4-Mark Questions</strong>: Focus on detailed descriptions with diagrams</p>
+
+<ul>
+<li>All major diagrams must be practiced</li>
+<li>Write in points, not paragraphs</li>
+</ul></li>
+</ol>
+
+<h3 id="for-neet">For NEET:</h3>
+
+<ol>
+<li><p><strong>Factual Questions</strong>: Memorize all facts, names, years, definitions</p>
+
+<ul>
+<li>40% of questions are direct recall</li>
+</ul></li>
+<li><p><strong>Diagram-Based</strong>: Practice labeling all organelles</p>
+
+<ul>
+<li>Mitochondria, Chloroplast, Nucleus diagrams are most common</li>
+</ul></li>
+<li><p><strong>Negative Questions</strong>: Read carefully - "Which is NOT...", "Select the wrong..."</p>
+
+<ul>
+<li>Underline negative words</li>
+</ul></li>
+<li><p><strong>Assertion-Reason</strong>: Practice separately</p>
+
+<ul>
+<li>First check if both are true</li>
+<li>Then check if R explains A</li>
+</ul></li>
+<li><p><strong>Common Traps</strong>:</p>
+
+<ul>
+<li>Mesosomes in eukaryotes (WRONG - only in prokaryotes)</li>
+<li>Centrioles in plant cells (WRONG - only in animal cells)</li>
+<li>Ribosomes in endomembrane system (WRONG - non-membrane bound)</li>
+<li>Cristae in chloroplasts (WRONG - only in mitochondria)</li>
+</ul></li>
+</ol>
+
+<h3 id="high-weightage-topics">High-Weightage Topics:</h3>
+
+<ol>
+<li>✓ Prokaryotic vs Eukaryotic cells</li>
+<li>✓ Organelle functions (Mitochondria, Chloroplast, ER, Golgi, Lysosomes)</li>
+<li>✓ Fluid Mosaic Model</li>
+<li>✓ Endomembrane system</li>
+<li>✓ Semi-autonomous organelles</li>
+<li>✓ Chromosome types</li>
+<li>✓ Cell theory and scientists</li>
+</ol>
+
+<hr />
+
+<h1 id="chapter-summary">📚 CHAPTER SUMMARY</h1>
+
+<h2 id="overview">Overview</h2>
+
+<p>The chapter "Cell: The Unit of Life" is foundational to understanding biology. It covers the basic unit of life - the cell - exploring its discovery, structure, types, and various components that enable life processes.</p>
+
+<h2 id="key-concepts-at-a-glance">Key Concepts at a Glance</h2>
+
+<h3 id="1-cell-discovery-and-theory-1665-1855">1. Cell Discovery and Theory (1665-1855)</h3>
+
+<ul>
+<li><strong>1665</strong>: Robert Hooke discovers dead cork cells</li>
+<li><strong>1674</strong>: Leeuwenhoek observes living cells (bacteria, protozoa)</li>
+<li><strong>1831</strong>: Robert Brown discovers nucleus</li>
+<li><strong>1838-1839</strong>: Schleiden and Schwann formulate Cell Theory</li>
+<li><strong>1855</strong>: Virchow states "all cells from pre-existing cells"</li>
+</ul>
+
+<p><strong>Cell Theory</strong>:</p>
+
+<ol>
+<li>All living organisms are composed of cells and cell products</li>
+<li>All cells arise from pre-existing cells</li>
+</ol>
+
+<h3 id="2-two-types-of-cells">2. Two Types of Cells</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Feature</th>
+  <th>Prokaryotic</th>
+  <th>Eukaryotic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Size</strong></td>
+  <td>1-10 µm</td>
+  <td>10-100 µm</td>
+</tr>
+<tr>
+  <td><strong>Nucleus</strong></td>
+  <td>No true nucleus (nucleoid)</td>
+  <td>Well-defined nucleus</td>
+</tr>
+<tr>
+  <td><strong>Organelles</strong></td>
+  <td>No membrane-bound organelles</td>
+  <td>Membrane-bound organelles present</td>
+</tr>
+<tr>
+  <td><strong>Ribosomes</strong></td>
+  <td>70S</td>
+  <td>80S (70S in organelles)</td>
+</tr>
+<tr>
+  <td><strong>DNA</strong></td>
+  <td>Circular, in cytoplasm</td>
+  <td>Linear, in nucleus</td>
+</tr>
+<tr>
+  <td><strong>Cell Division</strong></td>
+  <td>Binary fission</td>
+  <td>Mitosis/Meiosis</td>
+</tr>
+<tr>
+  <td><strong>Examples</strong></td>
+  <td>Bacteria, Cyanobacteria</td>
+  <td>Plants, Animals, Fungi, Protists</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="3-cell-membrane-plasma-membrane">3. Cell Membrane (Plasma Membrane)</h3>
+
+<ul>
+<li><strong>Structure</strong>: Lipid bilayer (phospholipids) with embedded proteins</li>
+<li><strong>Model</strong>: Fluid Mosaic Model (Singer &amp; Nicolson, 1972)</li>
+<li><strong>Nature</strong>: Quasi-fluid (lipids move laterally)</li>
+<li><strong>Proteins</strong>: Integral (embedded) and Peripheral (surface)</li>
+<li><strong>Function</strong>: Selective permeability, transport, cell recognition</li>
+</ul>
+
+<h3 id="4-cell-wall-plants-only">4. Cell Wall (Plants only)</h3>
+
+<p><strong>Three Layers</strong>:</p>
+
+<ol>
+<li><strong>Middle Lamella</strong>: Calcium pectate, holds cells together</li>
+<li><strong>Primary Wall</strong>: Cellulose, thin and flexible</li>
+<li><strong>Secondary Wall</strong>: Lignin, thick and rigid</li>
+</ol>
+
+<p><strong>Plasmodesmata</strong>: Cytoplasmic bridges between cells</p>
+
+<h3 id="5-cell-organelles-functions-summary">5. Cell Organelles - Functions Summary</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Organelle</th>
+  <th>Main Function</th>
+  <th>Key Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Nucleus</strong></td>
+  <td>Genetic control, heredity</td>
+  <td>Double membrane, pores, chromatin</td>
+</tr>
+<tr>
+  <td><strong>Mitochondria</strong></td>
+  <td>ATP production (respiration)</td>
+  <td>Double membrane, cristae, 70S ribosomes</td>
+</tr>
+<tr>
+  <td><strong>Chloroplast</strong></td>
+  <td>Photosynthesis</td>
+  <td>Double membrane, thylakoids/grana, 70S ribosomes</td>
+</tr>
+<tr>
+  <td><strong>Endoplasmic Reticulum</strong></td>
+  <td>RER: Protein synthesis; SER: Lipid synthesis</td>
+  <td>Membrane network, attached/free ribosomes</td>
+</tr>
+<tr>
+  <td><strong>Golgi Apparatus</strong></td>
+  <td>Modification, packaging, secretion</td>
+  <td>Stacked cisternae, cis and trans face</td>
+</tr>
+<tr>
+  <td><strong>Lysosomes</strong></td>
+  <td>Intracellular digestion</td>
+  <td>Single membrane, hydrolytic enzymes</td>
+</tr>
+<tr>
+  <td><strong>Vacuoles</strong></td>
+  <td>Storage, turgor pressure</td>
+  <td>Single membrane, large in plants</td>
+</tr>
+<tr>
+  <td><strong>Ribosomes</strong></td>
+  <td>Protein synthesis</td>
+  <td>Non-membrane, 80S or 70S</td>
+</tr>
+<tr>
+  <td><strong>Centrosome</strong></td>
+  <td>Spindle fiber formation</td>
+  <td>Two centrioles (9+0 arrangement)</td>
+</tr>
+<tr>
+  <td><strong>Cilia/Flagella</strong></td>
+  <td>Movement</td>
+  <td>9+2 microtubule arrangement</td>
+</tr>
+<tr>
+  <td><strong>Peroxisomes</strong></td>
+  <td>Fatty acid oxidation, H₂O₂ breakdown</td>
+  <td>Single membrane, catalase enzyme</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="6-endomembrane-system">6. Endomembrane System</h3>
+
+<p><strong>Components</strong>: ER → Golgi → Lysosomes/Vacuoles</p>
+
+<p><strong>Function</strong>: Coordinated system for protein synthesis, modification, packaging, and secretion</p>
+
+<p><strong>Note</strong>: Mitochondria and chloroplasts are NOT part of endomembrane system (they're semi-autonomous)</p>
+
+<h3 id="7-semi-autonomous-organelles">7. Semi-Autonomous Organelles</h3>
+
+<p><strong>Mitochondria and Chloroplast</strong> are called semi-autonomous because:</p>
+
+<ul>
+<li>Have their own circular DNA</li>
+<li>Have 70S ribosomes (prokaryotic type)</li>
+<li>Can make some of their own proteins</li>
+<li>Divide independently</li>
+<li><strong>Endosymbiotic Theory</strong>: Evolved from free-living prokaryotes</li>
+</ul>
+
+<h3 id="8-plant-vs-animal-cells">8. Plant vs Animal Cells</h3>
+
+<p><strong>Plant Cell ONLY</strong>:</p>
+
+<ul>
+<li>Cell wall (cellulose)</li>
+<li>Chloroplasts</li>
+<li>Large central vacuole</li>
+<li>Plasmodesmata</li>
+</ul>
+
+<p><strong>Animal Cell ONLY</strong>:</p>
+
+<ul>
+<li>Centrioles</li>
+<li>Small/no vacuoles</li>
+<li>Lysosomes (common)</li>
+</ul>
+
+<p><strong>Both Have</strong>:</p>
+
+<ul>
+<li>Nucleus, mitochondria, ER, Golgi, ribosomes, cytoskeleton</li>
+</ul>
+
+<h3 id="9-chromosome-types-based-on-centromere-position">9. Chromosome Types (Based on Centromere Position)</h3>
+
+<ol>
+<li><strong>Metacentric</strong>: Centromere in middle (L-shaped)</li>
+<li><strong>Sub-metacentric</strong>: Centromere slightly off-center (J-shaped)</li>
+<li><strong>Acrocentric</strong>: Centromere near end (rod-shaped)</li>
+<li><strong>Telocentric</strong>: Centromere at terminal end (i-shaped)</li>
+</ol>
+
+<p><strong>🎯 Interactive Diagram</strong>: <a href="diagrams/chromosome-types.html" target="_blank">🎯 <strong>Chromosome Types (Interactive)</strong> - Click to Explore</a></p>
+
+<h3 id="10-important-mnemonics-and-memory-tips">10. Important Mnemonics and Memory Tips</h3>
+
+<p><strong>Cell Theory Scientists - "Brown Saw Schwann Virtually Gained Proof"</strong>:</p>
+
+<ul>
+<li><strong>Brown</strong> (1831) - Nucleus</li>
+<li><strong>Saw</strong> = <strong>S</strong>chleiden (1838) - Plant cells</li>
+<li><strong>Schwann</strong> (1839) - Animal cells</li>
+<li><strong>Virtually</strong> = <strong>V</strong>irchow (1855) - Cells from cells</li>
+</ul>
+
+<p><strong>Plastid Types - "CCC - Chloro, Chromo, Colorless"</strong>:</p>
+
+<ul>
+<li><strong>Chloroplasts</strong> - Green (photosynthesis)</li>
+<li><strong>Chromoplasts</strong> - Colored (pigments)</li>
+<li><strong>C</strong>olorless - <strong>Leucoplasts</strong> (storage)</li>
+</ul>
+
+<p><strong>Leucoplast Types - "AAA - Amylo, Aleu, Elaio"</strong>:</p>
+
+<ul>
+<li><strong>Amyloplasts</strong> - Starch</li>
+<li><strong>Aleuroplasts</strong> - Proteins</li>
+<li><strong>Elaioplasts</strong> - Oils/fats</li>
+</ul>
+
+<p><strong>Endomembrane System - "ERGO-LV"</strong>:</p>
+
+<ul>
+<li><strong>ER</strong> - Endoplasmic Reticulum</li>
+<li><strong>G</strong> - Golgi apparatus</li>
+<li><strong>O</strong> - (not an organelle, just for pronunciation)</li>
+<li><strong>L</strong> - Lysosomes</li>
+<li><strong>V</strong> - Vacuoles</li>
+</ul>
+
+<p><strong>NOT in Endomembrane: "MCP-R"</strong>:</p>
+
+<ul>
+<li><strong>M</strong> - Mitochondria</li>
+<li><strong>C</strong> - Chloroplast</li>
+<li><strong>P</strong> - Peroxisomes</li>
+<li><strong>R</strong> - Ribosomes</li>
+</ul>
+
+<p><strong>Ribosome Types - "Seven-Eight Rule"</strong>:</p>
+
+<ul>
+<li><strong>70S</strong>: Prokaryotes, Mitochondria, Chloroplasts</li>
+<li><strong>80S</strong>: Eukaryotic cytoplasm</li>
+</ul>
+
+<p><strong>Chromosome Centromere - "M-SAT"</strong>:</p>
+
+<ul>
+<li><strong>M</strong>etacentric - Middle</li>
+<li><strong>S</strong>ub-metacentric - Slightly off</li>
+<li><strong>A</strong>crocentric - Almost at end</li>
+<li><strong>T</strong>elocentric - Terminal end</li>
+</ul>
+
+<hr />
+
+<h1 id="glossary-of-important-terms">📖 GLOSSARY OF IMPORTANT TERMS</h1>
+
+<h3 id="a">A</h3>
+
+<p><strong>Acrocentric Chromosome</strong>: A chromosome with the centromere located close to one end, resulting in one very short arm and one long arm.</p>
+
+<p><strong>Aleuroplast</strong>: A type of leucoplast that stores proteins.</p>
+
+<p><strong>Amyloplast</strong>: A type of leucoplast that stores starch.</p>
+
+<p><strong>Autophagy</strong>: The process by which lysosomes digest damaged or worn-out cell organelles.</p>
+
+<p><strong>Autolysis</strong>: Self-digestion of cells by their own enzymes, especially after death.</p>
+
+<h3 id="c">C</h3>
+
+<p><strong>Cell</strong>: The fundamental structural and functional unit of all living organisms.</p>
+
+<p><strong>Cell Theory</strong>: The theory stating that (1) all living organisms are composed of cells and cell products, and (2) all cells arise from pre-existing cells.</p>
+
+<p><strong>Cell Wall</strong>: A rigid outer layer found in plant cells, composed of cellulose, that provides structural support and protection.</p>
+
+<p><strong>Centriole</strong>: A cylindrical organelle composed of nine triplets of microtubules (9+0 arrangement), found in animal cells, involved in cell division.</p>
+
+<p><strong>Centromere</strong>: The primary constriction on a chromosome where sister chromatids are joined and where spindle fibers attach during cell division.</p>
+
+<p><strong>Centrosome</strong>: The organelle that serves as the main microtubule organizing center, contains two centrioles.</p>
+
+<p><strong>Chloroplast</strong>: A double membrane-bound organelle in plant cells where photosynthesis occurs, contains chlorophyll.</p>
+
+<p><strong>Chromatin</strong>: A complex of DNA and histone proteins found in the nucleus during interphase, which condenses to form chromosomes during cell division.</p>
+
+<p><strong>Chromoplast</strong>: Colored plastids containing carotenoid pigments (red, yellow, orange), found in flowers and fruits.</p>
+
+<p><strong>Chromosome</strong>: A highly condensed form of chromatin visible during cell division, consisting of DNA and associated proteins.</p>
+
+<p><strong>Cilia</strong>: Short, hair-like projections on the cell surface with 9+2 microtubule arrangement, used for movement or moving substances across the cell surface.</p>
+
+<p><strong>Cisternae</strong>: Flattened, membrane-bound sacs that make up the Golgi apparatus and endoplasmic reticulum.</p>
+
+<p><strong>Cristae</strong>: The infoldings of the inner mitochondrial membrane that increase surface area for ATP synthesis.</p>
+
+<p><strong>Cytoplasm</strong>: The gel-like substance inside the cell membrane, excluding the nucleus, containing organelles and dissolved substances.</p>
+
+<p><strong>Cytoskeleton</strong>: A network of protein filaments (microfilaments, intermediate filaments, microtubules) that provides structural support and enables cell movement.</p>
+
+<h3 id="e">E</h3>
+
+<p><strong>Elaioplast</strong>: A type of leucoplast that stores oils and fats.</p>
+
+<p><strong>Endomembrane System</strong>: A system of membrane-bound organelles (ER, Golgi, lysosomes, vacuoles) that work together in synthesis, modification, and transport.</p>
+
+<p><strong>Endoplasmic Reticulum (ER)</strong>: A network of membranous tubules and sacs involved in protein and lipid synthesis.</p>
+
+<p><strong>Endosymbiotic Theory</strong>: The theory that mitochondria and chloroplasts originated as free-living prokaryotic organisms that were engulfed by ancestral eukaryotic cells.</p>
+
+<p><strong>Eukaryotic Cell</strong>: A cell with a well-defined, membrane-bound nucleus and membrane-bound organelles.</p>
+
+<h3 id="f">F</h3>
+
+<p><strong>Fimbriae</strong>: Short, hair-like structures on bacterial surfaces used for attachment to surfaces.</p>
+
+<p><strong>Flagella</strong>: Long, whip-like projections with 9+2 microtubule arrangement, used for cell movement.</p>
+
+<p><strong>Fluid Mosaic Model</strong>: The model of cell membrane structure (Singer &amp; Nicolson, 1972) describing a fluid lipid bilayer with proteins embedded in a mosaic pattern.</p>
+
+<h3 id="g">G</h3>
+
+<p><strong>Golgi Apparatus</strong>: A stack of flattened membrane-bound sacs (cisternae) involved in modifying, packaging, and sorting proteins and lipids.</p>
+
+<p><strong>Grana</strong>: Stacks of thylakoids in chloroplasts where light reactions of photosynthesis occur (singular: granum).</p>
+
+<h3 id="h">H</h3>
+
+<p><strong>Hydrolytic Enzymes</strong>: Enzymes that break down substances by adding water molecules, abundant in lysosomes.</p>
+
+<h3 id="i">I</h3>
+
+<p><strong>Inclusion Bodies</strong>: Non-living structures in prokaryotic cells that store reserve materials like glycogen, lipids, or gas vesicles.</p>
+
+<p><strong>Integral Proteins</strong>: Membrane proteins that are embedded within the lipid bilayer.</p>
+
+<h3 id="l">L</h3>
+
+<p><strong>Leucoplast</strong>: Colorless plastids found in non-photosynthetic plant tissues, used for storage.</p>
+
+<p><strong>Lysosome</strong>: A membrane-bound organelle containing hydrolytic enzymes for intracellular digestion, called "suicidal bags" of the cell.</p>
+
+<h3 id="m">M</h3>
+
+<p><strong>Matrix</strong>: The fluid-filled inner space of mitochondria containing enzymes for the Krebs cycle.</p>
+
+<p><strong>Metacentric Chromosome</strong>: A chromosome with the centromere in the middle, creating two equal arms (L-shaped).</p>
+
+<p><strong>Mesosome</strong>: An infolding of the plasma membrane in prokaryotic cells, involved in respiration and cell wall formation.</p>
+
+<p><strong>Microbodies</strong>: Small, membrane-bound organelles containing enzymes (peroxisomes, glyoxysomes).</p>
+
+<p><strong>Middle Lamella</strong>: The outermost layer of plant cell wall made of calcium pectate that cements adjacent cells together.</p>
+
+<p><strong>Mitochondria</strong>: Double membrane-bound organelles known as the "powerhouse of the cell," responsible for ATP production through cellular respiration.</p>
+
+<h3 id="n">N</h3>
+
+<p><strong>Nuclear Envelope</strong>: The double membrane surrounding the nucleus, containing nuclear pores.</p>
+
+<p><strong>Nuclear Pores</strong>: Openings in the nuclear envelope that allow selective movement of molecules between nucleus and cytoplasm.</p>
+
+<p><strong>Nucleoid</strong>: The region in prokaryotic cells where the circular DNA is located, not surrounded by a membrane.</p>
+
+<p><strong>Nucleolus</strong>: A dense, non-membrane-bound structure within the nucleus where ribosomal RNA is synthesized.</p>
+
+<p><strong>Nucleoplasm</strong>: The gel-like substance inside the nucleus, also called nuclear matrix or karyolymph.</p>
+
+<p><strong>Nucleus</strong>: The membrane-bound organelle in eukaryotic cells that contains genetic material (DNA) and controls cellular activities.</p>
+
+<h3 id="o">O</h3>
+
+<p><strong>Organelle</strong>: A specialized sub-cellular structure with a specific function.</p>
+
+<p><strong>Oxysomes (F₁ particles)</strong>: ATP synthase enzymes located on the cristae of mitochondria, also called elementary particles.</p>
+
+<h3 id="p">P</h3>
+
+<p><strong>Peripheral Proteins</strong>: Membrane proteins loosely attached to the surface of the membrane, not embedded in the lipid bilayer.</p>
+
+<p><strong>Peroxisome</strong>: A microbody containing enzymes for fatty acid oxidation and hydrogen peroxide breakdown (catalase enzyme).</p>
+
+<p><strong>Pili</strong>: Hollow, tubular structures on bacterial surfaces used for DNA transfer during conjugation.</p>
+
+<p><strong>Plasma Membrane</strong>: The selectively permeable membrane that surrounds the cell, composed of a lipid bilayer with embedded proteins.</p>
+
+<p><strong>Plasmodesmata</strong>: Cytoplasmic channels that connect adjacent plant cells through their cell walls.</p>
+
+<p><strong>Plasmid</strong>: Small, circular, extra-chromosomal DNA found in prokaryotic cells.</p>
+
+<p><strong>Plastids</strong>: Colored or colorless organelles found in plant cells (chloroplasts, chromoplasts, leucoplasts).</p>
+
+<p><strong>Primary Cell Wall</strong>: The first layer of cell wall formed in plant cells, thin and flexible, composed of cellulose and pectin.</p>
+
+<p><strong>Prokaryotic Cell</strong>: A cell that lacks a true nucleus and membrane-bound organelles, with DNA in a nucleoid region.</p>
+
+<p><strong>Protoplasm</strong>: The living substance of a cell, including cytoplasm and nucleoplasm.</p>
+
+<h3 id="q">Q</h3>
+
+<p><strong>Quasi-fluid</strong>: The semi-fluid nature of the cell membrane lipid bilayer, where lipid molecules can move laterally.</p>
+
+<h3 id="r">R</h3>
+
+<p><strong>Ribosomes</strong>: Non-membrane-bound organelles composed of RNA and proteins, responsible for protein synthesis (70S in prokaryotes, 80S in eukaryotes).</p>
+
+<p><strong>Rough Endoplasmic Reticulum (RER)</strong>: ER with ribosomes attached, involved in protein synthesis and transport.</p>
+
+<h3 id="s">S</h3>
+
+<p><strong>Satellite (SAT) Chromosome</strong>: A chromosome with a secondary constriction creating a small segment beyond it, called a satellite.</p>
+
+<p><strong>Secondary Cell Wall</strong>: The thick, rigid layer deposited inside the primary wall in mature plant cells, contains lignin.</p>
+
+<p><strong>Semi-autonomous Organelles</strong>: Organelles (mitochondria, chloroplasts) that have their own DNA and ribosomes and can replicate independently.</p>
+
+<p><strong>Smooth Endoplasmic Reticulum (SER)</strong>: ER without ribosomes, involved in lipid synthesis and detoxification.</p>
+
+<p><strong>Stroma</strong>: The fluid-filled space inside chloroplasts where dark reactions (Calvin cycle) of photosynthesis occur.</p>
+
+<p><strong>Sub-metacentric Chromosome</strong>: A chromosome with the centromere slightly off-center, creating one shorter and one longer arm (J-shaped).</p>
+
+<h3 id="t">T</h3>
+
+<p><strong>Telocentric Chromosome</strong>: A chromosome with the centromere at the terminal end, creating a rod-shaped (i-shaped) structure.</p>
+
+<p><strong>Thylakoid</strong>: Flattened membranous sacs in chloroplasts where light reactions of photosynthesis occur.</p>
+
+<h3 id="v">V</h3>
+
+<p><strong>Vacuole</strong>: A membrane-bound sac used for storage; large central vacuole in plant cells maintains turgor pressure.</p>
+
+<hr />
+
+<h1 id="study-strategy-and-tips">🎯 STUDY STRATEGY AND TIPS</h1>
+
+<h2 id="for-kerala-state-board-exam">For Kerala State Board Exam</h2>
+
+<h3 id="preparation-timeline-4-weeks-recommended">Preparation Timeline (4 weeks recommended)</h3>
+
+<p><strong>Week 1: Understanding Phase</strong></p>
+
+<ul>
+<li>Read the entire chapter from NCERT textbook</li>
+<li>Understand cell theory and history</li>
+<li>Study prokaryotic vs eukaryotic cells</li>
+<li>Practice all flashcards in this study guide</li>
+</ul>
+
+<p><strong>Week 2: Organelles Deep Dive</strong></p>
+
+<ul>
+<li>Study each organelle thoroughly (structure + function)</li>
+<li>Draw and label all diagrams multiple times</li>
+<li>Focus on: Nucleus, Mitochondria, Chloroplast, ER, Golgi</li>
+<li>Understand endomembrane system concept</li>
+</ul>
+
+<p><strong>Week 3: Practice and Revision</strong></p>
+
+<ul>
+<li>Attempt all Kerala Board questions from this guide</li>
+<li>Practice writing answers within time limits</li>
+<li>Make your own short notes for quick revision</li>
+<li>Focus on comparison tables (very important!)</li>
+</ul>
+
+<p><strong>Week 4: Final Revision</strong></p>
+
+<ul>
+<li>Quick revision using summary section</li>
+<li>Practice all diagrams one more time</li>
+<li>Revise all mnemonics and memory tips</li>
+<li>Solve previous year question papers</li>
+</ul>
+
+<h3 id="mark-wise-strategy">Mark-wise Strategy</h3>
+
+<p><strong>1-Mark Questions (Very Easy - Don't Lose Marks Here!)</strong></p>
+
+<ul>
+<li>Memorize all names, years, definitions</li>
+<li>One-word or one-line answers</li>
+<li>Practice speed - should answer in 30 seconds</li>
+</ul>
+
+<p><strong>2-Mark Questions (Easy - Good Scoring)</strong></p>
+
+<ul>
+<li>Usually comparisons or two-point explanations</li>
+<li>Use tables for comparisons (saves time, looks neat)</li>
+<li>Write exactly 2 points - don't overwrite</li>
+</ul>
+
+<p><strong>3-Mark Questions (Medium - Practice Required)</strong></p>
+
+<ul>
+<li>Structure or function questions</li>
+<li>Write 3-4 clear points</li>
+<li>Can include a small labeled diagram if helpful</li>
+</ul>
+
+<p><strong>4-Mark Questions (Challenging - Need Diagram!)</strong></p>
+
+<ul>
+<li>Detailed structure/function</li>
+<li>MUST include labeled diagram (2 marks usually for diagram)</li>
+<li>Write in points, not paragraphs</li>
+<li>Underline important terms</li>
+</ul>
+
+<h3 id="diagram-practice-must-do">Diagram Practice (MUST DO!)</h3>
+
+<p>Practice these diagrams daily:</p>
+
+<ol>
+<li>✓ Prokaryotic cell structure</li>
+<li>✓ Plant cell (with all organelles)</li>
+<li>✓ Animal cell (with all organelles)</li>
+<li>✓ Fluid Mosaic Model</li>
+<li>✓ Mitochondria structure</li>
+<li>✓ Chloroplast structure</li>
+<li>✓ Nucleus structure</li>
+<li>✓ ER (RER and SER)</li>
+<li>✓ Golgi apparatus</li>
+<li>✓ Chromosome types</li>
+</ol>
+
+<p><strong>Diagram Tips</strong>:</p>
+
+<ul>
+<li>Use pencil first, then pen</li>
+<li>Label neatly with straight lines</li>
+<li>Don't make diagrams too small</li>
+<li>Include title: "L.S. of..." or "Structure of..."</li>
+</ul>
+
+<hr />
+
+<h2 id="for-neet-exam">For NEET Exam</h2>
+
+<h3 id="high-priority-topics-must-master">High-Priority Topics (Must Master)</h3>
+
+<ol>
+<li><p><strong>Cell Theory and Scientists</strong> (Easy marks - don't miss!)</p>
+
+<ul>
+<li>Names, years, contributions</li>
+<li>Direct questions every year</li>
+</ul></li>
+<li><p><strong>Prokaryotic vs Eukaryotic</strong> (Very frequently asked)</p>
+
+<ul>
+<li>All differences</li>
+<li>Common traps: mesosomes, plasmids, ribosomes</li>
+</ul></li>
+<li><p><strong>Organelle Functions</strong> (Maximum questions from here)</p>
+
+<ul>
+<li>Every organelle's main function</li>
+<li>What it contains, where located</li>
+<li>Special features</li>
+</ul></li>
+<li><p><strong>Semi-Autonomous Organelles</strong> (Asked every 2-3 years)</p>
+
+<ul>
+<li>Why called semi-autonomous</li>
+<li>70S ribosomes, circular DNA</li>
+<li>Endosymbiotic theory basics</li>
+</ul></li>
+<li><p><strong>Endomembrane System</strong> (Conceptual - tricky)</p>
+
+<ul>
+<li>Which organelles are included</li>
+<li>Which are NOT (mitochondria, chloroplast - common trap!)</li>
+<li>How they work together</li>
+</ul></li>
+<li><p><strong>Fluid Mosaic Model</strong> (1-2 questions guaranteed)</p>
+
+<ul>
+<li>Structure of membrane</li>
+<li>Types of proteins</li>
+<li>Fluid nature concept</li>
+</ul></li>
+<li><p><strong>Chromosome Types</strong> (Asked in matching questions)</p>
+
+<ul>
+<li>Metacentric, sub-metacentric, acrocentric, telocentric</li>
+<li>Practice memory tips</li>
+</ul></li>
+</ol>
+
+<h3 id="question-type-strategy">Question Type Strategy</h3>
+
+<p><strong>Type 1: Direct Factual (40% of questions)</strong></p>
+
+<ul>
+<li>"Who discovered...?", "What is the function of...?"</li>
+<li>Solution: Pure memorization, use flashcards</li>
+</ul>
+
+<p><strong>Type 2: Diagram-Based (20% of questions)</strong></p>
+
+<ul>
+<li>Labeling mitochondria, chloroplast, nucleus</li>
+<li>Solution: Practice diagrams, know every part</li>
+</ul>
+
+<p><strong>Type 3: Negative Questions (15% of questions)</strong></p>
+
+<ul>
+<li>"Which is NOT...", "Select the wrong..."</li>
+<li>Solution: Read twice, underline "NOT" or "wrong", eliminate</li>
+</ul>
+
+<p><strong>Type 4: Assertion-Reason (10% of questions)</strong></p>
+
+<ul>
+<li>Both statements given, check if R explains A</li>
+<li>Solution: First check if both true, then check explanation</li>
+</ul>
+
+<p><strong>Type 5: Application/Analysis (15% of questions)</strong></p>
+
+<ul>
+<li>"A cell has X, Y, Z features, identify it"</li>
+<li>Solution: Use elimination method</li>
+</ul>
+
+<h3 id="common-traps-in-neet-dont-fall-for-these">Common Traps in NEET (Don't Fall for These!)</h3>
+
+<p>❌ <strong>Trap 1</strong>: "Mesosomes are found in eukaryotic cells"<br />
+✓ <strong>Fact</strong>: Only in PROKARYOTES</p>
+
+<p>❌ <strong>Trap 2</strong>: "Centrioles are found in all eukaryotic cells"<br />
+✓ <strong>Fact</strong>: Only in ANIMAL cells, NOT plants</p>
+
+<p>❌ <strong>Trap 3</strong>: "Mitochondria are part of endomembrane system"<br />
+✓ <strong>Fact</strong>: NOT part of it (semi-autonomous)</p>
+
+<p>❌ <strong>Trap 4</strong>: "Ribosomes are membrane-bound organelles"<br />
+✓ <strong>Fact</strong>: NON-membrane bound</p>
+
+<p>❌ <strong>Trap 5</strong>: "Cristae are found in chloroplasts"<br />
+✓ <strong>Fact</strong>: Only in MITOCHONDRIA (chloroplasts have thylakoids)</p>
+
+<p>❌ <strong>Trap 6</strong>: "Robert Brown discovered the cell"<br />
+✓ <strong>Fact</strong>: He discovered NUCLEUS, Hooke discovered cell</p>
+
+<p>❌ <strong>Trap 7</strong>: "Lysosomes are common in plant cells"<br />
+✓ <strong>Fact</strong>: Rare in plants, common in ANIMALS</p>
+
+<p>❌ <strong>Trap 8</strong>: "Golgi apparatus synthesizes proteins"<br />
+✓ <strong>Fact</strong>: It MODIFIES and PACKAGES (ER/ribosomes synthesize)</p>
+
+<h3 id="last-week-before-neet">Last Week Before NEET</h3>
+
+<p><strong>7 days out</strong>:</p>
+
+<ul>
+<li>Revise all organelle functions</li>
+<li>Practice all diagram-based questions</li>
+<li>Review all flashcards once</li>
+</ul>
+
+<p><strong>3 days out</strong>:</p>
+
+<ul>
+<li>Focus on high-weightage topics only</li>
+<li>Revise all common traps</li>
+<li>Do quick revision of summary section</li>
+</ul>
+
+<p><strong>1 day before</strong>:</p>
+
+<ul>
+<li>Read glossary once</li>
+<li>Go through all mnemonics</li>
+<li>Don't study new material</li>
+<li>Sleep well!</li>
+</ul>
+
+<hr />
+
+<h1 id="important-diagrams-reference">📊 IMPORTANT DIAGRAMS REFERENCE</h1>
+
+<p>This study guide references the following diagrams. These will be created as separate DrawIO files in the <code>chapter-images</code> folder:</p>
+
+<ol>
+<li><strong>Figure 5.1</strong>: Prokaryotic Cell Structure</li>
+<li><strong>Figure 5.2</strong>: Eukaryotic Plant Cell</li>
+<li><strong>Figure 5.3</strong>: Fluid Mosaic Model of Plasma Membrane</li>
+<li><strong>Figure 5.4</strong>: Plant Cell Wall Structure (Three Layers)</li>
+<li><strong>Figure 5.5</strong>: Rough and Smooth Endoplasmic Reticulum</li>
+<li><strong>Figure 5.6</strong>: Golgi Apparatus Structure</li>
+<li><strong>Figure 5.7</strong>: Mitochondria Structure (L.S.)</li>
+<li><strong>Figure 5.8</strong>: Chloroplast Structure (L.S.)</li>
+<li><strong>Figure 5.9</strong>: Types of Plastids</li>
+<li><strong>Figure 5.10</strong>: Nucleus Structure</li>
+<li><strong>Figure 5.11</strong>: Chromosome Types (Based on Centromere Position)</li>
+<li><strong>Figure 5.12</strong>: Eukaryotic Animal Cell</li>
+</ol>
+
+<p>All diagrams will be:</p>
+
+<ul>
+<li>Created in DrawIO format (.drawio)</li>
+<li>Color-coded according to biology color scheme</li>
+<li>Properly labeled with clear text</li>
+<li>Saved in high resolution for printing</li>
+<li>Editable for future modifications</li>
+</ul>
+
+<hr />
+
+<h1 id="self-assessment-checklist">✅ SELF-ASSESSMENT CHECKLIST</h1>
+
+<p>Before the exam, ensure you can answer YES to all these:</p>
+
+<h2 id="knowledge-check">Knowledge Check</h2>
+
+<ul>
+<li>[ ] Can you state the cell theory and its limitations?</li>
+<li>[ ] Can you name all scientists with years (1665-1855)?</li>
+<li>[ ] Can you list all differences between prokaryotic and eukaryotic cells?</li>
+<li>[ ] Can you explain the Fluid Mosaic Model?</li>
+<li>[ ] Can you name all cell organelles and their functions?</li>
+<li>[ ] Can you distinguish between RER and SER?</li>
+<li>[ ] Can you list components of endomembrane system?</li>
+<li>[ ] Can you explain why mitochondria/chloroplasts are semi-autonomous?</li>
+<li>[ ] Can you differentiate between plant and animal cells?</li>
+<li>[ ] Can you identify all four chromosome types?</li>
+</ul>
+
+<h2 id="diagram-proficiency">Diagram Proficiency</h2>
+
+<ul>
+<li>[ ] Can you draw and label a prokaryotic cell?</li>
+<li>[ ] Can you draw and label a plant cell?</li>
+<li>[ ] Can you draw and label an animal cell?</li>
+<li>[ ] Can you draw the Fluid Mosaic Model?</li>
+<li>[ ] Can you draw mitochondria structure?</li>
+<li>[ ] Can you draw chloroplast structure?</li>
+<li>[ ] Can you draw nucleus structure?</li>
+<li>[ ] Can you draw Golgi apparatus?</li>
+<li>[ ] Can you draw ER (both RER and SER)?</li>
+<li>[ ] Can you draw all chromosome types?</li>
+</ul>
+
+<h2 id="exam-readiness">Exam Readiness</h2>
+
+<ul>
+<li>[ ] Have you practiced all Kerala Board questions?</li>
+<li>[ ] Have you practiced all NEET MCQs?</li>
+<li>[ ] Have you revised all flashcards?</li>
+<li>[ ] Have you memorized all mnemonics?</li>
+<li>[ ] Have you made your own short notes?</li>
+<li>[ ] Have you solved previous year papers?</li>
+<li>[ ] Can you answer 1-mark questions in 30 seconds?</li>
+<li>[ ] Can you complete diagrams in 5 minutes?</li>
+</ul>
+
+<hr />
+
+<h1 id="final-words">🎓 FINAL WORDS</h1>
+
+<h2 id="this-chapters-importance">This Chapter's Importance</h2>
+
+<p>"Cell: The Unit of Life" is one of the most fundamental chapters in biology. It forms the basis for understanding:</p>
+
+<ul>
+<li>Plant and Animal Physiology</li>
+<li>Cell Division (Mitosis and Meiosis)</li>
+<li>Genetics and Molecular Biology</li>
+<li>Biotechnology</li>
+</ul>
+
+<p><strong>For Kerala Board</strong>: This chapter typically carries 8-12 marks in the exam. Master it well!</p>
+
+<p><strong>For NEET</strong>: Expect 4-6 questions directly from this chapter (16-24 marks). Additionally, many questions from other chapters require knowledge of cell structure.</p>
+
+<h2 id="success-mantra">Success Mantra</h2>
+
+<blockquote>
+  <p><strong>"Understand first, memorize second, practice third, revise always"</strong></p>
+</blockquote>
+
+<ol>
+<li><strong>Understand</strong> the concept (don't just memorize)</li>
+<li><strong>Memorize</strong> facts, names, years</li>
+<li><strong>Practice</strong> diagrams and questions daily</li>
+<li><strong>Revise</strong> regularly using summary and flashcards</li>
+</ol>
+
+<h2 id="remember">Remember</h2>
+
+<ul>
+<li>Every organelle has a specific function - understand WHY it's structured that way</li>
+<li>Diagrams are your best friends - they can fetch you easy marks</li>
+<li>Comparisons and tables are frequently asked - practice them</li>
+<li>NEET loves testing exceptions and special cases - know the traps</li>
+<li>Regular revision is more important than last-minute cramming</li>
+</ul>
+
+<hr />
+
+<p><strong>Best of luck with your studies! You've got this! 💪</strong></p>
+
+<hr />
+
+<p><strong>Document Information</strong>:</p>
+
+<ul>
+<li><strong>Chapter</strong>: Cell: The Unit of Life (NCERT Class 11 Biology, Chapter 8)</li>
+<li><strong>Curriculum</strong>: Kerala State Board Plus One &amp; NEET</li>
+<li><strong>Version</strong>: 1.0</li>
+<li><strong>Last Updated</strong>: December 9, 2025</li>
+<li><strong>Total Pages</strong>: Study Guide + 32 Kerala Board Questions + 20 NEET MCQs + Summary + Glossary</li>
+<li><strong>Diagrams Referenced</strong>: 12 DrawIO diagrams (to be created)</li>
+<li><strong>Study Time Required</strong>: 4 weeks (recommended)</li>
+</ul>
+
+<hr />
+
+<p><strong>End of Study Guide</strong></p>
+
+    </div>
+
+    <footer style="background: #2C3E50; color: white; text-align: center; padding: 40px 20px; margin-top: 80px;">
+        <h3>Complete Study Notes - Cell: The Unit of Life</h3>
+        <p style="opacity: 0.9;">Plus One Biology | Kerala State Board + NEET Preparation</p>
+        <p style="opacity: 0.8; font-size: 0.9rem; margin-top: 15px;">
+            Comprehensive study material with detailed theory, flashcards, and exam tips
+        </p>
+    </footer>
+
+    <script>
+        // Reading Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Shrink navbar on scroll
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Auto-generate Table of Contents
+        const tocList = document.getElementById('toc-list');
+        const headings = document.querySelectorAll('h2[id]');
+        headings.forEach((heading, index) => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = '#' + heading.id;
+            a.textContent = heading.textContent;
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                heading.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+            li.appendChild(a);
+            tocList.appendChild(li);
+        });
+
+        // TOC Toggle
+        const tocToggle = document.getElementById('toc-toggle');
+        const tocPanel = document.getElementById('toc-panel');
+        tocToggle.addEventListener('click', () => {
+            tocPanel.classList.toggle('visible');
+        });
+
+        // Highlight active TOC item on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            headings.forEach(heading => {
+                const sectionTop = heading.offsetTop;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = heading.id;
+                }
+            });
+            const tocLinks = document.querySelectorAll('#toc-list a');
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Add fade-in class to h2, h3, tables, and blockquotes
+        document.querySelectorAll('h2, h3, table, blockquote').forEach(el => {
+            el.classList.add('fade-in');
+            observer.observe(el);
+        });
+
+        // Smooth details animation
+        document.querySelectorAll('details').forEach(detail => {
+            detail.addEventListener('toggle', function() {
+                if (this.open) {
+                    this.style.animation = 'fadeInUp 0.3s ease';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

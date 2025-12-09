@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cell Wall Structure - Interactive | Plus One Biology</title>
+
+    <!-- React from CDN (NO Babel needed!) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../css/base.css">
+
+    <style>
+        /* ============================================
+           Back Button Styling
+           ============================================ */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            color: #4169E1;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            transition: all 0.3s ease;
+            border: 2px solid #4169E1;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            background: #4169E1;
+            color: white;
+        }
+
+        /* ============================================
+           Component Specific Styles
+           ============================================ */
+.cell-wall-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2C3E50;
+  background-color: #f5f7fa;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.cell-wall-container h1 {
+  text-align: center;
+  color: #4169E1;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.cell-wall-container .subtitle {
+  text-align: center;
+  color: #546E7A;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+}
+
+/* Diagram Section */
+.diagram-section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.cell-wall-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* SVG Layers */
+.layer {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.layer:hover {
+  filter: brightness(1.1);
+  stroke-width: 5;
+}
+
+.layer.selected {
+  filter: brightness(1.15) drop-shadow(0 0 12px rgba(65, 105, 225, 0.6));
+  stroke-width: 6;
+}
+
+.plasmodesma {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.plasmodesma:hover {
+  stroke-width: 8;
+  filter: drop-shadow(0 0 6px rgba(65, 105, 225, 0.8));
+}
+
+.plasmodesma.selected {
+  stroke-width: 10;
+  filter: drop-shadow(0 0 10px rgba(65, 105, 225, 1));
+}
+
+/* Details Panel */
+.details-panel {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.details-panel h2 {
+  color: #4169E1;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  border-bottom: 3px solid #4169E1;
+  padding-bottom: 10px;
+}
+
+.detail-section {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.detail-section h3 {
+  color: #4169E1;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.composition {
+  font-weight: 600;
+  color: #1E3A8A;
+  font-size: 1.05rem;
+  background: linear-gradient(135deg, #E0F2F7 0%, #B3E5FC 100%);
+  padding: 10px;
+  border-radius: 8px;
+  border-left: 3px solid #4169E1;
+}
+
+.detail-section ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.detail-section li {
+  margin: 8px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.absent,
+.present {
+  font-size: 0.95rem;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.absent {
+  background: linear-gradient(135deg, #FFE5E5 0%, #FFD5D5 100%);
+  border-left: 3px solid #FF4444;
+  color: #8B0000;
+}
+
+.present {
+  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+  border-left: 3px solid #4CAF50;
+  color: #1B5E20;
+}
+
+.exam-section {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.exam-section h3 {
+  color: #FF6F00;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.mistake {
+  background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+  padding: 10px;
+  border-radius: 8px;
+  border-left: 3px solid #FF9800;
+  font-weight: 600;
+  color: #E65100;
+}
+
+.question {
+  background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%);
+  padding: 10px;
+  border-radius: 8px;
+  border-left: 3px solid #9C27B0;
+  font-weight: 600;
+  color: #4A148C;
+}
+
+.exam-frequency {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CC 100%);
+  padding: 10px;
+  border-radius: 8px;
+  border-left: 3px solid #FFC107;
+  margin-top: 15px;
+  font-size: 0.9rem;
+}
+
+/* Comparison Table */
+.comparison-section {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.comparison-section h2 {
+  text-align: center;
+  color: #4169E1;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+}
+
+.comparison-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.comparison-section th {
+  background: linear-gradient(135deg, #4169E1 0%, #0047AB 100%);
+  color: white;
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #4169E1;
+}
+
+.comparison-section td {
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.comparison-section tr:hover {
+  background-color: #f8f9fa;
+}
+
+.comparison-section tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-section td:first-child {
+  font-weight: 600;
+  color: #4169E1;
+}
+
+/* Info Grid (Functions and Key Points) */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.functions-card,
+.keypoints-card {
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.functions-card {
+  background: linear-gradient(135deg, #FFFACD 0%, #FFEAA7 100%);
+  border-left: 5px solid #FFD700;
+}
+
+.keypoints-card {
+  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+  border-left: 5px solid #4CAF50;
+}
+
+.functions-card:hover,
+.keypoints-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.functions-card h3,
+.keypoints-card h3 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+}
+
+.functions-card h3 {
+  color: #8B6914;
+}
+
+.keypoints-card h3 {
+  color: #1B5E20;
+}
+
+.functions-card ul,
+.keypoints-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.functions-card li,
+.keypoints-card li {
+  padding: 10px;
+  margin: 8px 0;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Exam Tips */
+.exam-tips {
+  background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  padding: 30px;
+  border-radius: 12px;
+  border-left: 5px solid #4169E1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.exam-tips h2 {
+  color: #4169E1;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.exam-tips ul {
+  list-style: none;
+  padding: 0;
+}
+
+.exam-tips li {
+  padding: 10px 15px;
+  margin: 10px 0;
+  background: white;
+  border-radius: 8px;
+  border-left: 3px solid #FF6F00;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.exam-tips li:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.exam-tips li strong {
+  color: #4169E1;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cell-wall-container {
+    padding: 15px;
+  }
+
+  .cell-wall-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .diagram-section {
+    padding: 15px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .comparison-section {
+    padding: 15px;
+    overflow-x: auto;
+  }
+
+  .comparison-section table {
+    font-size: 0.85rem;
+  }
+
+  .comparison-section th,
+  .comparison-section td {
+    padding: 10px;
+  }
+
+  .exam-tips {
+    padding: 15px;
+  }
+
+  .exam-tips li {
+    font-size: 0.9rem;
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- Back Navigation -->
+    <a href="../index.html" class="back-button">← Back to Chapter</a>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <script>
+        const { useState, createElement: e } = React;
+
+        function CellWallInteractive() {
+            const [selectedLayer, setSelectedLayer] = useState(null);
+
+            const layers = {
+                middleLamella: {
+                    name: 'Middle Lamella',
+                    composition: 'Calcium pectate (pectin compounds)',
+                    characteristics: [
+                        'OUTERMOST layer',
+                        'Thin, jelly-like layer',
+                        'COMMON to TWO adjacent cells',
+                        'First layer formed during cell division',
+                        'Non-living'
+                    ],
+                    functions: [
+                        'Holds adjacent cells TOGETHER',
+                        'Acts as intercellular cement',
+                        'Provides cell-to-cell adhesion'
+                    ],
+                    location: 'Between primary walls of adjacent cells',
+                    examImportance: 'Very High',
+                    keralaBoardFrequency: 'PPPPP',
+                    neetFrequency: 'PPPP',
+                    commonMistake: 'Middle lamella is NOT a cell wall - it is the cementing layer between two adjacent cells. It is SHARED by two cells.',
+                    examQuestion: 'Q: What is the function of middle lamella? A: Holds adjacent plant cells together, acts as intercellular cement',
+                    color: '#F5DEB3',
+                    borderColor: '#8B7355'
+                },
+                primaryWall: {
+                    name: 'Primary Cell Wall',
+                    composition: 'Cellulose (microfibrils) + Hemicellulose + Pectin + Water',
+                    characteristics: [
+                        'Present in ALL plant cells',
+                        'Thin (0.1-3 μm) and FLEXIBLE',
+                        'Formed during cell growth',
+                        'Allows cell expansion',
+                        'Non-living'
+                    ],
+                    functions: [
+                        'Provides shape and mechanical support',
+                        'Allows cell growth and expansion',
+                        'Protection from mechanical stress',
+                        'Cell-to-cell communication (through plasmodesmata)'
+                    ],
+                    location: 'Inside middle lamella, outside secondary wall',
+                    examImportance: 'Very High',
+                    keralaBoardFrequency: 'PPPPP',
+                    neetFrequency: 'PPPPP',
+                    commonMistake: 'Primary wall is THIN and FLEXIBLE (allows growth). Secondary wall is THICK and RIGID (no growth).',
+                    examQuestion: 'Q: What is the composition of primary cell wall? A: Cellulose, hemicellulose, and pectin',
+                    color: '#C4A87C',
+                    borderColor: '#8B4513'
+                },
+                secondaryWall: {
+                    name: 'Secondary Cell Wall',
+                    composition: 'Cellulose + LIGNIN (major component)',
+                    characteristics: [
+                        'NOT present in all cells',
+                        'THICK (5-10 μm) and RIGID',
+                        'Formed AFTER cell stops growing',
+                        'Deposited INSIDE primary wall',
+                        'Contains lignin for strength',
+                        'Non-living'
+                    ],
+                    functions: [
+                        'Provides ADDITIONAL strength and rigidity',
+                        'Waterproofing (lignin is water-resistant)',
+                        'Support in mature/woody tissues',
+                        'Protection against mechanical damage'
+                    ],
+                    location: 'Inside primary wall, next to plasma membrane',
+                    absent: 'Meristematic cells, young growing cells, parenchyma',
+                    present: 'Sclerenchyma, tracheids, vessels, fibers',
+                    examImportance: 'Very High',
+                    keralaBoardFrequency: 'PPPPP',
+                    neetFrequency: 'PPPPP',
+                    commonMistake: 'Secondary wall is NOT present in all cells - only in mature, non-growing cells. Lignin is the key component (not in primary wall).',
+                    examQuestion: 'Q: What is lignin and where is it found? A: Lignin is a complex polymer that provides strength and waterproofing, found in secondary cell wall',
+                    color: '#A0826D',
+                    borderColor: '#654321'
+                },
+                plasmodesmata: {
+                    name: 'Plasmodesmata',
+                    composition: 'Cytoplasmic strands + plasma membrane',
+                    characteristics: [
+                        'Cytoplasmic connections between adjacent cells',
+                        'Pass through cell wall',
+                        'Connect cytoplasm of neighboring cells',
+                        'Lined by plasma membrane',
+                        'Living structures'
+                    ],
+                    functions: [
+                        'Cell-to-cell communication',
+                        'Transport of water, nutrients, and signals',
+                        'Allows coordinated activity between cells',
+                        'Creates symplastic pathway'
+                    ],
+                    location: 'Pass through middle lamella, primary and secondary walls',
+                    examImportance: 'High',
+                    keralaBoardFrequency: 'PPPP',
+                    neetFrequency: 'PPPP',
+                    commonMistake: 'Plasmodesmata are cytoplasmic connections (LIVING), cell wall is NON-LIVING.',
+                    examQuestion: 'Q: What are plasmodesmata? A: Cytoplasmic connections between adjacent plant cells for communication and transport',
+                    color: '#4169E1',
+                    borderColor: '#0047AB'
+                }
+            };
+
+            function handleLayerClick(layerKey) {
+                setSelectedLayer(selectedLayer === layerKey ? null : layerKey);
+            }
+
+            return e('div', { className: 'cell-wall-container' },
+                e('h1', null, 'Plant Cell Wall Structure'),
+                e('p', { className: 'subtitle' }, 'Figure 5.4 - Three-Layer System (Outside → Inside)'),
+
+                // Diagram Section
+                e('div', { className: 'diagram-section' },
+                    e('svg', { viewBox: '0 0 900 420', className: 'cell-wall-svg' },
+                        // Middle Lamella
+                        e('rect', {
+                            x: '200', y: '50', width: '500', height: '50',
+                            fill: layers.middleLamella.color,
+                            stroke: layers.middleLamella.borderColor,
+                            strokeWidth: '3',
+                            className: `layer ${selectedLayer === 'middleLamella' ? 'selected' : ''}`,
+                            onClick: () => handleLayerClick('middleLamella'),
+                            style: { cursor: 'pointer' }
+                        }),
+                        e('text', { x: '450', y: '80', textAnchor: 'middle', fontSize: '14', fontWeight: 'bold', fill: '#000' },
+                            'MIDDLE LAMELLA'),
+
+                        // Primary Wall
+                        e('rect', {
+                            x: '200', y: '100', width: '500', height: '80',
+                            fill: layers.primaryWall.color,
+                            stroke: layers.primaryWall.borderColor,
+                            strokeWidth: '3',
+                            className: `layer ${selectedLayer === 'primaryWall' ? 'selected' : ''}`,
+                            onClick: () => handleLayerClick('primaryWall'),
+                            style: { cursor: 'pointer' }
+                        }),
+                        e('text', { x: '450', y: '145', textAnchor: 'middle', fontSize: '14', fontWeight: 'bold', fill: '#000' },
+                            'PRIMARY CELL WALL'),
+
+                        // Secondary Wall
+                        e('rect', {
+                            x: '200', y: '180', width: '500', height: '100',
+                            fill: layers.secondaryWall.color,
+                            stroke: layers.secondaryWall.borderColor,
+                            strokeWidth: '3',
+                            className: `layer ${selectedLayer === 'secondaryWall' ? 'selected' : ''}`,
+                            onClick: () => handleLayerClick('secondaryWall'),
+                            style: { cursor: 'pointer' }
+                        }),
+                        e('text', { x: '450', y: '225', textAnchor: 'middle', fontSize: '14', fontWeight: 'bold', fill: '#FFF' },
+                            'SECONDARY CELL WALL'),
+                        e('text', { x: '450', y: '245', textAnchor: 'middle', fontSize: '11', fontStyle: 'italic', fill: '#FFF' },
+                            '(when present)'),
+
+                        // Plasmodesmata
+                        e('line', {
+                            x1: '300', y1: '50', x2: '300', y2: '280',
+                            stroke: layers.plasmodesmata.color,
+                            strokeWidth: '5',
+                            className: `plasmodesma ${selectedLayer === 'plasmodesmata' ? 'selected' : ''}`,
+                            onClick: () => handleLayerClick('plasmodesmata'),
+                            style: { cursor: 'pointer' }
+                        }),
+                        e('circle', { cx: '300', cy: '50', r: '6', fill: layers.plasmodesmata.color }),
+                        e('circle', { cx: '300', cy: '280', r: '6', fill: layers.plasmodesmata.color }),
+                        e('text', { x: '315', y: '165', fontSize: '11', fontWeight: 'bold', fill: layers.plasmodesmata.color },
+                            'Plasmodesmata'),
+
+                        // Plasma Membrane
+                        e('rect', { x: '200', y: '280', width: '500', height: '20', fill: '#FFD9A3', stroke: '#FF8C00', strokeWidth: '3' }),
+                        e('text', { x: '450', y: '295', textAnchor: 'middle', fontSize: '11', fontWeight: 'bold', fill: '#000' },
+                            'PLASMA MEMBRANE'),
+
+                        // Cytoplasm
+                        e('rect', { x: '200', y: '300', width: '500', height: '30', fill: '#E8F4F8', stroke: '#87CEEB', strokeWidth: '2' }),
+                        e('text', { x: '450', y: '320', textAnchor: 'middle', fontSize: '11', fill: '#000' },
+                            'Cytoplasm'),
+
+                        // Labels with arrows
+                        e('text', { x: '150', y: '75', textAnchor: 'end', fontSize: '11', fontWeight: 'bold', fill: '#000' },
+                            'Outermost →'),
+                        e('text', { x: '150', y: '140', textAnchor: 'end', fontSize: '11', fontWeight: 'bold', fill: '#000' },
+                            'Middle →'),
+                        e('text', { x: '150', y: '230', textAnchor: 'end', fontSize: '11', fontWeight: 'bold', fill: '#000' },
+                            'Innermost →'),
+
+                        // Direction indicator
+                        e('line', { x1: '100', y1: '50', x2: '100', y2: '280', stroke: '#000', strokeWidth: '2' }),
+                        e('text', { x: '70', y: '165', fontSize: '12', fontWeight: 'bold', transform: 'rotate(-90, 70, 165)' },
+                            'Outside → Inside')
+                    )
+                ),
+
+                // Details Panel
+                selectedLayer && e('div', { className: 'details-panel' },
+                    e('h2', null, layers[selectedLayer].name),
+
+                    e('div', { className: 'detail-section' },
+                        e('h3', null, 'Composition:'),
+                        e('p', { className: 'composition' }, layers[selectedLayer].composition)
+                    ),
+
+                    e('div', { className: 'detail-section' },
+                        e('h3', null, 'Characteristics:'),
+                        e('ul', null,
+                            ...layers[selectedLayer].characteristics.map((char, idx) =>
+                                e('li', { key: idx }, char)
+                            )
+                        )
+                    ),
+
+                    e('div', { className: 'detail-section' },
+                        e('h3', null, 'Functions:'),
+                        e('ul', null,
+                            ...layers[selectedLayer].functions.map((func, idx) =>
+                                e('li', { key: idx }, func)
+                            )
+                        )
+                    ),
+
+                    e('div', { className: 'detail-section' },
+                        e('h3', null, 'Location:'),
+                        e('p', null, layers[selectedLayer].location)
+                    ),
+
+                    layers[selectedLayer].absent && e('div', { className: 'detail-section' },
+                        e('h3', null, 'Absent in:'),
+                        e('p', { className: 'absent' }, layers[selectedLayer].absent),
+                        e('h3', null, 'Present in:'),
+                        e('p', { className: 'present' }, layers[selectedLayer].present)
+                    ),
+
+                    e('div', { className: 'exam-section' },
+                        e('h3', null, '⚠ Common Mistake:'),
+                        e('p', { className: 'mistake' }, layers[selectedLayer].commonMistake)
+                    ),
+
+                    e('div', { className: 'exam-section' },
+                        e('h3', null, '📝 Typical Exam Question:'),
+                        e('p', { className: 'question' }, layers[selectedLayer].examQuestion)
+                    ),
+
+                    e('p', { className: 'exam-frequency' },
+                        e('strong', null, 'Kerala Board: '),
+                        layers[selectedLayer].keralaBoardFrequency,
+                        ' | ',
+                        e('strong', null, ' NEET: '),
+                        layers[selectedLayer].neetFrequency
+                    )
+                ),
+
+                // Comparison Table
+                e('div', { className: 'comparison-section' },
+                    e('h2', null, '📊 Three-Layer Comparison'),
+                    e('table', null,
+                        e('thead', null,
+                            e('tr', null,
+                                e('th', null, 'Layer'),
+                                e('th', null, 'Position'),
+                                e('th', null, 'Composition'),
+                                e('th', null, 'Thickness'),
+                                e('th', null, 'Present in')
+                            )
+                        ),
+                        e('tbody', null,
+                            e('tr', null,
+                                e('td', null, e('strong', null, 'Middle Lamella')),
+                                e('td', null, 'Outermost (between cells)'),
+                                e('td', null, 'Calcium pectate'),
+                                e('td', null, 'Very thin'),
+                                e('td', null, 'ALL plant cells')
+                            ),
+                            e('tr', null,
+                                e('td', null, e('strong', null, 'Primary Wall')),
+                                e('td', null, 'Middle layer'),
+                                e('td', null, 'Cellulose + Hemicellulose + Pectin'),
+                                e('td', null, 'Thin (0.1-3 μm)'),
+                                e('td', null, 'ALL plant cells')
+                            ),
+                            e('tr', null,
+                                e('td', null, e('strong', null, 'Secondary Wall')),
+                                e('td', null, 'Innermost layer'),
+                                e('td', null, 'Cellulose + Lignin'),
+                                e('td', null, 'Thick (5-10 μm)'),
+                                e('td', null, 'SOME cells (mature, woody)')
+                            )
+                        )
+                    )
+                ),
+
+                // Functions and Key Points
+                e('div', { className: 'info-grid' },
+                    e('div', { className: 'functions-card' },
+                        e('h3', null, 'Functions of Cell Wall'),
+                        e('ul', null,
+                            e('li', null, '✓ Provides shape and rigidity to cell'),
+                            e('li', null, '✓ Mechanical support and protection'),
+                            e('li', null, '✓ Prevents over-expansion when water enters (turgor pressure)'),
+                            e('li', null, '✓ Cell-to-cell communication (through plasmodesmata)')
+                        )
+                    ),
+
+                    e('div', { className: 'keypoints-card' },
+                        e('h3', null, 'Key Points'),
+                        e('ul', null,
+                            e('li', null, '✓ ', e('strong', null, 'UNIQUE to plant cells'), ' (animals have NO cell wall)'),
+                            e('li', null, '✓ Non-living structure (unlike plasma membrane)'),
+                            e('li', null, '✓ ', e('strong', null, 'Fully permeable'), ' (not selective like membrane)'),
+                            e('li', null, '✓ Cellulose is main structural component'),
+                            e('li', null, '✓ Layer order: ', e('strong', null, 'ML → PW → SW'), ' (outside to inside)'),
+                            e('li', null, '✓ Secondary wall NOT in meristematic/growing cells'),
+                            e('li', null, '✓ ', e('strong', null, 'Lignin'), ' provides strength (found in wood)')
+                        )
+                    )
+                ),
+
+                // Exam Tips
+                e('div', { className: 'exam-tips' },
+                    e('h2', null, '📝 Exam Tips'),
+                    e('ul', null,
+                        e('li', null, e('strong', null, 'Layer order mnemonic:'), ' "MPS" = Middle lamella, Primary wall, Secondary wall (outside → inside)'),
+                        e('li', null, e('strong', null, 'All vs Some:'), ' Middle lamella + Primary wall = ALL cells. Secondary wall = SOME cells only'),
+                        e('li', null, e('strong', null, 'Thin vs Thick:'), ' Primary = Thin & Flexible (growth). Secondary = Thick & Rigid (no growth)'),
+                        e('li', null, e('strong', null, 'Pectin vs Lignin:'), ' Middle lamella has pectin. Secondary wall has lignin'),
+                        e('li', null, e('strong', null, 'Most asked:'), ' "Describe the structure of plant cell wall" (5 marks) - Write 3 layers with composition'),
+                        e('li', null, e('strong', null, 'NEET favorite:'), ' "Which layer is common to two adjacent cells?" Answer: Middle lamella'),
+                        e('li', null, e('strong', null, 'Common mistake:'), ' Cell wall ≠ Plasma membrane. Cell wall is outside, non-living, fully permeable'),
+                        e('li', null, e('strong', null, 'Plasmodesmata:'), ' Cytoplasmic connections (LIVING) that pass through cell wall (NON-LIVING)')
+                    )
+                )
+            );
+        }
+
+        // Render the component (NO Babel transpilation needed!)
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(React.createElement(CellWallInteractive));
+    </script>
+</body>
+</html>

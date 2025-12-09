@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plus One Biology Interactive Study Guide | Kerala Board + NEET</title>
+    <meta name="description" content="Interactive study guide for Class 11 Biology (Botany) - Kerala State Board and NEET preparation with diagrams, flashcards, and exam tips">
+    <meta name="keywords" content="Plus One Biology, Kerala Board, NEET, Class 11 Botany, Interactive Study Guide">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧬</text></svg>">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/base.css">
+
+    <style>
+        /* Home Page Specific Styles */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+
+        .hero .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            margin-top: 10px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #4169E1;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .chapters-section {
+            max-width: 1400px;
+            margin: 80px auto 60px;
+            padding: 0 20px;
+        }
+
+        .chapters-section > h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #4169E1;
+            margin-bottom: 50px;
+        }
+
+        .unit-section {
+            margin-bottom: 60px;
+        }
+
+        .unit-header {
+            background: linear-gradient(135deg, #4169E1 0%, #0047AB 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .unit-header h3 {
+            font-size: 1.8rem;
+            margin: 0;
+            color: white;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid #4169E1;
+            cursor: pointer;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .chapter-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #4169E1 0%, #0047AB 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .chapter-card h4 {
+            color: #2C3E50;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .chapter-card p {
+            color: #7F8C8D;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .chapter-stats {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .chapter-stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .chapter-card .btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 0.95rem;
+        }
+
+        .chapter-card.available {
+            border-left-color: #4CAF50;
+        }
+
+        .chapter-card.available .chapter-number {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+        }
+
+        .chapter-card.available .btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+        }
+
+        .chapter-card.coming-soon {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .chapter-card.coming-soon .btn {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .footer {
+            background: #2C3E50;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        .footer p {
+            margin: 10px 0;
+        }
+
+        .footer a {
+            color: #4169E1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .unit-header h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>🧬 Plus One Biology</h1>
+        <p><strong>Interactive Study Guide</strong></p>
+        <p class="subtitle">Kerala State Board + NEET Preparation</p>
+        <p class="subtitle">Comprehensive Coverage | 22 Chapters | 5 Units</p>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features">
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Interactive Diagrams</h3>
+            <p>Click and explore complex biological structures with detailed, interactive visualizations</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">💯</div>
+            <h3>Exam Focused</h3>
+            <p>Kerala Board previous years questions, NEET patterns, and common exam mistakes</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📝</div>
+            <h3>Flashcards</h3>
+            <p>Quick revision cards with questions and detailed answers for each topic</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <h3>Mnemonics</h3>
+            <p>Easy-to-remember memory tricks for complex concepts and lists</p>
+        </div>
+    </div>
+
+    <!-- Chapters Section -->
+    <div class="chapters-section">
+        <h2>📚 Study by Chapter</h2>
+
+        <!-- Unit 1: Diversity in the Living World -->
+        <div class="unit-section">
+            <div class="unit-header">
+                <h3>Unit 1: Diversity in the Living World</h3>
+            </div>
+
+            <div class="chapters-grid">
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 01</span>
+                    <h4>The Living World</h4>
+                    <p>Introduction to biology, characteristics of living organisms, biodiversity, and taxonomy basics.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 02</span>
+                    <h4>Biological Classification</h4>
+                    <p>Five kingdom classification, taxonomic hierarchy, and classification of organisms.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 03</span>
+                    <h4>Plant Kingdom</h4>
+                    <p>Classification of plants: Algae, Bryophytes, Pteridophytes, Gymnosperms, Angiosperms.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 04</span>
+                    <h4>Animal Kingdom</h4>
+                    <p>Classification of animals from Porifera to Chordata with characteristic features.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unit 2: Structural Organisation in Plants and Animals -->
+        <div class="unit-section">
+            <div class="unit-header">
+                <h3>Unit 2: Structural Organisation in Plants and Animals</h3>
+            </div>
+
+            <div class="chapters-grid">
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 05</span>
+                    <h4>Morphology of Flowering Plants</h4>
+                    <p>Root, stem, leaf, inflorescence, flower, fruit, and seed morphology.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 06</span>
+                    <h4>Anatomy of Flowering Plants</h4>
+                    <p>Internal structure of root, stem, leaf and secondary growth.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 07</span>
+                    <h4>Structural Organisation in Animals</h4>
+                    <p>Animal tissues: Epithelial, connective, muscular, and nervous tissues.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unit 3: Cell- Structure and Functions -->
+        <div class="unit-section">
+            <div class="unit-header">
+                <h3>Unit 3: Cell - Structure and Functions</h3>
+            </div>
+
+            <div class="chapters-grid">
+                <div class="chapter-card available">
+                    <span class="chapter-number">CHAPTER 08 ✅</span>
+                    <h4>Cell: The Unit of Life</h4>
+                    <p>Cell structure, prokaryotic vs eukaryotic cells, cell organelles, and membrane systems.</p>
+
+                    <div class="chapter-stats">
+                        <div class="chapter-stat">
+                            <span>📊</span>
+                            <span><strong>11</strong> Interactive Diagrams</span>
+                        </div>
+                        <div class="chapter-stat">
+                            <span>📝</span>
+                            <span><strong>30+</strong> Flashcards</span>
+                        </div>
+                    </div>
+
+                    <a href="chapters/01-cell-the-unit-of-life/index.html" class="btn">Start Learning →</a>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 09</span>
+                    <h4>Biomolecules</h4>
+                    <p>Carbohydrates, proteins, lipids, nucleic acids, and enzymes.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 10</span>
+                    <h4>Cell Cycle and Cell Division</h4>
+                    <p>Cell cycle phases, mitosis, and meiosis with detailed diagrams.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unit 4: Plant Physiology -->
+        <div class="unit-section">
+            <div class="unit-header">
+                <h3>Unit 4: Plant Physiology</h3>
+            </div>
+
+            <div class="chapters-grid">
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 11</span>
+                    <h4>Transport in Plants</h4>
+                    <p>Water and mineral transport, transpiration, and translocation.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 12</span>
+                    <h4>Mineral Nutrition</h4>
+                    <p>Essential and non-essential elements, deficiency symptoms, nitrogen cycle.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 13</span>
+                    <h4>Photosynthesis in Higher Plants</h4>
+                    <p>Light and dark reactions, C3/C4/CAM pathways.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 14</span>
+                    <h4>Respiration in Plants</h4>
+                    <p>Glycolysis, Krebs cycle, electron transport chain, respiratory quotient.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 15</span>
+                    <h4>Plant Growth and Development</h4>
+                    <p>Growth regulators, photoperiodism, vernalization, seed dormancy.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unit 5: Human Physiology -->
+        <div class="unit-section">
+            <div class="unit-header">
+                <h3>Unit 5: Human Physiology</h3>
+            </div>
+
+            <div class="chapters-grid">
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 16</span>
+                    <h4>Digestion and Absorption</h4>
+                    <p>Digestive system, enzymes, absorption, and digestive disorders.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 17</span>
+                    <h4>Breathing and Exchange of Gases</h4>
+                    <p>Respiratory organs, mechanism of breathing, transport of gases.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 18</span>
+                    <h4>Body Fluids and Circulation</h4>
+                    <p>Blood composition, heart structure, cardiac cycle, blood pressure.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 19</span>
+                    <h4>Excretory Products and their Elimination</h4>
+                    <p>Excretory organs, urine formation, osmoregulation.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 20</span>
+                    <h4>Locomotion and Movement</h4>
+                    <p>Skeletal system, joints, muscular system, muscle contraction.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 21</span>
+                    <h4>Neural Control and Coordination</h4>
+                    <p>Nervous system, neuron structure, synapse, reflex action.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+
+                <div class="chapter-card coming-soon">
+                    <span class="chapter-number">CHAPTER 22</span>
+                    <h4>Chemical Coordination and Integration</h4>
+                    <p>Endocrine glands, hormones, mechanism of hormone action.</p>
+                    <button class="btn">Coming Soon</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p><strong>Plus One Biology Interactive Study Guide</strong></p>
+        <p>Kerala State Board + NEET Preparation</p>
+        <p style="margin-top: 15px; font-size: 0.95rem; opacity: 0.9;">
+            22 Chapters | 5 Units | Interactive Diagrams | Flashcards | Exam Tips
+        </p>
+        <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+            © 2025 | For Educational Use
+        </p>
+    </div>
+
+    <script>
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

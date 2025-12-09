@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prokaryotic Cell - Interactive | Plus One Biology</title>
+
+    <!-- React from CDN (NO Babel needed!) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .back-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #4169E1;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2C3E50;
+            margin-bottom: 10px;
+        }
+        .info-panel {
+            background: #E3F2FD;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        svg {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background: #4169E1;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0047AB;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+        const { useState, createElement: e } = React;
+
+        function ProkaryoticCell() {
+            const [hoveredComponent, setHoveredComponent] = useState(null);
+            const [selectedComponent, setSelectedComponent] = useState(null);
+
+            const components = {
+                cellWall: {
+                    name: 'Cell Wall',
+                    description: 'Rigid outer layer made of peptidoglycan. Provides shape, protection, and prevents bursting.',
+                    structure: 'Made of peptidoglycan (except Mycoplasma which lacks cell wall)',
+                    function: 'Protection, shape maintenance, prevents osmotic lysis'
+                },
+                membrane: {
+                    name: 'Plasma Membrane',
+                    description: 'Selectively permeable membrane. Controls entry and exit of substances.',
+                    structure: 'Lipid bilayer with proteins',
+                    function: 'Selective permeability, respiration'
+                },
+                nucleoid: {
+                    name: 'Nucleoid Region',
+                    description: 'Contains circular DNA (not enclosed in nucleus). Genetic material of prokaryotes.',
+                    structure: 'Circular, double-stranded DNA',
+                    function: 'Contains genetic information'
+                },
+                ribosome: {
+                    name: '70S Ribosomes',
+                    description: 'Site of protein synthesis. Smaller than eukaryotic ribosomes (80S).',
+                    structure: '70S type (50S + 30S subunits)',
+                    function: 'Protein synthesis'
+                },
+                flagellum: {
+                    name: 'Flagellum',
+                    description: 'Long whip-like structure for movement. Helps bacteria move toward nutrients.',
+                    structure: 'Made of protein flagellin',
+                    function: 'Locomotion'
+                }
+            };
+
+            function handleClick(componentKey) {
+                setSelectedComponent(componentKey === selectedComponent ? null : componentKey);
+            }
+
+            return e('div', { className: 'container' },
+                e('a', { href: '../index.html', className: 'back-button' }, '← Back to Chapter'),
+                e('h1', null, 'Prokaryotic Cell - Interactive Diagram'),
+                e('p', null, 'Hover over or click components to learn more'),
+
+                // SVG Container
+                e('svg', { width: '600', height: '600', style: { display: 'block', margin: '20px auto' } },
+                    // Background (Cytoplasm)
+                    e('rect', {
+                        x: '50', y: '50', width: '500', height: '500',
+                        fill: '#E0F2F7', stroke: '#333', strokeWidth: '2', rx: '10'
+                    }),
+
+                    // Cell Wall
+                    e('rect', {
+                        x: '60', y: '60', width: '480', height: '480',
+                        fill: 'none', stroke: '#8B4513', strokeWidth: '8', rx: '8',
+                        onMouseEnter: () => setHoveredComponent('cellWall'),
+                        onMouseLeave: () => setHoveredComponent(null),
+                        onClick: () => handleClick('cellWall'),
+                        style: { cursor: 'pointer' }
+                    }),
+                    e('text', { x: '300', y: '40', textAnchor: 'middle', fontSize: '14', fontWeight: 'bold', fill: '#8B4513' }, 'Cell Wall'),
+
+                    // Plasma Membrane
+                    e('rect', {
+                        x: '80', y: '80', width: '440', height: '440',
+                        fill: 'none', stroke: '#FF8C00', strokeWidth: '4', rx: '6',
+                        onMouseEnter: () => setHoveredComponent('membrane'),
+                        onMouseLeave: () => setHoveredComponent(null),
+                        onClick: () => handleClick('membrane'),
+                        style: { cursor: 'pointer' }
+                    }),
+                    e('text', { x: '120', y: '105', fontSize: '12', fontWeight: 'bold', fill: '#FF8C00' }, 'Plasma Membrane'),
+
+                    // Nucleoid Region
+                    e('ellipse', {
+                        cx: '300', cy: '280', rx: '80', ry: '60',
+                        fill: '#FFFACD', stroke: '#FFD700', strokeWidth: '3',
+                        onMouseEnter: () => setHoveredComponent('nucleoid'),
+                        onMouseLeave: () => setHoveredComponent(null),
+                        onClick: () => handleClick('nucleoid'),
+                        style: { cursor: 'pointer' }
+                    }),
+                    e('text', { x: '300', y: '285', textAnchor: 'middle', fontSize: '12', fontWeight: 'bold' }, 'Nucleoid'),
+
+                    // Ribosomes (70S)
+                    e('circle', { cx: '200', cy: '200', r: '6', fill: '#4169E1', stroke: '#000', strokeWidth: '1',
+                        onMouseEnter: () => setHoveredComponent('ribosome'),
+                        onMouseLeave: () => setHoveredComponent(null),
+                        onClick: () => handleClick('ribosome'),
+                        style: { cursor: 'pointer' }
+                    }),
+                    e('circle', { cx: '220', cy: '220', r: '6', fill: '#4169E1', stroke: '#000', strokeWidth: '1' }),
+                    e('circle', { cx: '380', cy: '240', r: '6', fill: '#4169E1', stroke: '#000', strokeWidth: '1' }),
+                    e('circle', { cx: '350', cy: '190', r: '6', fill: '#4169E1', stroke: '#000', strokeWidth: '1' }),
+                    e('circle', { cx: '280', cy: '180', r: '6', fill: '#4169E1', stroke: '#000', strokeWidth: '1' }),
+                    e('text', { x: '240', y: '225', fontSize: '10', fill: '#4169E1' }, '70S Ribosomes'),
+
+                    // Flagellum
+                    e('path', {
+                        d: 'M 540 300 Q 580 250, 620 300 T 700 300',
+                        stroke: '#A9A9A9', strokeWidth: '4', fill: 'none',
+                        onMouseEnter: () => setHoveredComponent('flagellum'),
+                        onMouseLeave: () => setHoveredComponent(null),
+                        onClick: () => handleClick('flagellum'),
+                        style: { cursor: 'pointer' }
+                    }),
+                    e('circle', { cx: '540', cy: '300', r: '8', fill: '#A9A9A9', stroke: '#000', strokeWidth: '1' }),
+                    e('text', { x: '620', y: '320', fontSize: '12', fill: '#666' }, 'Flagellum')
+                ),
+
+                // Info Panel
+                (hoveredComponent || selectedComponent) && e('div', { className: 'info-panel' },
+                    e('h3', null, components[selectedComponent || hoveredComponent].name),
+                    e('p', null, e('strong', null, 'Description: '), components[selectedComponent || hoveredComponent].description),
+                    e('p', null, e('strong', null, 'Structure: '), components[selectedComponent || hoveredComponent].structure),
+                    e('p', null, e('strong', null, 'Function: '), components[selectedComponent || hoveredComponent].function)
+                ),
+
+                // Key Points
+                e('div', { style: { marginTop: '30px', background: '#f9f9f9', padding: '20px', borderRadius: '8px' } },
+                    e('h3', null, 'Key Points'),
+                    e('ul', null,
+                        e('li', null, 'Prokaryotes lack membrane-bound nucleus'),
+                        e('li', null, 'DNA is circular and located in nucleoid region'),
+                        e('li', null, 'Ribosomes are 70S type (smaller than eukaryotes)'),
+                        e('li', null, 'Cell wall made of peptidoglycan (unique to bacteria)'),
+                        e('li', null, 'Examples: E. coli, Cyanobacteria, Streptococcus')
+                    )
+                )
+            );
+        }
+
+        // Render the component (NO Babel transpilation needed!)
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(React.createElement(ProkaryoticCell));
+    </script>
+</body>
+</html>

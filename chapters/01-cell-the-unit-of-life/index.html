@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1: Cell - The Unit of Life | Plus One Biology</title>
+    <meta name="description" content="Complete study guide for Plus One Biology Chapter 1 with interactive diagrams, flashcards, and exam questions">
+    <link rel="stylesheet" href="../../css/base.css">
+    <link rel="stylesheet" href="../../css/study-guide.css">
+    <style>
+        .chapter-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+        }
+        .chapter-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .chapter-hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .key-point-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #4169E1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .key-point-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .key-point-card h3 {
+            color: #4169E1;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .diagram-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border: 3px solid #4CAF50;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .diagram-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+            border-color: #FF6347;
+        }
+        .diagram-card h4 {
+            color: #4169E1;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .diagram-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .flashcard {
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CC 100%);
+            border: 2px solid #FFC107;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .flashcard:hover {
+            box-shadow: 0 6px 16px rgba(255, 193, 7, 0.3);
+        }
+        .flashcard summary {
+            font-weight: 600;
+            color: #000;
+            font-size: 1.1rem;
+            list-style: none;
+            cursor: pointer;
+        }
+        .flashcard summary::-webkit-details-marker {
+            display: none;
+        }
+        .flashcard summary::before {
+            content: '❓ ';
+            margin-right: 8px;
+        }
+        .flashcard[open] summary::before {
+            content: '✅ ';
+        }
+        .flashcard-answer {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #FFC107;
+            color: #333;
+            line-height: 1.8;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .comparison-table th {
+            background: linear-gradient(135deg, #4169E1 0%, #0047AB 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .comparison-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        .exam-tip-box {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border-left: 6px solid #FF9800;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+        .exam-tip-box h3 {
+            color: #E65100;
+            margin-bottom: 15px;
+        }
+        .section-header {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 40px 0 30px 0;
+            border-left: 6px solid #4CAF50;
+        }
+        .section-header h2 {
+            color: #1B5E20;
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+        }
+        .section-header p {
+            color: #2E7D32;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        .quick-facts {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border: 3px solid #2196F3;
+        }
+        .quick-facts ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .quick-facts li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            line-height: 1.6;
+        }
+        .quick-facts li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #2196F3;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+    </style>
+</head>
+<body>
+    <nav style="background: linear-gradient(135deg, #4169E1 0%, #0047AB 100%); padding: 15px 30px; color: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        <a href="../../index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 1.1rem;">← Back to Home</a>
+        <span style="margin: 0 15px;">|</span>
+        <span style="font-size: 1.1rem;">Chapter 1: Cell - The Unit of Life</span>
+    </nav>
+
+    <div class="container" style="max-width: 1200px; margin: 40px auto; padding: 20px;">
+
+        <!-- Hero Section -->
+        <div class="chapter-hero">
+            <h1>Cell - The Unit of Life</h1>
+            <p>Master the fundamental building block of all life with interactive diagrams, comprehensive notes, and exam-focused content</p>
+            <p style="margin-top: 15px; font-size: 1rem; opacity: 0.9;">
+                <strong>Kerala Board</strong> (8-12 marks) | <strong>NEET</strong> (2-5 questions) | <strong>Chapter 8</strong> NCERT
+            </p>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="section-header">
+            <h2>📚 Learning Objectives</h2>
+            <p>By the end of this chapter, you will master these key concepts</p>
+        </div>
+
+        <div class="key-points">
+            <div class="key-point-card">
+                <h3>🔬 Cell Theory</h3>
+                <p>Understand the historical development of cell biology and the three fundamental postulates of cell theory</p>
+            </div>
+            <div class="key-point-card">
+                <h3>🧬 Cell Types</h3>
+                <p>Differentiate between prokaryotic and eukaryotic cells with clear structural and functional differences</p>
+            </div>
+            <div class="key-point-card">
+                <h3>⚡ Organelles</h3>
+                <p>Master the structure and function of all major cell organelles including nucleus, mitochondria, and chloroplasts</p>
+            </div>
+            <div class="key-point-card">
+                <h3>🧱 Cell Membrane</h3>
+                <p>Explain the Fluid Mosaic Model and understand membrane transport mechanisms</p>
+            </div>
+        </div>
+
+        <!-- Introduction -->
+        <div class="quick-facts">
+            <h3 style="color: #1976D2; margin-bottom: 15px; font-size: 1.5rem;">💡 Why This Chapter Matters</h3>
+            <ul>
+                <li><strong>For Kerala Board:</strong> Typically 2-5 questions worth 8-12 marks. Topics like cell organelles, prokaryotic vs eukaryotic cells, and cell membrane structure are frequently asked.</li>
+                <li><strong>For NEET:</strong> Cell biology forms the foundation for many topics. 2-5 questions appear every year on cell structure, making this a high-scoring chapter.</li>
+                <li><strong>Foundation Topic:</strong> Understanding cells is essential for studying all other biology chapters including genetics, physiology, and evolution.</li>
+                <li><strong>Easy Marks:</strong> Questions are straightforward and easy if concepts and diagrams are clear.</li>
+            </ul>
+        </div>
+
+        <!-- Interactive Diagrams Section -->
+        <div class="section-header">
+            <h2>🎯 11 Interactive Diagrams</h2>
+            <p>Click on any diagram to explore interactive, color-coded visualizations with hover tooltips and detailed information</p>
+        </div>
+
+        <div class="diagram-grid">
+            <a href="diagrams/fluid-mosaic-model.html" class="diagram-card">
+                <h4>1. Fluid Mosaic Model</h4>
+                <p>Plasma membrane structure with phospholipids, proteins, and cholesterol. Singer & Nicolson (1972) model.</p>
+            </a>
+            <a href="diagrams/mitochondria.html" class="diagram-card">
+                <h4>2. Mitochondria</h4>
+                <p>Powerhouse of the cell with double membrane, cristae, and matrix. Site of cellular respiration.</p>
+            </a>
+            <a href="diagrams/chloroplast.html" class="diagram-card">
+                <h4>3. Chloroplast</h4>
+                <p>Site of photosynthesis with grana, stroma, and thylakoids. Present in plant cells only.</p>
+            </a>
+            <a href="diagrams/nucleus.html" class="diagram-card">
+                <h4>4. Nucleus</h4>
+                <p>Genetic control center with nuclear envelope, chromatin, and nucleolus. Discovered by Robert Brown (1831).</p>
+            </a>
+            <a href="diagrams/plant-animal-cells.html" class="diagram-card">
+                <h4>5. Plant vs Animal Cells</h4>
+                <p>Side-by-side comparison showing cell wall, chloroplasts, vacuoles, and centrioles differences.</p>
+            </a>
+            <a href="diagrams/rer-ser.html" class="diagram-card">
+                <h4>6. RER vs SER</h4>
+                <p>Rough Endoplasmic Reticulum (with ribosomes) vs Smooth ER (lipid synthesis). Part of endomembrane system.</p>
+            </a>
+            <a href="diagrams/golgi-er.html" class="diagram-card">
+                <h4>7. Golgi Apparatus + ER</h4>
+                <p>Endomembrane system showing protein packaging and modification pathway. Discovered by Camillo Golgi (1898).</p>
+            </a>
+            <a href="diagrams/prokaryotic-cell.html" class="diagram-card">
+                <h4>8. Prokaryotic Cell</h4>
+                <p>Bacterial cell structure with nucleoid, plasmids, flagella, and mesosomes. Size: 1-10 μm.</p>
+            </a>
+            <a href="diagrams/chromosome-types.html" class="diagram-card">
+                <h4>9. Chromosome Types</h4>
+                <p>Classification based on centromere position: Metacentric, Sub-metacentric, Acrocentric, Telocentric.</p>
+            </a>
+            <a href="diagrams/plastids.html" class="diagram-card">
+                <h4>10. Plastids</h4>
+                <p>Three types: Chloroplasts (green), Chromoplasts (colored), Leucoplasts (colorless storage).</p>
+            </a>
+            <a href="diagrams/cell-wall.html" class="diagram-card">
+                <h4>11. Cell Wall</h4>
+                <p>Three-layer structure: Middle lamella (pectin), Primary wall (cellulose), Secondary wall (lignin).</p>
+            </a>
+        </div>
+
+        <!-- Prokaryotic vs Eukaryotic Comparison -->
+        <div class="section-header">
+            <h2>📊 Prokaryotic vs Eukaryotic Cells</h2>
+            <p>High-weightage comparison for both Kerala Board and NEET exams</p>
+        </div>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Prokaryotic</th>
+                    <th>Eukaryotic</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Size</strong></td>
+                    <td>1-10 μm (smaller)</td>
+                    <td>10-100 μm (larger)</td>
+                </tr>
+                <tr>
+                    <td><strong>Nucleus</strong></td>
+                    <td>No true nucleus (nucleoid region)</td>
+                    <td>Well-defined nucleus with nuclear envelope</td>
+                </tr>
+                <tr>
+                    <td><strong>DNA</strong></td>
+                    <td>Circular, in cytoplasm</td>
+                    <td>Linear, in nucleus with histones</td>
+                </tr>
+                <tr>
+                    <td><strong>Organelles</strong></td>
+                    <td>No membrane-bound organelles</td>
+                    <td>Membrane-bound organelles present</td>
+                </tr>
+                <tr>
+                    <td><strong>Ribosomes</strong></td>
+                    <td>70S</td>
+                    <td>80S (70S in mitochondria & chloroplasts)</td>
+                </tr>
+                <tr>
+                    <td><strong>Cell Division</strong></td>
+                    <td>Binary fission</td>
+                    <td>Mitosis and Meiosis</td>
+                </tr>
+                <tr>
+                    <td><strong>Examples</strong></td>
+                    <td>Bacteria, Cyanobacteria (Blue-green algae)</td>
+                    <td>Plants, Animals, Fungi, Protists</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Flashcards Section -->
+        <div class="section-header">
+            <h2>🎴 Quick Revision Flashcards</h2>
+            <p>Click each question to reveal the answer - perfect for last-minute revision</p>
+        </div>
+
+        <details class="flashcard">
+            <summary><strong>Q1: Who discovered the cell and when?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> Robert Hooke discovered the cell in <strong>1665</strong> while observing a thin slice of cork under a microscope. He saw box-like structures and called them "cells" (from Latin <em>cellula</em> meaning small rooms).
+                <br><br>
+                <strong>Why it matters:</strong> This is a basic fact question frequently asked in both Kerala Board and NEET exams. Remember: Robert Hooke (1665) + Cork.
+                <br><br>
+                <strong>Note:</strong> What Hooke actually saw were dead plant cell walls, not living cells.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q2: Who first observed living cells?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> <strong>Anton van Leeuwenhoek</strong> first observed living cells under a microscope. He observed protozoans which he called "animalcules".
+                <br><br>
+                <strong>Why it matters:</strong> This distinguishes between Hooke (who saw dead cells) and Leeuwenhoek (who saw living cells).
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q3: State the three postulates of Cell Theory and name the scientists</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Three Postulates:</strong>
+                <ol>
+                    <li>All living organisms are composed of cells and products of cells</li>
+                    <li>The cell is the basic unit of life</li>
+                    <li>All cells arise from pre-existing cells</li>
+                </ol>
+                <br>
+                <strong>Scientists:</strong>
+                <ul>
+                    <li><strong>Matthias Schleiden</strong> (1838) - Studied plants, concluded plant tissues are made of cells</li>
+                    <li><strong>Theodor Schwann</strong> (1839) - Extended idea to animals, formulated cell theory with Schleiden</li>
+                    <li><strong>Rudolf Virchow</strong> (1855) - Added third postulate about cell division</li>
+                </ul>
+                <br>
+                <strong>Why it matters:</strong> Cell theory questions appear almost every year in exams. Knowing all three postulates with scientists' names is essential for full marks.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q4: Who discovered the nucleus and when?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> <strong>Robert Brown</strong> discovered the nucleus in <strong>1831</strong>. He was the first person to describe the nucleus as a cell organelle.
+                <br><br>
+                <strong>Why it matters:</strong> Often confused with Robert Hooke. Remember: <strong>Hooke = Cell (1665), Brown = Nucleus (1831)</strong>.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q5: What is the Fluid Mosaic Model?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> The Fluid Mosaic Model was proposed by <strong>Singer and Nicolson in 1972</strong> to explain the structure of cell membrane.
+                <br><br>
+                <strong>Key Points:</strong>
+                <ul>
+                    <li><strong>Fluid:</strong> Phospholipids and proteins can move laterally within the membrane</li>
+                    <li><strong>Mosaic:</strong> Proteins embedded in lipid bilayer create a mosaic pattern</li>
+                    <li>Quasi-fluid nature allows flexibility and self-sealing</li>
+                </ul>
+                <br>
+                <strong>Why it matters:</strong> Very high-weightage topic for NEET. Almost guaranteed 1 question every year.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q6: What are semi-autonomous organelles and why?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> <strong>Mitochondria and Chloroplasts</strong> are called semi-autonomous organelles.
+                <br><br>
+                <strong>Reasons:</strong>
+                <ol>
+                    <li>They have their own <strong>DNA</strong> (circular, like bacteria)</li>
+                    <li>They have their own <strong>70S ribosomes</strong></li>
+                    <li>They can make some of their own proteins</li>
+                    <li>They <strong>divide independently</strong> by binary fission</li>
+                    <li>Double membrane structure</li>
+                </ol>
+                <br>
+                <strong>Why it matters:</strong> NEET favorite topic. Supports endosymbiotic theory.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q7: Why is Mycoplasma an exception among prokaryotes?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> Mycoplasma is a prokaryote but <strong>lacks a cell wall</strong>, making it wall-less. It is the smallest prokaryotic cell (0.3 μm).
+                <br><br>
+                <strong>Why it matters:</strong> Mycoplasma appears in "exception" type questions in both Kerala Board and NEET exams.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q8: What are pili and what is their function?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> <strong>Pili</strong> are elongated tubular structures made of pilin protein on bacterial surface.
+                <br><br>
+                <strong>Function:</strong> <strong>Conjugation</strong> - bacterial sexual reproduction. Pilus forms a channel through which genetic material (DNA) is transferred from one bacterium to another.
+                <br><br>
+                <strong>Why it matters:</strong> Often confused with flagella. Remember: Pili = conjugation (sex); Flagella = locomotion (movement).
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q9: Differentiate between Gram positive and Gram negative bacteria</strong></summary>
+            <div class="flashcard-answer">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <thead>
+                        <tr style="background: #4169E1; color: white;">
+                            <th style="padding: 12px; text-align: left;">Feature</th>
+                            <th style="padding: 12px; text-align: left;">Gram Positive</th>
+                            <th style="padding: 12px; text-align: left;">Gram Negative</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>Stain retention</strong></td>
+                            <td style="padding: 10px;">Retains blue stain</td>
+                            <td style="padding: 10px;">Loses stain, appears red</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><strong>Peptidoglycan</strong></td>
+                            <td style="padding: 10px;">Thick layer</td>
+                            <td style="padding: 10px;">Thin layer</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>Outer membrane</strong></td>
+                            <td style="padding: 10px;">Absent</td>
+                            <td style="padding: 10px;">Present</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <strong>Why it matters:</strong> Gram staining is an important classification tool. Remember: "Thick" goes with "Positive".
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q10: Who proposed the Fluid Mosaic Model and when?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> <strong>Singer and Nicolson</strong> proposed the Fluid Mosaic Model in <strong>1972</strong>.
+                <br><br>
+                <strong>Why it matters:</strong> This is frequently asked in both Kerala Board (2 marks) and NEET MCQs. Remember the year 1972.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q11: What is the composition of cell membrane?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong>
+                <ul>
+                    <li><strong>Lipids</strong> (~40%): Mainly phospholipids, also cholesterol</li>
+                    <li><strong>Proteins</strong> (~52%): Integral and peripheral proteins</li>
+                    <li><strong>Carbohydrates</strong> (small amount): As glycolipids and glycoproteins</li>
+                </ul>
+                <br>
+                <strong>Why it matters:</strong> Composition questions appear in exams. Remember proteins > lipids in amount.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q12: Differentiate between passive and active transport</strong></summary>
+            <div class="flashcard-answer">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <thead>
+                        <tr style="background: #4169E1; color: white;">
+                            <th style="padding: 12px; text-align: left;">Feature</th>
+                            <th style="padding: 12px; text-align: left;">Passive Transport</th>
+                            <th style="padding: 12px; text-align: left;">Active Transport</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>ATP</strong></td>
+                            <td style="padding: 10px;">Not required</td>
+                            <td style="padding: 10px;">Required</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><strong>Direction</strong></td>
+                            <td style="padding: 10px;">High → Low concentration</td>
+                            <td style="padding: 10px;">Low → High concentration</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>Types</strong></td>
+                            <td style="padding: 10px;">Diffusion, Osmosis, Facilitated diffusion</td>
+                            <td style="padding: 10px;">Pumps (Na⁺/K⁺ pump)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <strong>Why it matters:</strong> Transport mechanism questions are common in NEET MCQs and Kerala Board 3-mark questions.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q13: What are the components of the endomembrane system?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> <strong>Endoplasmic Reticulum (ER), Golgi apparatus, Lysosomes, and Vacuoles.</strong>
+                <br><br>
+                <strong>Why it matters:</strong> Endomembrane system questions test understanding of how organelles work together. Remember the ERGLV mnemonic.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q14: Differentiate between Rough ER and Smooth ER</strong></summary>
+            <div class="flashcard-answer">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <thead>
+                        <tr style="background: #4169E1; color: white;">
+                            <th style="padding: 12px; text-align: left;">Feature</th>
+                            <th style="padding: 12px; text-align: left;">Rough ER</th>
+                            <th style="padding: 12px; text-align: left;">Smooth ER</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>Ribosomes</strong></td>
+                            <td style="padding: 10px;">Present on surface</td>
+                            <td style="padding: 10px;">Absent</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><strong>Function</strong></td>
+                            <td style="padding: 10px;">Protein synthesis</td>
+                            <td style="padding: 10px;">Lipid synthesis</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>Location</strong></td>
+                            <td style="padding: 10px;">Abundant in protein-secreting cells</td>
+                            <td style="padding: 10px;">Abundant in steroid-producing cells</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <strong>Why it matters:</strong> RER vs SER is a standard 2-3 mark question in Kerala Board and NEET MCQ.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q15: Why are lysosomes called "suicide bags"?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> Lysosomes contain hydrolytic enzymes capable of digesting all cellular components. If the lysosomal membrane ruptures, enzymes are released and can destroy the cell - hence "suicide bags."
+                <br><br>
+                <strong>Safeguard:</strong> Enzymes are active only at acidic pH (~5), while cytoplasm is neutral (pH ~7).
+                <br><br>
+                <strong>Why it matters:</strong> The "suicide bag" concept is frequently tested. Understanding the pH mechanism shows deeper knowledge.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q16: What is glycosylation and where does it occur?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong><br>
+                <strong>Glycosylation:</strong> Process of adding sugar molecules to proteins or lipids.<br><br>
+                <strong>Where:</strong> Golgi apparatus<br><br>
+                <strong>Products:</strong> Glycoproteins (protein + carbohydrate) and Glycolipids (lipid + carbohydrate)
+                <br><br>
+                <strong>Why it matters:</strong> Golgi function questions often ask about glycosylation. This is a key modification process.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q17: Why is mitochondria called the "powerhouse of the cell"?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> Mitochondria is called the powerhouse because it produces <strong>ATP</strong> (adenosine triphosphate), the cell's energy currency, through cellular respiration (oxidative phosphorylation).
+                <br><br>
+                <strong>Why it matters:</strong> This is THE most frequently asked fact about mitochondria in both board exams and NEET. Always mention ATP when answering.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q18: Why do mitochondria and chloroplasts have their own DNA and ribosomes?</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong> Both are <strong>semi-autonomous organelles</strong>:
+                <ul style="margin-top: 10px;">
+                    <li>Have their own circular DNA (like bacteria)</li>
+                    <li>Have their own 70S ribosomes (like prokaryotes)</li>
+                    <li>Can synthesize some of their own proteins</li>
+                    <li>Divide by fission</li>
+                </ul>
+                <br>
+                This supports the <strong>endosymbiotic theory</strong> - they were once free-living bacteria engulfed by primitive eukaryotic cells.
+                <br><br>
+                <strong>Why it matters:</strong> This concept connects to evolution and appears in reasoning-based NEET questions.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q19: What is the difference between chloroplasts and mitochondria?</strong></summary>
+            <div class="flashcard-answer">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <thead>
+                        <tr style="background: #4169E1; color: white;">
+                            <th style="padding: 12px; text-align: left;">Feature</th>
+                            <th style="padding: 12px; text-align: left;">Chloroplast</th>
+                            <th style="padding: 12px; text-align: left;">Mitochondria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>Function</strong></td>
+                            <td style="padding: 10px;">Photosynthesis (energy capture)</td>
+                            <td style="padding: 10px;">Cellular respiration (energy release)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><strong>Found in</strong></td>
+                            <td style="padding: 10px;">Plants, algae</td>
+                            <td style="padding: 10px;">All eukaryotes</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>Pigments</strong></td>
+                            <td style="padding: 10px;">Chlorophyll, carotenoids</td>
+                            <td style="padding: 10px;">None</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><strong>Internal membranes</strong></td>
+                            <td style="padding: 10px;">Thylakoids, grana</td>
+                            <td style="padding: 10px;">Cristae</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px;"><strong>Both have:</strong> Circular DNA, 70S ribosomes (semi-autonomous)</p>
+                <br>
+                <strong>Why it matters:</strong> Comparison questions are common. Both are semi-autonomous despite different functions.
+            </div>
+        </details>
+
+        <details class="flashcard">
+            <summary><strong>Q20: Name three types of plastids with their functions</strong></summary>
+            <div class="flashcard-answer">
+                <strong>Answer:</strong>
+                <ol style="margin-top: 10px; line-height: 1.8;">
+                    <li><strong>Chloroplasts:</strong> Green; contain chlorophyll; perform photosynthesis</li>
+                    <li><strong>Chromoplasts:</strong> Yellow/orange/red; contain carotenoids; color to flowers/fruits</li>
+                    <li><strong>Leucoplasts:</strong> Colorless; store nutrients
+                        <ul style="padding-left: 25px; margin-top: 5px;">
+                            <li><strong>Amyloplast:</strong> stores starch</li>
+                            <li><strong>Elaioplast:</strong> stores oils/fats</li>
+                            <li><strong>Aleuroplast:</strong> stores proteins</li>
+                        </ul>
+                    </li>
+                </ol>
+                <br>
+                <strong>Why it matters:</strong> Plastid classification is a standard 3-mark Kerala Board question.
+            </div>
+        </details>
+
+        <!-- Exam Preparation Tips -->
+        <div class="section-header">
+            <h2>🎯 Exam Preparation Strategy</h2>
+            <p>Maximize your marks with these targeted preparation tips</p>
+        </div>
+
+        <div class="exam-tip-box">
+            <h3>💯 High-Weightage Topics (Must Study!)</h3>
+            <ul style="line-height: 2;">
+                <li>✓ <strong>Prokaryotic vs Eukaryotic cells</strong> - Comparison table</li>
+                <li>✓ <strong>Organelle functions</strong> - Mitochondria, Chloroplast, ER, Golgi, Lysosomes</li>
+                <li>✓ <strong>Fluid Mosaic Model</strong> - Structure and scientists</li>
+                <li>✓ <strong>Endomembrane system</strong> - Components and pathway</li>
+                <li>✓ <strong>Semi-autonomous organelles</strong> - Why mitochondria and chloroplasts</li>
+                <li>✓ <strong>Chromosome types</strong> - Based on centromere position</li>
+                <li>✓ <strong>Cell theory</strong> - All three postulates with scientists and years</li>
+            </ul>
+        </div>
+
+        <div class="exam-tip-box" style="background: linear-gradient(135deg, #FFE0E0 0%, #FFD0D0 100%); border-left-color: #F44336;">
+            <h3 style="color: #C62828;">⚠️ Common Mistakes to Avoid</h3>
+            <ul style="line-height: 2;">
+                <li>❌ Don't say prokaryotes have "no nucleus" - say "no well-defined nucleus" or "no membrane-bound nucleus"</li>
+                <li>❌ Mesosomes in eukaryotes (WRONG - only in prokaryotes)</li>
+                <li>❌ Centrioles in plant cells (WRONG - only in animal cells)</li>
+                <li>❌ Ribosomes in endomembrane system (WRONG - they are non-membrane bound)</li>
+                <li>❌ Cristae in chloroplasts (WRONG - only in mitochondria; chloroplasts have thylakoids)</li>
+                <li>❌ Confusing Robert Hooke with Robert Brown</li>
+            </ul>
+        </div>
+
+        <div class="quick-facts" style="background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-color: #4CAF50;">
+            <h3 style="color: #1B5E20; margin-bottom: 15px; font-size: 1.5rem;">📝 Memory Tips (Mnemonics)</h3>
+            <ul>
+                <li><strong>"Brown Saw Schwann Virtually Gained Proof"</strong> - Scientists timeline:
+                    <ul style="margin-top: 10px; margin-left: 25px;">
+                        <li><strong>Brown</strong> (1831) - Nucleus</li>
+                        <li><strong>Saw</strong> = Schleiden (1838) - Plant cells</li>
+                        <li><strong>Schwann</strong> (1839) - Cell theory</li>
+                        <li><strong>Virtually</strong> = Virchow (1855) - Cell division</li>
+                        <li><strong>Gained</strong> = Golgi (1898) - Golgi apparatus</li>
+                        <li><strong>Proof</strong> = Palade (1953) - Ribosomes</li>
+                    </ul>
+                </li>
+                <li><strong>"MET-SUB-ACRO-TELO"</strong> - Chromosome types by centromere position (middle → end)</li>
+                <li><strong>"RER is Rough, SER is Smooth"</strong> - RER has ribosomes, SER makes lipids</li>
+            </ul>
+        </div>
+
+        <!-- Complete Study Notes CTA -->
+        <div style="background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%); padding: 40px; border-radius: 12px; margin: 50px 0; text-align: center; color: white; box-shadow: 0 8px 24px rgba(76,175,80,0.3);">
+            <h2 style="font-size: 2rem; margin-bottom: 15px;">📖 Complete Study Notes</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 25px; opacity: 0.95;">
+                Access comprehensive theory with detailed explanations of all topics - Complete 3375-line study guide converted to web format
+            </p>
+            <a href="complete-notes.html" style="display: inline-block; background: white; color: #4CAF50; padding: 18px 45px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.3s ease;">
+                Read Complete Study Notes →
+            </a>
+        </div>
+
+        <!-- Exam Questions CTA -->
+        <div style="background: linear-gradient(135deg, #FF6347 0%, #FF4500 100%); padding: 40px; border-radius: 12px; margin: 50px 0; text-align: center; color: white; box-shadow: 0 8px 24px rgba(255,99,71,0.3);">
+            <h2 style="font-size: 2rem; margin-bottom: 15px;">📝 Practice Exam Questions</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 25px; opacity: 0.95;">
+                Master your preparation with Kerala Board and NEET previous year questions with detailed answers
+            </p>
+            <a href="exam-questions.html" style="display: inline-block; background: white; color: #FF6347; padding: 18px 45px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.3s ease;">
+                View All Exam Questions →
+            </a>
+        </div>
+
+        <!-- Navigation -->
+        <div style="text-align: center; margin-top: 60px; padding: 30px; background: linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%); border-radius: 12px;">
+            <p style="font-size: 1.2rem; color: #333; margin-bottom: 20px;">
+                Ready to explore the interactive diagrams above? Click any diagram to start learning visually!
+            </p>
+            <a href="../../index.html" class="btn" style="display: inline-block; background: linear-gradient(135deg, #4169E1 0%, #0047AB 100%); color: white; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1.1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">← Back to Home</a>
+        </div>
+    </div>
+
+    <footer style="background: #2C3E50; color: white; text-align: center; padding: 40px 20px; margin-top: 80px;">
+        <h3 style="margin-bottom: 15px;">Chapter 1: Cell - The Unit of Life</h3>
+        <p style="opacity: 0.9; margin-bottom: 10px;">Plus One Biology | Kerala State Board + NEET Preparation</p>
+        <p style="opacity: 0.7; font-size: 0.9rem;">11 Interactive Diagrams | Comprehensive Study Guide | Exam-Focused Content</p>
+    </footer>
+</body>
+</html>

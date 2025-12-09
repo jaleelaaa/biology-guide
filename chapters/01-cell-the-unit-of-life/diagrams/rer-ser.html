@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RER vs SER - Interactive | Plus One Biology</title>
+    <meta name="description" content="Interactive RER vs SER - Interactive for Kerala Board Plus One Biology">
+
+    <!-- React and Babel from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../css/base.css">
+
+    <style>
+        /* ============================================
+           Back Button Styling
+           ============================================ */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            color: #4169E1;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            transition: all 0.3s ease;
+            border: 2px solid #4169E1;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            background: #4169E1;
+            color: white;
+        }
+
+        /* ============================================
+           Component Specific Styles
+           ============================================ */
+/**
+ * RERSERInteractive.css
+ * Styles for RER vs SER Comparison Interactive Diagram
+ * Extends FluidMosaicInteractive.css with ER-specific styles
+ *
+ * @version 1.0.0
+ * @date 2025-12-09
+ */
+
+/* Import base styles from Fluid Mosaic (reuse common styles) */
+@import url('./FluidMosaicInteractive.css');
+
+/* ========================================
+   RER/SER-Specific Overrides
+   ======================================== */
+
+.rer-ser-container {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  line-height: 1.6;
+}
+
+/* ========================================
+   SVG Element Styles
+   ======================================== */
+
+/* RER Elements */
+.rer-background {
+  transition: all var(--transition-base);
+}
+
+.rer-background:hover {
+  filter: brightness(1.05) drop-shadow(0 0 12px rgba(147, 112, 219, 0.4));
+  stroke-width: 5;
+}
+
+.rer-tubule {
+  transition: all var(--transition-base);
+}
+
+.rer-tubule:hover {
+  filter: brightness(1.1);
+}
+
+.ribosome {
+  transition: all var(--transition-fast);
+}
+
+.ribosome:hover {
+  transform: scale(1.5);
+  filter: brightness(1.3) drop-shadow(0 0 3px rgba(0, 0, 139, 0.8));
+}
+
+/* SER Elements */
+.ser-background {
+  transition: all var(--transition-base);
+}
+
+.ser-background:hover {
+  filter: brightness(1.05) drop-shadow(0 0 12px rgba(218, 165, 32, 0.4));
+  stroke-width: 5;
+}
+
+.ser-tubule {
+  transition: all var(--transition-base);
+}
+
+.ser-tubule:hover {
+  filter: brightness(1.1);
+}
+
+/* Connection indicator */
+.connection-indicator line {
+  animation: flow 2s linear infinite;
+}
+
+@keyframes flow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 30;
+  }
+}
+
+/* ========================================
+   Comparison Table Enhancements
+   ======================================== */
+
+.comparison-table th.rer-header {
+  background: linear-gradient(135deg, #DDA0DD 0%, #BA9BDD 100%);
+  color: #fff;
+}
+
+.comparison-table th.ser-header {
+  background: linear-gradient(135deg, #FFD9A3 0%, #FFCC88 100%);
+  color: #333;
+}
+
+.comparison-table td.rer-cell {
+  background-color: #F8F3FF;
+  border-left: 3px solid #9370DB;
+}
+
+.comparison-table td.ser-cell {
+  background-color: #FFFEF8;
+  border-left: 3px solid #DAA520;
+}
+
+/* ========================================
+   Summary Card Styles
+   ======================================== */
+
+.rer-card {
+  background: linear-gradient(135deg, #F0E6FA 0%, #E6D8F0 100%);
+  border-left: 5px solid #9370DB;
+}
+
+.rer-card h3 {
+  color: #6A4C9C;
+  border-bottom-color: #9370DB;
+}
+
+.ser-card {
+  background: linear-gradient(135deg, #FFFFE0 0%, #FFFACD 100%);
+  border-left: 5px solid #DAA520;
+}
+
+.ser-card h3 {
+  color: #8B6914;
+  border-bottom-color: #DAA520;
+}
+
+.connection-card {
+  background: linear-gradient(135deg, #E8F8F8 0%, #D0E8E8 100%);
+  border-left: 5px solid #4682B4;
+}
+
+.connection-card h3 {
+  color: #2F5F7F;
+  border-bottom-color: #4682B4;
+}
+
+/* ========================================
+   Animations
+   ======================================== */
+
+/* Ribosome pulse animation */
+@keyframes ribosome-pulse {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+.ribosome {
+  animation: ribosome-pulse 2s ease-in-out infinite;
+}
+
+.ribosome:nth-child(even) {
+  animation-delay: 1s;
+}
+
+/* RER tubule flow animation */
+@keyframes tubule-flow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.rer-tubule {
+  animation: tubule-flow 3s ease-in-out infinite;
+}
+
+.rer-tubule:nth-child(1) { animation-delay: 0s; }
+.rer-tubule:nth-child(2) { animation-delay: 0.75s; }
+.rer-tubule:nth-child(3) { animation-delay: 1.5s; }
+.rer-tubule:nth-child(4) { animation-delay: 2.25s; }
+
+/* SER tubule flow animation */
+.ser-tubule {
+  animation: tubule-flow 3s ease-in-out infinite;
+}
+
+.ser-tubule:nth-child(1) { animation-delay: 0s; }
+.ser-tubule:nth-child(2) { animation-delay: 0.75s; }
+.ser-tubule:nth-child(3) { animation-delay: 1.5s; }
+.ser-tubule:nth-child(4) { animation-delay: 2.25s; }
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .summary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .rer-ser-container {
+    padding: var(--spacing-md);
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .comparison-table {
+    font-size: 0.85rem;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .exam-tips {
+    padding: var(--spacing-md);
+  }
+
+  .controls-panel {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
+  .control-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .control-group button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+  }
+
+  .summary-card {
+    padding: var(--spacing-md);
+  }
+
+  .summary-card h3 {
+    font-size: 1rem;
+  }
+
+  .comparison-table {
+    font-size: 0.75rem;
+  }
+
+  .exam-tips {
+    padding: var(--spacing-sm);
+  }
+
+  .exam-tips li {
+    font-size: 0.85rem;
+  }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+  .controls-panel {
+    display: none;
+  }
+
+  .ribosome,
+  .rer-tubule,
+  .ser-tubule,
+  .connection-indicator line {
+    animation: none !important;
+  }
+
+  .comparison-table-container,
+  .summary-section,
+  .exam-tips {
+    page-break-inside: avoid;
+  }
+
+  .summary-card {
+    break-inside: avoid;
+  }
+
+  .details-panel {
+    position: static;
+    box-shadow: none;
+  }
+}
+
+/* ========================================
+   Accessibility - Reduced Motion
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .ribosome,
+  .rer-tubule,
+  .ser-tubule,
+  .connection-indicator line,
+  .rer-background,
+  .ser-background,
+  .summary-card,
+  .comparison-table tbody tr {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .ribosome:hover,
+  .rer-background:hover,
+  .ser-background:hover,
+  .summary-card:hover,
+  .comparison-table tbody tr:hover {
+    transform: none !important;
+  }
+}
+
+/* ========================================
+   Dark Mode Support
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  .rer-ser-container {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+  }
+
+  .comparison-table-container {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+  }
+
+  .comparison-table {
+    background: #2c2c2c;
+  }
+
+  .comparison-table tbody tr:hover {
+    background-color: #3a3a3a;
+  }
+
+  .summary-card {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
+
+  .exam-tips {
+    background: linear-gradient(135deg, #3a3a2a 0%, #2f2f1f 100%);
+  }
+}
+
+/* ========================================
+   Special Visual Enhancements
+   ======================================== */
+
+/* Ribosome group highlighting */
+.ribosomes-group:hover .ribosome {
+  filter: brightness(1.4) drop-shadow(0 0 5px rgba(0, 0, 139, 1));
+}
+
+/* ER Title animations */
+.er-title {
+  animation: title-glow 3s ease-in-out infinite;
+}
+
+@keyframes title-glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* Connection indicator enhancement */
+.connection-indicator {
+  cursor: pointer;
+}
+
+.connection-indicator:hover line {
+  stroke-width: 5;
+  filter: drop-shadow(0 0 4px rgba(102, 102, 102, 0.8));
+}
+
+.connection-indicator:hover text {
+  font-size: 14px;
+  font-weight: bold;
+  fill: #333;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Back Navigation -->
+    <a href="../index.html" class="back-button">← Back to Chapter</a>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <!-- Component Code -->
+    <script type="text/babel">
+
+
+/**
+ * RERSERInteractive Component
+ *
+ * Interactive side-by-side comparison of Rough ER (RER) and Smooth ER (SER)
+ * for Plus One (Class 11) Kerala Board + NEET students
+ *
+ * Figure 5.5: Rough vs Smooth Endoplasmic Reticulum
+ *
+ * @component
+ * @version 1.0.0
+ * @date 2025-12-09
+ */
+
+const { useState, useRef, useEffect } = React;
+
+
+const RERSERInteractive = () => {
+  const [hoveredComponent, setHoveredComponent] = useState(null);
+  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [comparisonView, setComparisonView] = useState('both'); // 'rer', 'ser', 'both'
+  const [colorblindMode, setColorblindMode] = useState(false);
+  const [showRibosomes, setShowRibosomes] = useState(true);
+
+  const svgRef = useRef(null);
+
+  // Color palettes
+  const colors = {
+    standard: {
+      // RER colors
+      rerBackground: '#F0E6FA',
+      rerTubule: '#DDA0DD',
+      rerStroke: '#9370DB',
+      ribosome: '#6B95CD',
+      ribosomeStroke: '#000080',
+
+      // SER colors
+      serBackground: '#FFFFE0',
+      serTubule: '#FFD9A3',
+      serStroke: '#DAA520',
+
+      // Common
+      text: '#000000',
+      highlight: '#FFD700'
+    },
+    colorblind: {
+      // Deuteranopia/Protanopia friendly
+      rerBackground: '#E0D6FA',
+      rerTubule: '#CDA0DD',
+      rerStroke: '#7060BB',
+      ribosome: '#5B85BD',
+      ribosomeStroke: '#000080',
+
+      serBackground: '#FFF9D0',
+      serTubule: '#FFCC88',
+      serStroke: '#CC9900',
+
+      text: '#000000',
+      highlight: '#FFBB00'
+    }
+  };
+
+  const currentColors = colorblindMode ? colors.colorblind : colors.standard;
+
+  // Component information
+  const components = {
+    rer: {
+      name: 'Rough Endoplasmic Reticulum (RER)',
+      type: 'rer',
+      characteristics: [
+        'Network of membrane-bound TUBULES and CISTERNAE (flattened sacs)',
+        'RIBOSOMES attached to outer surface (80S ribosomes)',
+        'Rough, granular appearance (due to ribosomes)',
+        'Connected to NUCLEAR ENVELOPE (outer membrane)',
+        'More flattened cisternae structure'
+      ],
+      functions: [
+        'PROTEIN SYNTHESIS (primary function)',
+        'Protein folding and modification',
+        'Protein transport to Golgi apparatus',
+        'Glycoprotein synthesis (adding sugars to proteins)',
+        'Membrane protein synthesis'
+      ],
+      location: 'Abundant in SECRETORY CELLS (pancreas, plasma cells, goblet cells)',
+      examples: [
+        'Pancreatic cells (digestive enzymes)',
+        'Plasma cells (antibody production)',
+        'Goblet cells (mucus production)',
+        'Cells producing hormones/proteins'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'RER has ribosomes ATTACHED to outer surface, NOT floating inside. Ribosomes are 80S (eukaryotic), NOT 70S.',
+      examQuestion: 'Q: Why is RER called "rough"? A: Due to presence of ribosomes attached to its outer surface.'
+    },
+
+    ribosomes: {
+      name: '80S Ribosomes on RER',
+      type: 'rer-component',
+      characteristics: [
+        '80S ribosomes (larger subunit 60S + smaller subunit 40S)',
+        'Attached to OUTER surface of RER membrane',
+        'Made of rRNA + proteins',
+        'NOT membrane-bound organelles'
+      ],
+      functions: [
+        'Protein synthesis (translation)',
+        'Translate mRNA to protein',
+        'Synthesize proteins destined for secretion',
+        'Synthesize membrane proteins'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'Cytoplasmic ribosomes = 80S (eukaryotes), Mitochondrial/Chloroplast ribosomes = 70S (prokaryotic type)',
+      examQuestion: 'Q: What type of ribosomes are found on RER? A: 80S ribosomes (60S + 40S subunits)'
+    },
+
+    ser: {
+      name: 'Smooth Endoplasmic Reticulum (SER)',
+      type: 'ser',
+      characteristics: [
+        'Network of membrane-bound TUBULES',
+        'NO RIBOSOMES attached',
+        'Smooth appearance (no ribosomes)',
+        'Continuous with RER',
+        'More tubular structure (less flattened)'
+      ],
+      functions: [
+        'LIPID SYNTHESIS (primary function)',
+        'Steroid hormone synthesis',
+        'DETOXIFICATION (liver cells)',
+        'Calcium ion (Ca²⁺) storage and regulation',
+        'Carbohydrate metabolism (liver cells)',
+        'Drug metabolism'
+      ],
+      location: 'Abundant in LIVER CELLS, MUSCLE CELLS, steroid-producing cells',
+      examples: [
+        'Liver cells (detoxification, glycogen metabolism)',
+        'Muscle cells (sarcoplasmic reticulum - Ca²⁺ storage)',
+        'Adrenal cortex cells (steroid hormones)',
+        'Testis/Ovary cells (sex hormones)'
+      ],
+      examImportance: 'Very High',
+      keralaBoardFrequency: '⭐⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐⭐',
+      commonMistake: 'SER has NO ribosomes. SER is for LIPID synthesis, RER is for PROTEIN synthesis.',
+      examQuestion: 'Q: Why is SER called "smooth"? A: Because it lacks ribosomes on its surface.'
+    },
+
+    connection: {
+      name: 'ER Continuity and Connection',
+      type: 'both',
+      characteristics: [
+        'RER and SER are CONTINUOUS (connected)',
+        'RER outer membrane is continuous with nuclear envelope',
+        'SER is continuous with RER',
+        'Form a single, interconnected network',
+        'Together they form the ENDOMEMBRANE SYSTEM'
+      ],
+      functions: [
+        'Allows protein transport from RER to SER to Golgi',
+        'Facilitates communication between organelles',
+        'Enables membrane trafficking',
+        'Part of endomembrane system coordination'
+      ],
+      examImportance: 'High',
+      keralaBoardFrequency: '⭐⭐⭐⭐',
+      neetFrequency: '⭐⭐⭐⭐',
+      commonMistake: 'RER and SER are NOT separate organelles - they are continuous and connected.',
+      examQuestion: 'Q: How is RER connected to the nucleus? A: RER outer membrane is continuous with the outer nuclear envelope.'
+    }
+  };
+
+  // Comparison table data
+  const comparisonData = [
+    {
+      feature: 'Ribosomes',
+      rer: 'Present (80S attached to outer surface)',
+      ser: 'Absent',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Appearance',
+      rer: 'Rough, granular (due to ribosomes)',
+      ser: 'Smooth',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Primary Function',
+      rer: 'Protein synthesis & transport',
+      ser: 'Lipid synthesis',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Secondary Functions',
+      rer: 'Protein folding, glycoprotein synthesis',
+      ser: 'Detoxification, Ca²⁺ storage, steroid synthesis',
+      importance: '⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Structure',
+      rer: 'Flattened cisternae (sacs)',
+      ser: 'Tubular network',
+      importance: '⭐⭐⭐'
+    },
+    {
+      feature: 'Abundant in',
+      rer: 'Secretory cells (pancreas, plasma cells)',
+      ser: 'Liver cells, muscle cells, steroid-producing cells',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Connection to Nucleus',
+      rer: 'Outer membrane continuous with nuclear envelope',
+      ser: 'Indirectly (via RER)',
+      importance: '⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Products',
+      rer: 'Proteins (enzymes, antibodies, hormones)',
+      ser: 'Lipids (phospholipids, steroids)',
+      importance: '⭐⭐⭐⭐⭐'
+    },
+    {
+      feature: 'Membrane Type',
+      rer: 'Single membrane-bound',
+      ser: 'Single membrane-bound',
+      importance: '⭐⭐⭐'
+    },
+    {
+      feature: 'Continuity',
+      rer: 'Continuous with SER',
+      ser: 'Continuous with RER',
+      importance: '⭐⭐⭐⭐'
+    }
+  ];
+
+  // Export functions
+  const exportSVG = () => {
+    if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
+    const blob = new Blob([svgData], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'rer_ser_comparison.svg';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const exportPNG = () => {
+    if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+
+    img.onload = () => {
+      canvas.width = img.width * 2;
+      canvas.height = img.height * 2;
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'rer_ser_comparison.png';
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+    };
+
+    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+  };
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Escape') {
+        setSelectedComponent(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
+
+  return (
+    <div className="rer-ser-container">
+      <header className="header">
+        <h1>Rough ER vs Smooth ER - Interactive Comparison</h1>
+        <p className="subtitle">Figure 5.5: Endoplasmic Reticulum Types</p>
+        <p className="exam-note">⭐ Critical Difference for Kerala Board & NEET</p>
+      </header>
+
+      {/* Controls Panel */}
+      <div className="controls-panel">
+        <div className="control-group">
+          <label>View:</label>
+          <button
+            className={comparisonView === 'both' ? 'active' : ''}
+            onClick={() => setComparisonView('both')}
+          >
+            Both ER Types
+          </button>
+          <button
+            className={comparisonView === 'rer' ? 'active' : ''}
+            onClick={() => setComparisonView('rer')}
+          >
+            RER Only
+          </button>
+          <button
+            className={comparisonView === 'ser' ? 'active' : ''}
+            onClick={() => setComparisonView('ser')}
+          >
+            SER Only
+          </button>
+        </div>
+
+        <div className="control-group">
+          <button onClick={() => setShowRibosomes(!showRibosomes)}>
+            {showRibosomes ? '👁️ Hide Ribosomes' : '👁️ Show Ribosomes'}
+          </button>
+          <button onClick={() => setColorblindMode(!colorblindMode)}>
+            {colorblindMode ? '🎨 Standard Colors' : '♿ Colorblind Mode'}
+          </button>
+          <button onClick={exportSVG}>📥 Export SVG</button>
+          <button onClick={exportPNG}>📥 Export PNG</button>
+        </div>
+      </div>
+
+      {/* SVG Diagram */}
+      <div className="diagram-container">
+        <svg
+          ref={svgRef}
+          viewBox="0 0 1400 800"
+          className="er-svg"
+          role="img"
+          aria-label="RER and SER Comparison Diagram"
+        >
+          {/* Titles */}
+          <text x="300" y="40" className="er-title" textAnchor="middle" fontSize="22" fontWeight="bold" fill={currentColors.rerStroke}>
+            ROUGH ER (RER)
+          </text>
+          <text x="1100" y="40" className="er-title" textAnchor="middle" fontSize="22" fontWeight="bold" fill={currentColors.serStroke}>
+            SMOOTH ER (SER)
+          </text>
+
+          {/* RER (Left Side) */}
+          {(comparisonView === 'both' || comparisonView === 'rer') && (
+            <g className="rer-group">
+              {/* RER Background */}
+              <rect
+                x="50"
+                y="80"
+                width="500"
+                height="400"
+                fill={currentColors.rerBackground}
+                stroke={currentColors.rerStroke}
+                strokeWidth="3"
+                rx="10"
+                className="rer-background"
+                onMouseEnter={() => setHoveredComponent('rer')}
+                onMouseLeave={() => setHoveredComponent(null)}
+                onClick={() => setSelectedComponent('rer')}
+                style={{ cursor: 'pointer' }}
+              />
+
+              <text x="300" y="110" textAnchor="middle" fontSize="14" fontWeight="bold" fill={currentColors.rerStroke}>
+                (With Ribosomes)
+              </text>
+
+              {/* RER Membrane Tubules with Ribosomes */}
+              <g className="rer-tubules">
+                {/* Tubule 1 */}
+                <rect
+                  x="100"
+                  y="140"
+                  width="400"
+                  height="50"
+                  fill={currentColors.rerTubule}
+                  stroke={currentColors.rerStroke}
+                  strokeWidth="2"
+                  rx="5"
+                  className="rer-tubule"
+                />
+                {showRibosomes && (
+                  <g className="ribosomes-group">
+                    {[120, 150, 180, 210, 240, 270, 300, 330, 360, 390, 420, 450].map((x, idx) => (
+                      <circle
+                        key={`r1-${idx}`}
+                        cx={x}
+                        cy={148 + (idx % 2 === 0 ? 0 : 5)}
+                        r="6"
+                        fill={currentColors.ribosome}
+                        stroke={currentColors.ribosomeStroke}
+                        strokeWidth="1"
+                        className="ribosome"
+                        onMouseEnter={() => setHoveredComponent('ribosomes')}
+                        onMouseLeave={() => setHoveredComponent(null)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedComponent('ribosomes');
+                        }}
+                        style={{ cursor: 'pointer' }}
+                      />
+                    ))}
+                  </g>
+                )}
+
+                {/* Tubule 2 */}
+                <rect
+                  x="100"
+                  y="230"
+                  width="400"
+                  height="50"
+                  fill={currentColors.rerTubule}
+                  stroke={currentColors.rerStroke}
+                  strokeWidth="2"
+                  rx="5"
+                  className="rer-tubule"
+                />
+                {showRibosomes && (
+                  <g className="ribosomes-group">
+                    {[130, 165, 195, 225, 255, 285, 315, 345, 375, 405, 435, 470].map((x, idx) => (
+                      <circle
+                        key={`r2-${idx}`}
+                        cx={x}
+                        cy={238 + (idx % 2 === 0 ? 0 : 5)}
+                        r="6"
+                        fill={currentColors.ribosome}
+                        stroke={currentColors.ribosomeStroke}
+                        strokeWidth="1"
+                        className="ribosome"
+                      />
+                    ))}
+                  </g>
+                )}
+
+                {/* Tubule 3 */}
+                <rect
+                  x="100"
+                  y="320"
+                  width="400"
+                  height="50"
+                  fill={currentColors.rerTubule}
+                  stroke={currentColors.rerStroke}
+                  strokeWidth="2"
+                  rx="5"
+                  className="rer-tubule"
+                />
+                {showRibosomes && (
+                  <g className="ribosomes-group">
+                    {[140, 175, 205, 235, 265, 295, 325, 355, 385, 415, 445].map((x, idx) => (
+                      <circle
+                        key={`r3-${idx}`}
+                        cx={x}
+                        cy={328 + (idx % 2 === 0 ? 0 : 5)}
+                        r="6"
+                        fill={currentColors.ribosome}
+                        stroke={currentColors.ribosomeStroke}
+                        strokeWidth="1"
+                        className="ribosome"
+                      />
+                    ))}
+                  </g>
+                )}
+
+                {/* Tubule 4 */}
+                <rect
+                  x="100"
+                  y="410"
+                  width="400"
+                  height="50"
+                  fill={currentColors.rerTubule}
+                  stroke={currentColors.rerStroke}
+                  strokeWidth="2"
+                  rx="5"
+                  className="rer-tubule"
+                />
+                {showRibosomes && (
+                  <g className="ribosomes-group">
+                    {[125, 160, 190, 220, 250, 280, 310, 340, 370, 400, 430, 460].map((x, idx) => (
+                      <circle
+                        key={`r4-${idx}`}
+                        cx={x}
+                        cy={418 + (idx % 2 === 0 ? 0 : 5)}
+                        r="6"
+                        fill={currentColors.ribosome}
+                        stroke={currentColors.ribosomeStroke}
+                        strokeWidth="1"
+                        className="ribosome"
+                      />
+                    ))}
+                  </g>
+                )}
+              </g>
+
+              {/* RER Features */}
+              <g className="rer-features">
+                <text x="75" y="510" fontSize="13" fontWeight="bold" fill={currentColors.rerStroke}>Key Features:</text>
+                <text x="75" y="530" fontSize="11" fill="#000">✓ Ribosomes attached (80S)</text>
+                <text x="75" y="548" fontSize="11" fill="#000">✓ Rough, granular appearance</text>
+                <text x="75" y="566" fontSize="11" fill="#000">✓ Protein synthesis & transport</text>
+                <text x="75" y="584" fontSize="11" fill="#000">✓ Abundant in secretory cells</text>
+                <text x="75" y="602" fontSize="11" fill="#000">✓ Connected to nuclear envelope</text>
+              </g>
+            </g>
+          )}
+
+          {/* SER (Right Side) */}
+          {(comparisonView === 'both' || comparisonView === 'ser') && (
+            <g className="ser-group">
+              {/* SER Background */}
+              <rect
+                x="850"
+                y="80"
+                width="500"
+                height="400"
+                fill={currentColors.serBackground}
+                stroke={currentColors.serStroke}
+                strokeWidth="3"
+                rx="10"
+                className="ser-background"
+                onMouseEnter={() => setHoveredComponent('ser')}
+                onMouseLeave={() => setHoveredComponent(null)}
+                onClick={() => setSelectedComponent('ser')}
+                style={{ cursor: 'pointer' }}
+              />
+
+              <text x="1100" y="110" textAnchor="middle" fontSize="14" fontWeight="bold" fill={currentColors.serStroke}>
+                (NO Ribosomes)
+              </text>
+
+              {/* SER Membrane Tubules (NO ribosomes - smooth) */}
+              <g className="ser-tubules">
+                {/* Tubule 1 */}
+                <rect
+                  x="900"
+                  y="140"
+                  width="400"
+                  height="50"
+                  fill={currentColors.serTubule}
+                  stroke={currentColors.serStroke}
+                  strokeWidth="2"
+                  rx="5"
+                  className="ser-tubule"
+                />
+
+                {/* Tubule 2 */}
+                <rect
+                  x="900"
+                  y="230"
+                  width="400"
+                  height="50"
+                  fill={currentColors.serTubule}
+                  stroke={currentColors.serStroke}
+                  strokeWidth="2"
+                  rx="5"
+                  className="ser-tubule"
+                />
+
+                {/* Tubule 3 */}
+                <rect
+                  x="900"
+                  y="320"
+                  width="400"
+                  height="50"
+                  fill={currentColors.serTubule}
+                  stroke={currentColors.serStroke}
+                  strokeWidth="2"
+                  rx="5"
+                  className="ser-tubule"
+                />
+
+                {/* Tubule 4 */}
+                <rect
+                  x="900"
+                  y="410"
+                  width="400"
+                  height="50"
+                  fill={currentColors.serTubule}
+                  stroke={currentColors.serStroke}
+                  strokeWidth="2"
+                  rx="5"
+                  className="ser-tubule"
+                />
+
+                {/* "NO Ribosomes" label */}
+                <text x="1100" y="260" textAnchor="middle" fontSize="12" fontStyle="italic" fill="#8B6914" opacity="0.7">
+                  (Smooth - No Ribosomes)
+                </text>
+              </g>
+
+              {/* SER Features */}
+              <g className="ser-features">
+                <text x="875" y="510" fontSize="13" fontWeight="bold" fill={currentColors.serStroke}>Key Features:</text>
+                <text x="875" y="530" fontSize="11" fill="#000">✓ NO ribosomes</text>
+                <text x="875" y="548" fontSize="11" fill="#000">✓ Smooth appearance</text>
+                <text x="875" y="566" fontSize="11" fill="#000">✓ Lipid synthesis, detoxification</text>
+                <text x="875" y="584" fontSize="11" fill="#000">✓ Abundant in liver, muscle cells</text>
+                <text x="875" y="602" fontSize="11" fill="#000">✓ Ca²⁺ storage & regulation</text>
+              </g>
+            </g>
+          )}
+
+          {/* Connection Arrow (when both shown) */}
+          {comparisonView === 'both' && (
+            <g className="connection-indicator">
+              <line
+                x1="550"
+                y1="300"
+                x2="850"
+                y2="300"
+                stroke="#666"
+                strokeWidth="3"
+                strokeDasharray="10 5"
+                markerEnd="url(#arrowhead)"
+              />
+              <text x="700" y="290" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#666">
+                Continuous
+              </text>
+              <defs>
+                <marker
+                  id="arrowhead"
+                  markerWidth="10"
+                  markerHeight="10"
+                  refX="9"
+                  refY="3"
+                  orient="auto"
+                >
+                  <polygon points="0 0, 10 3, 0 6" fill="#666" />
+                </marker>
+              </defs>
+            </g>
+          )}
+
+          {/* Divider Line */}
+          {comparisonView === 'both' && (
+            <line x1="700" y1="80" x2="700" y2="620" stroke="#999" strokeWidth="2" strokeDasharray="5 5" opacity="0.5" />
+          )}
+        </svg>
+      </div>
+
+      {/* Hover Tooltip */}
+      {hoveredComponent && components[hoveredComponent] && (
+        <div className="tooltip">
+          <strong>{components[hoveredComponent].name}</strong>
+        </div>
+      )}
+
+      {/* Details Panel */}
+      {selectedComponent && components[selectedComponent] && (
+        <div className="details-panel active">
+          <button className="close-btn" onClick={() => setSelectedComponent(null)}>✕</button>
+          <h2>{components[selectedComponent].name}</h2>
+
+          <div className="details-section">
+            <h3>Characteristics</h3>
+            <ul>
+              {components[selectedComponent].characteristics.map((char, idx) => (
+                <li key={idx}>{char}</li>
+              ))}
+            </ul>
+          </div>
+
+          {components[selectedComponent].functions && (
+            <div className="details-section">
+              <h3>Functions</h3>
+              <ul>
+                {components[selectedComponent].functions.map((func, idx) => (
+                  <li key={idx}>{func}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {components[selectedComponent].location && (
+            <div className="details-section">
+              <h3>Location</h3>
+              <p>{components[selectedComponent].location}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].examples && (
+            <div className="details-section">
+              <h3>Examples of Cells</h3>
+              <ul>
+                {components[selectedComponent].examples.map((example, idx) => (
+                  <li key={idx}>{example}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div className="exam-info">
+            <h3>Exam Importance</h3>
+            <p><strong>Kerala Board:</strong> {components[selectedComponent].keralaBoardFrequency}</p>
+            <p><strong>NEET:</strong> {components[selectedComponent].neetFrequency}</p>
+            <p className="importance-level">{components[selectedComponent].examImportance}</p>
+          </div>
+
+          {components[selectedComponent].commonMistake && (
+            <div className="mistake-alert">
+              <h3>⚠️ Common Mistake</h3>
+              <p>{components[selectedComponent].commonMistake}</p>
+            </div>
+          )}
+
+          {components[selectedComponent].examQuestion && (
+            <div className="exam-question">
+              <h3>📝 Typical Exam Question</h3>
+              <p>{components[selectedComponent].examQuestion}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Comparison Table */}
+      <div className="comparison-table-container">
+        <h2>📊 Feature-by-Feature Comparison</h2>
+        <table className="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th className="rer-header">RER</th>
+              <th className="ser-header">SER</th>
+              <th>Importance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonData.map((row, idx) => (
+              <tr key={idx}>
+                <td className="feature-name">{row.feature}</td>
+                <td className="rer-cell">{row.rer}</td>
+                <td className="ser-cell">{row.ser}</td>
+                <td className="importance">{row.importance}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Key Points Summary */}
+      <div className="summary-section">
+        <h2>🎯 Key Points - Must Know for Exams!</h2>
+        <div className="summary-grid">
+          <div className="summary-card rer-card">
+            <h3>ROUGH ER (RER)</h3>
+            <ul>
+              <li><strong>Defining Feature:</strong> Ribosomes (80S) attached to outer surface</li>
+              <li><strong>Appearance:</strong> Rough, granular</li>
+              <li><strong>Primary Function:</strong> Protein synthesis</li>
+              <li><strong>Products:</strong> Proteins (enzymes, antibodies, hormones)</li>
+              <li><strong>Abundant in:</strong> Secretory cells (pancreas, plasma cells)</li>
+              <li><strong>Connection:</strong> Continuous with nuclear envelope</li>
+              <li><strong>Structure:</strong> Flattened cisternae (sacs)</li>
+            </ul>
+          </div>
+
+          <div className="summary-card ser-card">
+            <h3>SMOOTH ER (SER)</h3>
+            <ul>
+              <li><strong>Defining Feature:</strong> NO ribosomes</li>
+              <li><strong>Appearance:</strong> Smooth</li>
+              <li><strong>Primary Function:</strong> Lipid synthesis</li>
+              <li><strong>Products:</strong> Lipids (phospholipids, steroids)</li>
+              <li><strong>Abundant in:</strong> Liver cells, muscle cells</li>
+              <li><strong>Special Functions:</strong> Detoxification, Ca²⁺ storage</li>
+              <li><strong>Structure:</strong> Tubular network</li>
+            </ul>
+          </div>
+
+          <div className="summary-card connection-card">
+            <h3>COMMON FEATURES</h3>
+            <ul>
+              <li><strong>Continuity:</strong> RER and SER are continuous (connected)</li>
+              <li><strong>Membrane:</strong> Both are single membrane-bound</li>
+              <li><strong>System:</strong> Part of endomembrane system</li>
+              <li><strong>Origin:</strong> Both derived from nuclear envelope</li>
+              <li><strong>Transport:</strong> Both involved in material transport</li>
+              <li><strong>Membrane Type:</strong> Lipid bilayer structure</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Exam Tips */}
+      <div className="exam-tips">
+        <h2>💡 Top Exam Tips</h2>
+        <ol>
+          <li><strong>Main Difference:</strong> RER has ribosomes (80S) attached, SER does NOT</li>
+          <li><strong>Appearance:</strong> RER is "rough" due to ribosomes, SER is "smooth"</li>
+          <li><strong>Function:</strong> RER = Protein synthesis, SER = Lipid synthesis</li>
+          <li><strong>Abundant in:</strong> RER (secretory cells), SER (liver/muscle cells)</li>
+          <li><strong>Ribosome Type:</strong> 80S (eukaryotic), NOT 70S</li>
+          <li><strong>Continuity:</strong> RER and SER are continuous (NOT separate organelles)</li>
+          <li><strong>RER Connection:</strong> RER outer membrane continuous with nuclear envelope</li>
+          <li><strong>SER Special Functions:</strong> Detoxification (liver), Ca²⁺ storage (muscle)</li>
+          <li><strong>Structure:</strong> RER has flattened cisternae, SER has tubular network</li>
+          <li><strong>Endomembrane System:</strong> Both are part of this system (along with Golgi, lysosomes, vesicles)</li>
+        </ol>
+      </div>
+
+      <footer className="footer">
+        <p>Interactive diagram for Plus One (Class 11) Botany - Kerala Board & NEET</p>
+        <p>Figure 5.5: Rough vs Smooth Endoplasmic Reticulum</p>
+        <p>Click any component to learn more • Hover for quick info • Use keyboard (Esc to close)</p>
+      </footer>
+    </div>
+  );
+};
+
+        // Render the component
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<RERSERInteractive />);
+    </script>
+</body>
+</html>

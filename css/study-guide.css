@@ -1,0 +1,361 @@
+/**
+ * Study Guide Specific Styles
+ * For Cell - The Unit of Life main content
+ * @version 1.0.0
+ * @date 2025-12-09
+ */
+
+/* ========================================
+   Study Guide Container
+   ======================================== */
+
+.study-guide {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--spacing-xxl) var(--spacing-xl);
+  background: white;
+  box-shadow: var(--shadow-base);
+  border-radius: var(--border-radius);
+}
+
+.study-guide-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xxl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.study-guide-title {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+  font-weight: 800;
+}
+
+.study-guide-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* ========================================
+   Interactive Diagram Callouts
+   ======================================== */
+
+.interactive-resource {
+  background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+  border: 3px solid #4CAF50;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xl);
+  margin: var(--spacing-xl) 0;
+  box-shadow: var(--shadow-hover);
+}
+
+.interactive-resource h3 {
+  color: #1B5E20;
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.interactive-resource h4 {
+  color: #2E7D32;
+  font-size: 1.25rem;
+  margin-top: var(--spacing-lg);
+  margin-bottom: var(--spacing-sm);
+}
+
+.interactive-resource a {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition-fast);
+  margin-top: var(--spacing-md);
+}
+
+.interactive-resource a:hover {
+  background-color: #388E3C;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  text-decoration: none;
+}
+
+.interactive-resource ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.interactive-resource li {
+  padding-left: var(--spacing-lg);
+  position: relative;
+  margin-bottom: var(--spacing-sm);
+}
+
+.interactive-resource li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #4CAF50;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* ========================================
+   Exam Tips and Notes
+   ======================================== */
+
+.exam-tip {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CC 100%);
+  border-left: 5px solid #FFC107;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+}
+
+.exam-tip h4 {
+  color: #FF6F00;
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.common-mistake {
+  background: linear-gradient(135deg, #FFE5E5 0%, #FFD5D5 100%);
+  border-left: 5px solid #FF4444;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+}
+
+.common-mistake h4 {
+  color: #8B0000;
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.memory-tip {
+  background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  border-left: 5px solid #4169E1;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+}
+
+.memory-tip h4 {
+  color: #1E3A8A;
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ========================================
+   Flashcards
+   ======================================== */
+
+.flashcard {
+  background: white;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  margin: var(--spacing-md) 0;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.flashcard:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.flashcard summary {
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.flashcard summary::marker {
+  display: none;
+}
+
+.flashcard summary::before {
+  content: '▶ ';
+  display: inline-block;
+  margin-right: var(--spacing-sm);
+  transition: var(--transition-fast);
+}
+
+.flashcard[open] summary::before {
+  content: '▼ ';
+}
+
+.flashcard-answer {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+}
+
+/* ========================================
+   Section Headers
+   ======================================== */
+
+.section-header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--border-radius);
+  margin: var(--spacing-xxl) 0 var(--spacing-xl) 0;
+}
+
+.section-header h2 {
+  color: white;
+  margin: 0;
+}
+
+/* ========================================
+   Comparison Tables
+   ======================================== */
+
+.comparison-table {
+  width: 100%;
+  margin: var(--spacing-xl) 0;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-base);
+}
+
+.comparison-table th {
+  background: linear-gradient(135deg, #9370DB 0%, #7360BB 100%);
+  color: white;
+  padding: var(--spacing-md);
+  text-align: left;
+  font-weight: 600;
+}
+
+.comparison-table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.comparison-table tr:nth-child(even) {
+  background-color: var(--bg-light);
+}
+
+.comparison-table tr:hover {
+  background-color: var(--hover-bg);
+}
+
+/* ========================================
+   Sidebar Navigation (TOC)
+   ======================================== */
+
+.sidebar-toc {
+  position: sticky;
+  top: 80px;
+  background: white;
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-base);
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.sidebar-toc h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--primary-color);
+}
+
+.sidebar-toc ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-toc li {
+  margin-bottom: var(--spacing-sm);
+}
+
+.sidebar-toc a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: var(--transition-fast);
+  display: block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 4px;
+}
+
+.sidebar-toc a:hover {
+  background-color: var(--hover-bg);
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.sidebar-toc a.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* ========================================
+   Responsive Layout
+   ======================================== */
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: var(--spacing-xl);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+@media (max-width: 992px) {
+  .layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-toc {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .study-guide {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .study-guide-title {
+    font-size: 2rem;
+  }
+
+  .study-guide-subtitle {
+    font-size: 1rem;
+  }
+
+  .interactive-resource {
+    padding: var(--spacing-md);
+  }
+}
+
+/* ========================================
+   Footer
+   ======================================== */
+
+.study-guide-footer {
+  text-align: center;
+  padding: var(--spacing-xl);
+  margin-top: var(--spacing-xxl);
+  border-top: 2px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.study-guide-footer a {
+  color: var(--primary-color);
+  font-weight: 600;
+}

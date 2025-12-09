@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chromosome Types - Interactive | Plus One Biology</title>
+    <meta name="description" content="Interactive Chromosome Types - Interactive for Kerala Board Plus One Biology">
+
+    <!-- React and Babel from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../css/base.css">
+
+    <style>
+        /* ============================================
+           Back Button Styling
+           ============================================ */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            color: #4169E1;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            transition: all 0.3s ease;
+            border: 2px solid #4169E1;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            background: #4169E1;
+            color: white;
+        }
+
+        /* ============================================
+           Component Specific Styles
+           ============================================ */
+/**
+ * ChromosomeTypesInteractive.css
+ * Compact styling for Chromosome Types Classification diagram
+ * @version 1.0.0
+ * @date 2025-12-09
+ */
+
+@import url('./FluidMosaicInteractive.css');
+
+.chromosome-types-container {
+  font-family: var(--font-family);
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+.chromosome-types-container h1 {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-sm);
+  font-size: 2rem;
+}
+
+.chromosome-types-container .subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Types Grid */
+.types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.type-card {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-base);
+  border: 3px solid transparent;
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.type-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.type-card.selected {
+  border-width: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.type-card h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+  font-size: 1.4rem;
+}
+
+/* Chromosome SVG */
+.chromosome-svg {
+  width: 100%;
+  height: 200px;
+  margin: var(--spacing-md) 0;
+}
+
+.chromosome-svg rect,
+.chromosome-svg ellipse,
+.chromosome-svg circle {
+  transition: all var(--transition-base);
+}
+
+.type-card:hover .chromosome-svg rect {
+  filter: brightness(1.1);
+}
+
+.type-card:hover .chromosome-svg ellipse {
+  filter: brightness(1.2) drop-shadow(0 0 6px rgba(255, 20, 147, 0.8));
+}
+
+/* Type Info */
+.type-info {
+  background: var(--bg-light);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  margin-top: var(--spacing-md);
+}
+
+.type-info p {
+  margin: var(--spacing-xs) 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.type-info strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.exam-note {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CC 100%);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  border-left: 3px solid #FFC107;
+  margin-top: var(--spacing-sm);
+  font-weight: 600;
+  color: #FF6F00;
+}
+
+/* Summary Box */
+.summary-box {
+  background: white;
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-base);
+  margin-bottom: var(--spacing-xl);
+}
+
+.summary-box h2 {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-lg);
+  font-size: 1.6rem;
+}
+
+.summary-box table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--spacing-md);
+}
+
+.summary-box th {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #0047AB 100%);
+  color: white;
+  padding: var(--spacing-md);
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.summary-box td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.summary-box tr:hover {
+  background-color: var(--hover-bg);
+}
+
+.summary-box tr:last-child td {
+  border-bottom: none;
+}
+
+.summary-box td:first-child {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Exam Tips */
+.exam-tips {
+  background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+  padding: var(--spacing-xl);
+  border-radius: var(--border-radius);
+  border-left: 5px solid var(--primary-color);
+  box-shadow: var(--shadow-base);
+}
+
+.exam-tips h2 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-lg);
+  font-size: 1.5rem;
+}
+
+.exam-tips ul {
+  list-style: none;
+  padding: 0;
+}
+
+.exam-tips li {
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin: var(--spacing-sm) 0;
+  background: white;
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--accent-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-fast);
+}
+
+.exam-tips li:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.exam-tips li strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chromosome-types-container {
+    padding: var(--spacing-md);
+  }
+
+  .types-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .chromosome-types-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .summary-box {
+    padding: var(--spacing-md);
+    overflow-x: auto;
+  }
+
+  .summary-box table {
+    font-size: 0.85rem;
+  }
+
+  .summary-box th,
+  .summary-box td {
+    padding: var(--spacing-sm);
+  }
+
+  .exam-tips {
+    padding: var(--spacing-md);
+  }
+
+  .exam-tips li {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .type-card {
+    padding: var(--spacing-md);
+  }
+
+  .type-card h2 {
+    font-size: 1.2rem;
+  }
+
+  .type-info {
+    font-size: 0.85rem;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .type-card,
+  .exam-tips li {
+    transition: none !important;
+  }
+
+  .type-card:hover,
+  .exam-tips li:hover {
+    transform: none !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .types-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .type-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 2px solid #ccc;
+  }
+
+  .summary-box,
+  .exam-tips {
+    page-break-inside: avoid;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Back Navigation -->
+    <a href="../index.html" class="back-button">← Back to Chapter</a>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <!-- Component Code -->
+    <script type="text/babel">
+
+
+/**
+ * ChromosomeTypesInteractive - Classification based on centromere position
+ * Figure 5.11 - Compact version for Plus One students
+ */
+
+const { useState, useRef, useEffect } = React;
+
+
+const ChromosomeTypesInteractive = () => {
+  const [selected, setSelected] = useState(null);
+
+  const types = {
+    metacentric: {
+      name: 'Metacentric',
+      position: 'Centromere in MIDDLE',
+      arms: 'Both arms EQUAL length',
+      shape: 'L-shaped or V-shaped',
+      ratio: '1:1 arm ratio',
+      examples: ['Chromosome 1, 3, 16, 19, 20 in humans'],
+      examNote: 'Most common in humans',
+      color: '#4169E1'
+    },
+    submetacentric: {
+      name: 'Sub-metacentric',
+      position: 'Centromere SLIGHTLY OFF CENTER',
+      arms: 'Arms UNEQUAL length',
+      shape: 'J-shaped',
+      ratio: 'Unequal but not extreme',
+      examples: ['Chromosome 2, 4-12, 17, 18 in humans'],
+      examNote: 'Second most common',
+      color: '#FF69B4'
+    },
+    acrocentric: {
+      name: 'Acrocentric',
+      position: 'Centromere NEAR ONE END',
+      arms: 'One arm VERY SHORT',
+      shape: 'Rod-shaped with small knob',
+      ratio: 'Highly unequal arms',
+      examples: ['Chromosome 13, 14, 15, 21, 22 in humans'],
+      examNote: 'Has satellite on short arm',
+      color: '#FFD700'
+    },
+    telocentric: {
+      name: 'Telocentric',
+      position: 'Centromere at TERMINAL END',
+      arms: 'NO SECOND ARM',
+      shape: 'Rod-shaped / i-shaped',
+      ratio: 'Only one arm visible',
+      examples: ['NOT found in humans', 'Found in some plants, animals'],
+      examNote: 'Absent in human chromosomes',
+      color: '#FF6347'
+    }
+  };
+
+  return (
+    <div className="chromosome-types-container">
+      <h1>Chromosome Types - Based on Centromere Position</h1>
+      <p className="subtitle">Figure 5.11 - Classification for Exam</p>
+
+      <div className="types-grid">
+        {Object.entries(types).map(([key, type]) => (
+          <div
+            key={key}
+            className={`type-card ${selected === key ? 'selected' : ''}`}
+            onClick={() => setSelected(selected === key ? null : key)}
+            style={{ borderColor: type.color }}
+          >
+            <h2 style={{ color: type.color }}>{type.name}</h2>
+
+            {/* Visual representation */}
+            <svg viewBox="0 0 100 200" className="chromosome-svg">
+              {key === 'metacentric' && (
+                <>
+                  <rect x="45" y="40" width="10" height="50" fill="#9370DB" stroke="#4B0082" strokeWidth="2" />
+                  <ellipse cx="50" cy="95" rx="15" ry="8" fill="#FF1493" stroke="#8B008B" strokeWidth="2" />
+                  <rect x="45" y="100" width="10" height="50" fill="#9370DB" stroke="#4B0082" strokeWidth="2" />
+                </>
+              )}
+              {key === 'submetacentric' && (
+                <>
+                  <rect x="45" y="50" width="10" height="35" fill="#9370DB" stroke="#4B0082" strokeWidth="2" />
+                  <ellipse cx="50" cy="90" rx="15" ry="8" fill="#FF1493" stroke="#8B008B" strokeWidth="2" />
+                  <rect x="45" y="95" width="10" height="65" fill="#9370DB" stroke="#4B0082" strokeWidth="2" />
+                </>
+              )}
+              {key === 'acrocentric' && (
+                <>
+                  <rect x="45" y="55" width="10" height="20" fill="#9370DB" stroke="#4B0082" strokeWidth="2" />
+                  <ellipse cx="50" cy="80" rx="15" ry="8" fill="#FF1493" stroke="#8B008B" strokeWidth="2" />
+                  <rect x="45" y="85" width="10" height="80" fill="#9370DB" stroke="#4B0082" strokeWidth="2" />
+                  <circle cx="50" cy="50" r="5" fill="#FFD700" stroke="#DAA520" strokeWidth="1" />
+                </>
+              )}
+              {key === 'telocentric' && (
+                <>
+                  <ellipse cx="50" cy="55" rx="15" ry="8" fill="#FF1493" stroke="#8B008B" strokeWidth="2" />
+                  <rect x="45" y="60" width="10" height="95" fill="#9370DB" stroke="#4B0082" strokeWidth="2" />
+                </>
+              )}
+              <text x="50" y="190" textAnchor="middle" fontSize="12" fill={type.color} fontWeight="bold">
+                {type.shape}
+              </text>
+            </svg>
+
+            <div className="type-info">
+              <p><strong>Position:</strong> {type.position}</p>
+              <p><strong>Arms:</strong> {type.arms}</p>
+              <p><strong>Ratio:</strong> {type.ratio}</p>
+              <p><strong>Examples:</strong> {type.examples.join(', ')}</p>
+              <p className="exam-note"><strong>⭐ Exam:</strong> {type.examNote}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="summary-box">
+        <h2>🎯 Quick Comparison</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Centromere Position</th>
+              <th>Arm Ratio</th>
+              <th>Shape</th>
+              <th>In Humans?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Metacentric</strong></td>
+              <td>Middle</td>
+              <td>1:1 (Equal)</td>
+              <td>L-shaped</td>
+              <td>✓ Yes</td>
+            </tr>
+            <tr>
+              <td><strong>Sub-metacentric</strong></td>
+              <td>Slightly off</td>
+              <td>Unequal</td>
+              <td>J-shaped</td>
+              <td>✓ Yes (most common)</td>
+            </tr>
+            <tr>
+              <td><strong>Acrocentric</strong></td>
+              <td>Near end</td>
+              <td>Very unequal</td>
+              <td>Rod with knob</td>
+              <td>✓ Yes (5 types)</td>
+            </tr>
+            <tr>
+              <td><strong>Telocentric</strong></td>
+              <td>Terminal</td>
+              <td>Only 1 arm</td>
+              <td>i-shaped</td>
+              <td>✗ No</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div className="exam-tips">
+        <h2>💡 Exam Tips</h2>
+        <ul>
+          <li><strong>Mnemonic:</strong> "Meta = Middle, Sub = Slightly off, Acro = Arm short, Telo = Terminal"</li>
+          <li><strong>Human chromosomes:</strong> Metacentric + Sub-metacentric + Acrocentric (NO Telocentric!)</li>
+          <li><strong>Acrocentric satellite:</strong> Chromosomes 13, 14, 15, 21, 22 have satellites on short arm</li>
+          <li><strong>Most asked:</strong> "Classify chromosomes based on centromere position" (2-3 marks)</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+        // Render the component
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<ChromosomeTypesInteractive />);
+    </script>
+</body>
+</html>

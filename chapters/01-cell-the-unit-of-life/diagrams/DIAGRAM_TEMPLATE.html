@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[DIAGRAM NAME] - Interactive | Plus One Biology</title>
+    <meta name="description" content="Interactive [diagram name] for Kerala Board Plus One Biology">
+
+    <!-- React and Babel from CDN -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../../../css/base.css">
+
+    <style>
+        /* Copy the CSS from the corresponding .css file here */
+        /* Example: For FluidMosaicInteractive, copy content from FluidMosaicInteractive.css */
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: white;
+            color: #4169E1;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+
+        #root {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* COPY ALL STYLES FROM THE COMPONENT'S CSS FILE HERE */
+    </style>
+</head>
+<body>
+    <!-- Back Navigation -->
+    <a href="../index.html" class="back-button">← Back to Chapter</a>
+
+    <!-- React Root -->
+    <div id="root"></div>
+
+    <!-- Component Code -->
+    <script type="text/babel">
+        // ============================================
+        // COPY THE ENTIRE JSX COMPONENT CODE HERE
+        // ============================================
+
+        // Example structure:
+        // const ComponentName = () => {
+        //     const [state, setState] = React.useState(null);
+        //
+        //     const data = {
+        //         // Component data
+        //     };
+        //
+        //     return (
+        //         <div className="component-container">
+        //             {/* Component JSX */}
+        //         </div>
+        //     );
+        // };
+
+        // ============================================
+        // RENDER THE COMPONENT
+        // ============================================
+
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+
+        // Replace 'ComponentName' with actual component name
+        // root.render(<ComponentName />);
+
+        // Placeholder for demo
+        const PlaceholderComponent = () => {
+            return (
+                <div style={{
+                    maxWidth: '800px',
+                    margin: '60px auto',
+                    padding: '40px',
+                    background: 'white',
+                    borderRadius: '12px',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+                    textAlign: 'center'
+                }}>
+                    <h1 style={{color: '#4169E1', marginBottom: '20px'}}>
+                        Interactive Diagram Template
+                    </h1>
+                    <p style={{fontSize: '1.1rem', color: '#666', lineHeight: '1.8'}}>
+                        This is a template file showing the structure needed for each diagram.
+                    </p>
+                    <div style={{
+                        background: '#F8F9FA',
+                        padding: '20px',
+                        borderRadius: '8px',
+                        margin: '30px 0',
+                        textAlign: 'left'
+                    }}>
+                        <h3 style={{color: '#4169E1', marginBottom: '15px'}}>Steps to Complete:</h3>
+                        <ol style={{lineHeight: '2'}}>
+                            <li>Copy the JSX component code from the source file</li>
+                            <li>Copy the CSS from the component's CSS file into the style tag</li>
+                            <li>Replace the component name in the render call</li>
+                            <li>Update the title and meta description</li>
+                            <li>Test in browser</li>
+                        </ol>
+                    </div>
+                    <div style={{
+                        background: '#FFF9E6',
+                        borderLeft: '4px solid #FFC107',
+                        padding: '15px',
+                        borderRadius: '6px',
+                        textAlign: 'left'
+                    }}>
+                        <strong style={{color: '#FF6F00'}}>Note:</strong>
+                        <p style={{margin: '10px 0 0 0', color: '#666'}}>
+                            Replace React.useState with useState after adding:
+                            <code style={{
+                                display: 'block',
+                                background: 'white',
+                                padding: '10px',
+                                borderRadius: '4px',
+                                marginTop: '10px'
+                            }}>
+                                const {'{'} useState, useRef, useEffect {'}'} = React;
+                            </code>
+                        </p>
+                    </div>
+                    <a href="../index.html" style={{
+                        display: 'inline-block',
+                        marginTop: '30px',
+                        padding: '12px 32px',
+                        background: '#4169E1',
+                        color: 'white',
+                        borderRadius: '8px',
+                        textDecoration: 'none',
+                        fontWeight: '600'
+                    }}>Return to Chapter</a>
+                </div>
+            );
+        };
+
+        root.render(<PlaceholderComponent />);
+    </script>
+
+    <!-- Instructions (remove after completion) -->
+    <!--
+    TO COMPLETE THIS FILE:
+
+    1. Find the source JSX file for this diagram in:
+       Docs/Cell-The-Unit-of-Life/chapter-images/interactive/[ComponentName].jsx
+
+    2. Find the source CSS file:
+       Docs/Cell-The-Unit-of-Life/chapter-images/interactive/[ComponentName].css
+
+    3. Copy the entire JSX component code (including imports of React hooks)
+
+    4. Copy all CSS styles into the <style> tag above
+
+    5. Update the component render call at the bottom
+
+    6. Rename this file to match the diagram (e.g., fluid-mosaic-model.html)
+
+    7. Update the title, description, and back button href
+
+    8. Test in browser by opening the HTML file
+
+    IMPORTANT:
+    - React hooks need to be accessed via React.useState, React.useRef, etc.
+    - Or declare them at the top: const { useState, useRef } = React;
+    - Remove any ES6 import statements (they won't work in browser)
+    - Ensure all image paths are correct
+    -->
+</body>
+</html>
